@@ -176,3 +176,19 @@ Each entry records: date, context, alternatives considered, rationale, outcome, 
   - M-1 remains In Progress until all verification tasks are complete and acceptance criteria are met.
 - **Approval status:** Approved by researcher (2026-10-19).
 - **Related files/refs:** `reports/dataset_feasibility.md`, `docs/research_log.md`, `requirements.md` Req 10
+
+---
+
+### DEC-012: iancovert/Agmarknet Archive Rejected — Onion and Potato Absent
+- **Date:** 2026-10-19
+- **Context:** S-2 (iancovert/Agmarknet archive) was previously listed as a supplementary source pending direct commodity confirmation, because the README mentioned "12 food products" without listing them. A direct GitHub Contents API call was made to enumerate the repository's root-level directories.
+- **Evidence:** GitHub Contents API (`https://api.github.com/repos/iancovert/Agmarknet/contents/`) returned exactly 12 commodity directories + README:
+  Arhar (Tur-Red Gram), Black Gram (Urd Beans), Cowpea (Lobia-Karamani), Green Gram (Moong), Green Peas, Kabuli Chana (Chickpeas-White), Lentil (Masur), Maize, Rice, Soyabean, Wheat, White Peas.
+  No Onion directory. No Potato directory. The archive was independently confirmed to cover exclusively pulses, legumes, and cereal grains.
+- **Alternatives considered:**
+  1. Mark as "needs further confirmation" and proceed to clone the repository locally.
+  2. Accept the GitHub Contents API listing as definitive — it returns every root-level object in the repository; absence of Onion and Potato directories is conclusive.
+- **Rationale:** The GitHub Contents API is authoritative for the repository's file structure. There are no alternative locations in this repository where commodity data could be stored without appearing in this listing (all CSV files are in top-level commodity directories as stated in the README). Cloning would confirm the same result at additional cost and time with no expected new information.
+- **Outcome:** S-2 is **closed and rejected** as a data source for CropCast. The previous "BLOCKED on commodity confirmation" status is resolved. No further investigation of this source is needed or warranted.
+- **Approval status:** Independent finding — no researcher approval required (factual determination, not a policy choice).
+- **Related files/refs:** `reports/dataset_feasibility.md` Section 3 (S-2), `docs/research_log.md` RES-002

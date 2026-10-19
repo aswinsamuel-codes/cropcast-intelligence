@@ -10,15 +10,14 @@ All notable changes to the CropCast project are recorded here in reverse-chronol
 
 ### In Progress
 - Milestone 1: Dataset feasibility investigation
-  - S-4 (ICTD-IITD) anomaly labels directly inspected and assessed — algorithmic, not independent ground truth
-  - S-2 (iancovert) commodity list still unconfirmed — HTTP 404 on subdirectory paths; local clone needed
-  - OGD API live sampling still pending — requires free API key registration
-  - Dataset strategy formalised (DEC-011): real-world data first; synthetic only with documented approval
+  - S-2 (iancovert archive): **CLOSED and REJECTED** — Onion and Potato definitively absent; archive covers only pulses/grains (DEC-012)
+  - S-4 (ICTD-IITD): Potato anomaly label schema, markets, and partial date range confirmed; full label date range pending Git LFS download
+  - OGD API live sampling still pending — requires researcher API key registration at data.gov.in (BLOCKING)
 
 ### Planned
 - OGD API key registration and live sampling of resource `9ef84268-d588-465a-a308-a864a43d0070`
-- iancovert repository clone to confirm commodity list
-- Update `reports/dataset_feasibility.md` with independently calculated statistics
+- Full ICTD-IITD anomaly label download (Git LFS) to confirm maximum end dates
+- Update `reports/dataset_feasibility.md` Sections 6 and 7 with independently calculated statistics
 - Researcher approval of updated feasibility report
 - Repository directory scaffolding, `requirements.txt`, `README.md`
 

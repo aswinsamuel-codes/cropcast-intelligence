@@ -61,27 +61,44 @@ Each entry records: source name, URL, retrieval date, schema summary, coverage d
 ---
 
 ### RES-002: AGMARKNET Archived Dataset (iancovert/Agmarknet, GitHub)
-- **Date accessed:** 2026-10-19 (initial); direct file tree inspection 2026-10-19
-- **URL:** https://github.com/icc2115/Agmarknet
+- **Date accessed:** 2026-10-19 (initial); GitHub API directory inspection completed 2026-10-19
+- **URL:** https://github.com/iancovert/Agmarknet (note: correct user is `iancovert`, not `icc2115`)
 - **Source type:** Secondary archive of government data (originally from AGMARKNET/DMI)
 - **Data owner:** Archive by Ian Covert; underlying data from Government of India (GODL-India applies)
-- **License / Terms of use:** No explicit repository license file present (verified by inspection). Underlying data: GODL-India. Redistribution of bulk files not recommended — document retrieval procedure only.
-- **Date range:** 2008 – June 2017 (~9.5 years). Stated in README; not independently verified by row-level inspection.
+- **License / Terms of use:** No explicit repository license file present (verified by inspection). Underlying data: GODL-India. Redistribution of bulk files not recommended.
+- **Date range:** 2008 – June 2017 (~9.5 years). Stated in README.
 - **Record count:** ~4,000,000 across 12 food products (stated in README)
-- **Commodities covered:** 12 food products. README does not list them explicitly. Direct file tree navigation via GitHub returned HTTP 404 for `/Potato` and `/Onion` subdirectory paths, indicating those directories do not exist at the repository root. **Onion and Potato presence is UNCONFIRMED.** The repository README mentions "rice, maize, soybean" as examples but does not enumerate all 12. Full commodity list requires cloning the repository and inspecting CSV file names or a commodity column.
-- **Markets covered:** Subset of AGMARKNET (collected 2008–2017); exact count not documented
-- **Price fields available:** Min Price (Rs./Quintal), Max Price (Rs./Quintal), Modal Price (Rs./Quintal) — confirmed in README
+
+**Complete commodity list (definitively confirmed by GitHub API directory listing of repository root — 2026-10-19):**
+
+The GitHub Contents API (`https://api.github.com/repos/iancovert/Agmarknet/contents/`) returned the following 12 top-level commodity directories plus a README:
+1. Arhar (Tur-Red Gram)
+2. Black Gram (Urd Beans)
+3. Cowpea (Lobia-Karamani)
+4. Green Gram (Moong)
+5. Green Peas
+6. Kabuli Chana (Chickpeas-White)
+7. Lentil (Masur)
+8. Maize
+9. Rice
+10. Soyabean
+11. Wheat
+12. White Peas
+
+**FINDING: Onion is NOT present. Potato is NOT present.** The archive covers exclusively pulses, legumes, and grains. The earlier HTTP 404 results for `/Onion` and `/Potato` are confirmed to be correct — no such directories exist and no such commodity data was collected by the archive creator.
+
+- **Markets covered:** Subset of AGMARKNET (collected 2008–2017); exact count not documented in README
+- **Price fields available:** Min Price (Rs./Quintal), Max Price (Rs./Quintal), Modal Price (Rs./Quintal)
 - **Units and currency:** INR per quintal
 - **Arrival / supply data:** Yes — `Arrivals (Tonnes)` field stated in README
-- **Schema summary (from README, not independently row-verified):** State Name, District Name, Market Name, Commodity, Variety, Group, Arrivals (Tonnes), Min Price (Rs./Quintal), Max Price (Rs./Quintal), Modal Price (Rs./Quintal), Reported Date
-- **Missing values:** Not calculated. No per-commodity quality statistics provided in repository.
-- **Duplicate records:** Not calculated. Data was collected day-by-day via automated scraper — minor artefacts possible.
-- **Accessibility method:** Direct GitHub repository access. CSV files organised per-crop per-year. No API key required. Repository is publicly accessible.
-- **Reproducibility:** Static archive. Not updated since June 2017. Cannot be extended beyond that date from this source.
-- **Quality findings:** (a) Onion/Potato directory paths return 404 — commodity list must be confirmed by cloning. (b) Archive is frozen at June 2017. (c) Scraper-collected — potential for missed dates. (d) No explicit license for the archive; GODL-India applies to underlying data. (e) File sizes and per-commodity row counts are unknown without local inspection.
-- **Selection / rejection rationale:** Role changed to backup/supplementary pending commodity confirmation. If onion and potato are confirmed present, the 2008–2017 period provides a useful pre-assembled historical segment. Cannot replace S-1 for post-2017 data. Must not be committed to the project repository as bulk data.
-- **Outstanding verification task:** Clone or browse repository to confirm commodity list and verify onion/potato file existence.
-- **Status:** Supplementary (2008–2017) — BLOCKED on commodity confirmation via direct file inspection
+- **Schema summary (from README):** State Name, District Name, Market Name, Commodity, Variety, Group, Arrivals (Tonnes), Min Price (Rs./Quintal), Max Price (Rs./Quintal), Modal Price (Rs./Quintal), Reported Date
+- **Missing values:** Not calculated.
+- **Duplicate records:** Not calculated.
+- **Accessibility method:** Direct GitHub repository access. CSV files organised per-crop per-year. No API key required.
+- **Reproducibility:** Static archive. Not updated since June 2017.
+- **Quality findings:** (a) Onion and Potato are definitively ABSENT from this archive — confirmed by complete directory listing. (b) Archive covers exclusively pulses, legumes, and grains. (c) Frozen at June 2017. (d) No explicit license for the archive; GODL-India applies to underlying data.
+- **Selection / rejection rationale:** **REJECTED for CropCast primary or supplementary use.** Onion and Potato are not present in the archive. This source has no value for the CropCast commodity scope. No further investigation needed.
+- **Status:** ❌ REJECTED — Onion and Potato definitively absent from the archive (confirmed by GitHub API directory inspection 2026-10-19)
 
 ---
 
@@ -173,8 +190,42 @@ These are **rule-based algorithmic flags**, not independently human-verified gro
   - Git LFS is used for some data files — full download requires Git LFS support.
   - No explicit open-data license; research use is consistent with academic norms but redistribution is not confirmed.
 - **Selection / rejection rationale:** Confirmed as a valid research reference for anomaly label methodology. Not suitable as primary price data source. Suitable for: (a) comparing CropCast anomaly detection approach against ICTD-IITD methodology, (b) using the window-level labels as weak supervision signals with clearly documented limitations, (c) aligning specific mandi-period labels with S-1 primary data for evaluation — subject to documented methodology caveats.
-- **Outstanding verification task:** Inspect full date range of label files; confirm Git LFS download procedure; obtain full commodity list for potato label files.
-- **Status:** Confirmed as research reference for anomaly methodology — labels are algorithmic, not independent ground truth; limitations documented
+
+**Potato anomaly label inspection (direct GitHub raw URL fetch — 2026-10-19):**
+
+File: `Data/PlottingData/POTATO/NormalOrAnomalous/Combined/ShowAnomaliesPrice.csv`
+
+Confirmed schema: `STARTDATE, ENDDATE, lastMonth, lastYear, SameMonth, MAXMINRATIO, STATENAME, MANDINAME`
+
+The file is stored under Git LFS (a merge-conflict format header was present alongside the actual content: `<<<<<<< HEAD` / LFS pointer / `=======` / actual CSV data). The CSV content was retrievable directly despite the LFS pointer ambiguity.
+
+Earliest observed STARTDATE in potato labels: **2016-01-01**
+Latest visible label in truncated content: window starting 2017-05 (file continues beyond this — full date range to 2021 is inferred from the paper's stated 2011–2021 scope, but requires full download to confirm precisely).
+
+Markets confirmed in potato anomaly labels (from direct observation):
+- Punjab: Zira, Malerkotla, Sangrur, Ajnala, Barnala
+- West Bengal: Uluberia, Sheoraphuly, Katwa, Kalyani, Durgapur, Bishnupur (Bankura), Islampur
+- Uttar Pradesh: Basti, Faizabad, Lucknow, Lakhimpur
+- NCT of Delhi: Azadpur
+
+States in `Data/Original/Potato/` (confirmed by GitHub Contents API):
+1. Gujarat
+2. Himachal Pradesh
+3. Madhya Pradesh
+4. NCT of Delhi
+5. Punjab
+6. Uttar Pradesh
+7. West Bengal
+
+Onion anomaly label date range (direct observation from file):
+- Earliest STARTDATE: **2016-01-01** (confirmed — first row: Karnataka/Bangalore and Uttar Pradesh/Jalaun)
+- Latest observed in truncated content: 2017-11-xx (file continues beyond this)
+- Full range: 2016–2021 (inferred from paper scope; requires full file download to confirm last date)
+
+Note: Both onion and potato label files appear to START at 2016-01-01, not at 2011 as implied by the paper's stated scope. The paper's 2011–2021 range may refer to the price training data, not the anomaly label coverage. This discrepancy requires confirmation.
+
+- **Outstanding verification task:** Download full anomaly label files (Git LFS required) to confirm the precise maximum ENDDATE for both onion and potato labels. Verify whether label coverage predates 2016.
+- **Status:** Confirmed as research reference for anomaly methodology — labels are algorithmic, not independent ground truth; potato label schema, markets, and partial date range (2016–2021 estimated) confirmed by direct inspection
 
 ---
 

@@ -2,7 +2,8 @@
 
 **Milestone:** M-1 — Dataset Feasibility Investigation
 **Date produced:** 2026-10-19
-**Status:** Draft — awaiting researcher review and approval
+**Last updated:** 2026-10-19 (S-2 definitive inspection; S-4 potato label and market confirmation)
+**Status:** Draft — S-2 closed; S-1 API sampling and ICTD full label date-range remain outstanding; awaiting researcher review
 **Author:** CropCast research team
 
 ---
@@ -75,27 +76,38 @@ Five sources were investigated:
 
 ### S-2: AGMARKNET Archived Dataset (iancovert/Agmarknet, GitHub)
 
+> **STATUS: REJECTED — Onion and Potato are definitively absent from this archive.**
+> Confirmed by GitHub Contents API directory listing on 2026-10-19. No further investigation of this source is required.
+
 - **Data owner:** Data originally from AGMARKNET / Directorate of Marketing and Inspection, Government of India. Archived by Ian Covert (independent researcher).
-- **License / terms of use:** The repository does not carry an explicit license file. The data originates from a government source (GODL-India applies to the underlying data). Reuse for research is consistent with GODL-India terms, but redistribution of the archived files should be attributed to the original AGMARKNET source, not the repository.
-- **URL:** https://github.com/icc2115/Agmarknet
-- **How obtained:** Downloaded from AGMARKNET in June 2017 using Mechanize and BeautifulSoup scripts. Data collected one day at a time due to AGMARKNET portal limitations at that time.
-- **Schema:** Identical to S-1 (same columns, same units — the schema was confirmed directly from the repository README):
-  - `State Name`, `District Name`, `Market Name`, `Variety`, `Group`, `Arrivals (Tonnes)`, `Min Price (Rs./Quintal)`, `Max Price (Rs./Quintal)`, `Modal Price (Rs./Quintal)`, `Reported Date`
-- **Units and currency:** INR per quintal
-- **Commodities covered:** 12 food products (rice, maize, soybean, and others — exact list of 12 not fully specified in the README; onion and potato presence requires direct inspection of the data files).
-- **Date range:** 2008 through June 2017 (approximately 9.5 years)
-- **Record count:** Approximately 4 million data points across all 12 commodities
-- **Arrival data:** Yes — `Arrivals (Tonnes)` field present
-- **Accessibility:** Direct GitHub repository access. Data split into per-crop, per-year CSV files. Downloadable without any API key or registration.
-- **Reproducibility:** Repository is static (not continuously updated). Data reflects what was available in June 2017 and stops there. Historical records cannot be extended beyond June 2017 from this archive.
-- **Data-quality findings:**
-  - Static archive: no updates since June 2017. Any analysis using this dataset cannot reflect post-2017 market behaviour.
-  - Data collected one day at a time using a web scraper; potential for missed dates or scraping artefacts.
-  - Onion and potato presence in the 12 commodities is not confirmed from the repository README alone — this requires direct inspection of the CSV files. The repository states "12 food products" without listing them explicitly.
-  - Repository has no explicit license for the archive itself; the underlying data license (GODL-India) applies.
-  - Cannot be committed to the project repository if it constitutes a full dataset copy without confirming redistribution terms. A retrieval procedure referencing the original AGMARKNET source should be used instead.
-- **Comparison with S-1:** S-2 provides a pre-assembled historical archive (2008–2017) without the API friction of S-1, but at the cost of being frozen in time. For experiments involving data up to 2024–2026, S-2 alone is inadequate and would need to be supplemented with S-1 API pulls.
-- **Assessment:** Useful as a convenience archive for the 2008–2017 period, but requires direct file inspection to confirm onion and potato presence. Cannot replace S-1 for recent data. Should not be committed to the repository as a bulk data file.
+- **License / terms of use:** No explicit repository license. Underlying data: GODL-India.
+- **URL:** https://github.com/iancovert/Agmarknet (correct username: `iancovert`; `icc2115` was a prior alias)
+- **How obtained:** Downloaded from AGMARKNET in June 2017 using Mechanize and BeautifulSoup scripts.
+- **Date range:** 2008 through June 2017 (~9.5 years)
+- **Record count:** ~4 million data points across 12 commodities
+
+**Complete commodity list (definitively confirmed by GitHub API — 2026-10-19):**
+
+| # | Commodity |
+|---|-----------|
+| 1 | Arhar (Tur-Red Gram) |
+| 2 | Black Gram (Urd Beans) |
+| 3 | Cowpea (Lobia-Karamani) |
+| 4 | Green Gram (Moong) |
+| 5 | Green Peas |
+| 6 | Kabuli Chana (Chickpeas-White) |
+| 7 | Lentil (Masur) |
+| 8 | Maize |
+| 9 | Rice |
+| 10 | Soyabean |
+| 11 | Wheat |
+| 12 | White Peas |
+
+**❌ Onion: NOT present. ❌ Potato: NOT present.**
+
+The archive covers exclusively pulses, legumes, and cereal grains. The previous HTTP 404 results for `/Onion` and `/Potato` directory paths were correct.
+
+- **Assessment:** Source has no value for CropCast. Onion and Potato are the project's target commodities and are absent from this archive. Closed.
 
 ---
 
@@ -125,19 +137,36 @@ Five sources were investigated:
 - **Data owner:** ICT for Development Lab, IIT Delhi
 - **URL:** https://github.com/ICTD-IITD/Commodity_Analysis
 - **License / terms of use:** Repository does not carry an explicit open-data license. Data was crawled from AGMARKNET and DoCA FCA. Redistribution of the data itself requires verification with the original data owners. The code is available for reference.
-- **Commodities confirmed:** Onion, Potato, Tomato, Rice, Mustard Oil, Moong Dal, Masur Dal (7 commodities).
+- **Commodities confirmed:** Onion ✓, Potato ✓, Tomato, Rice, Mustard Oil, Moong Dal, Masur Dal (7 commodities).
 - **Schema (wholesale data from AGMARKNET, as processed):** Formatted version of the AGMARKNET schema — renamed columns, changed datatypes, with missing values imputed via Stineman interpolation.
 - **Schema (retail data from FCA):** Daily retail prices per city centre per commodity.
-- **Date range:** Research paper states forecasting from 2011 to 2021, implying data covers at least 2011–2021.
-- **Arrival data:** Yes — arrival volumes are included in the mandi-level dataset.
-- **Anomaly labels:** Yes — the repository contains annotated anomalies with associated news articles. This is a significant feature not present in the other sources.
-- **Reproducibility:** The dataset in the repository contains both original and forecasted data. The original data was crawled; it is not directly downloadable as a clean, labelled CSV in the way AGMARKNET's OGD resource is.
+- **Date range:** Research paper states forecasting from 2011 to 2021. Anomaly label files start at 2016-01-01 (confirmed directly). Full end date requires complete file download.
+- **Arrival data:** Yes — arrival volumes included; `Arrival.csv` files confirmed in `NormalOrAnomalous/Combined/`.
+
+**Anomaly label schema (confirmed by direct fetch):**
+```
+STARTDATE, ENDDATE, lastMonth, lastYear, SameMonth, MAXMINRATIO, STATENAME, MANDINAME
+```
+
+**Potato anomaly label coverage (confirmed 2026-10-19):**
+- Earliest STARTDATE: **2016-01-01**
+- Latest confirmed: 2017-05 in truncated content (full end date requires Git LFS download)
+- States in `Data/Original/Potato/` (7 states): Gujarat, Himachal Pradesh, Madhya Pradesh, NCT of Delhi, Punjab, Uttar Pradesh, West Bengal
+- Markets in anomaly labels (directly observed): Punjab (Zira, Malerkotla, Sangrur, Ajnala, Barnala), West Bengal (Uluberia, Sheoraphuly, Katwa, Kalyani, Durgapur, Bishnupur, Islampur), Uttar Pradesh (Basti, Faizabad, Lucknow, Lakhimpur), NCT of Delhi (Azadpur)
+
+**Onion anomaly label coverage (confirmed 2026-10-19):**
+- Earliest STARTDATE: **2016-01-01**
+- Markets: Karnataka (Bangalore, Belgaum, Davangere, Hubli/Amaragol), Maharashtra (Lasalgaon), NCT of Delhi (Azadpur), Uttar Pradesh (Jalaun, Gazipur, Bahraich, Gonda, Azamgarh, Basti, Barabanki, Lucknow, Mirzapur, Lakhimpur, Auraiya, Kanpur)
+
+**Important discrepancy noted:** Both label files start at 2016-01-01, not 2011. The paper's stated 2011–2021 range likely refers to the price data range used for training, not the anomaly label coverage period. This matters for evaluating CropCast anomaly detection against these labels: real evaluation data for this source is limited to ≥2016.
+
 - **Data-quality findings:**
-  - Missing values imputed using Stineman interpolation — this is a pre-processing decision that may not align with CropCast's requirement to document and explicitly approve all imputation.
+  - Missing values pre-imputed using Stineman interpolation — original missing-value statistics not preserved separately.
   - Data provenance relies on AGMARKNET and FCA sources; the ICTD data is a processed derivative, not an authoritative primary source.
-  - Anomaly labels are valuable for evaluation, but the labelling methodology must be understood before treating them as ground truth.
+  - Anomaly labels are valuable for evaluation, but are algorithmic (rule-based), not independently human-verified ground truth.
   - Repository activity last confirmed; maintenance status uncertain.
-- **Assessment:** The anomaly labels are uniquely valuable — no other investigated source provides ground-truth anomaly labels for onion/potato. The wholesale price data is ultimately derived from AGMARKNET. The ICTD dataset is best used as: (a) a reference for the anomaly detection methodology comparison, and (b) a source of labelled anomaly events for evaluation, subject to understanding the labelling process. It should NOT be used as the primary price time-series source because it is a processed derivative with pre-applied imputation.
+  - Git LFS used for some data files — full download requires `git lfs pull`.
+- **Assessment:** The anomaly labels are uniquely valuable — no other investigated source provides structured anomaly annotations for onion/potato. The wholesale price data is ultimately derived from AGMARKNET. The ICTD dataset is best used as: (a) a reference for the anomaly detection methodology comparison, and (b) a source of window-level labels for evaluation, subject to the documented limitations. It should NOT be used as the primary price time-series source because it is a processed derivative with pre-applied imputation.
 
 ---
 
@@ -165,21 +194,21 @@ Five sources were investigated:
 | Criterion                         | S-1: OGD/AGMARKNET API    | S-2: Archived (iancovert) | S-3: DoCA/FCA PMS       | S-4: ICTD-IITD          | S-5: NHRDF               |
 |-----------------------------------|---------------------------|---------------------------|-------------------------|-------------------------|--------------------------|
 | Price category                    | Wholesale mandi           | Wholesale mandi           | Retail + wholesale indicator | Wholesale + retail  | Wholesale mandi          |
-| Onion confirmed                   | Yes                       | Unconfirmed (12 crops)    | Yes                     | Yes                     | Yes                      |
-| Potato confirmed                  | Yes                       | Unconfirmed (12 crops)    | Yes                     | Yes                     | Yes                      |
-| Modal_Price field                 | Yes                       | Yes                       | No (not mandi modal)    | Yes (processed)         | Unconfirmed              |
-| Min / Max Price                   | Yes                       | Yes                       | Not directly            | Yes (processed)         | Unconfirmed              |
-| Arrivals data                     | Yes                       | Yes                       | No                      | Yes                     | Yes                      |
-| Date range                        | ~2000 – present           | 2008 – June 2017          | Unknown (needs access)  | ~2011 – 2021            | ~1996 – present          |
-| Number of markets                 | 3,000+ mandis             | Subset (collected 2008–17)| 555–579 centres         | Selected mandis         | Major producing markets  |
-| Onion markets (AGMARKNET study)   | ~211 markets              | Subset                    | N/A                     | Selected                | Primarily Maharashtra    |
-| Potato markets (AGMARKNET study)  | ~180 markets              | Subset                    | N/A                     | Selected                | N/A                      |
-| Anomaly labels                    | No                        | No                        | No                      | Yes (with news)         | No                       |
-| License                           | GODL-India (open)         | GODL-India (original data)| Not confirmed           | Not confirmed           | Not confirmed            |
-| Bulk download available           | API pagination (key req.) | Yes (GitHub CSV)          | No (CAPTCHA web form)   | Partial (GitHub)        | No (web form)            |
-| Reproducible programmatically     | Yes (API)                 | Static archive            | No (CAPTCHA)            | Partial                 | Uncertain                |
-| Pre-applied imputation            | No                        | No                        | N/A                     | Yes (Stineman)          | Unknown                  |
-| Suitable as primary source        | **Yes**                   | Supplementary only        | No                      | No (secondary)          | Supplementary only       |
+| Onion confirmed                   | Yes                       | **❌ ABSENT** (confirmed)  | Yes                     | Yes                     | Yes                      |
+| Potato confirmed                  | Yes                       | **❌ ABSENT** (confirmed)  | Yes                     | Yes                     | Yes                      |
+| Modal_Price field                 | Yes                       | N/A (rejected)            | No (not mandi modal)    | Yes (processed)         | Unconfirmed              |
+| Min / Max Price                   | Yes                       | N/A (rejected)            | Not directly            | Yes (processed)         | Unconfirmed              |
+| Arrivals data                     | Yes                       | N/A (rejected)            | No                      | Yes                     | Yes                      |
+| Date range                        | ~2000 – present           | N/A (rejected)            | Unknown (needs access)  | Labels: 2016–2021; prices: ~2011–2021 | ~1996 – present |
+| Number of markets                 | 3,000+ mandis             | N/A (rejected)            | 555–579 centres         | Selected mandis         | Major producing markets  |
+| Onion markets (AGMARKNET study)   | ~211 markets              | N/A                       | N/A                     | ~15 mandis (labels)     | Primarily Maharashtra    |
+| Potato markets (AGMARKNET study)  | ~180 markets              | N/A                       | N/A                     | ~15 mandis (labels); 7 states (prices) | N/A |
+| Anomaly labels                    | No                        | N/A (rejected)            | No                      | Yes — algorithmic, window-level (2016–2021 est.) | No |
+| License                           | GODL-India (open)         | N/A (rejected)            | Not confirmed           | Not confirmed           | Not confirmed            |
+| Bulk download available           | API pagination (key req.) | N/A (rejected)            | No (CAPTCHA web form)   | Partial (GitHub + LFS)  | No (web form)            |
+| Reproducible programmatically     | Yes (API)                 | N/A (rejected)            | No (CAPTCHA)            | Partial                 | Uncertain                |
+| Pre-applied imputation            | No                        | N/A (rejected)            | N/A                     | Yes (Stineman)          | Unknown                  |
+| Suitable as primary source        | **Yes**                   | **No — rejected**         | No                      | No (secondary)          | Supplementary only       |
 
 ---
 
@@ -230,16 +259,18 @@ From ICTD-IITD research (S-4), from the published paper and repository:
 From independent market-count research:
 - ~211 onion markets and ~180 potato markets with data in the AGMARKNET database (Library of Congress catalogued study)
 
+### What has been confirmed by direct inspection (as of 2026-10-19)
+
+- ✅ **S-2 (iancovert):** Complete commodity list confirmed via GitHub API. Onion and Potato are **definitively absent**. S-2 is closed and rejected.
+- ✅ **S-4 Potato labels:** Schema confirmed (`STARTDATE, ENDDATE, lastMonth, lastYear, SameMonth, MAXMINRATIO, STATENAME, MANDINAME`). Earliest STARTDATE confirmed as 2016-01-01. Markets confirmed across Punjab, West Bengal, UP, and Delhi.
+- ✅ **S-4 Onion labels:** Earliest STARTDATE confirmed as 2016-01-01. Markets confirmed across Karnataka, Maharashtra, UP, Delhi, and Bihar.
+- ✅ **S-4 Potato states:** 7 states confirmed in `Data/Original/Potato/`: Gujarat, Himachal Pradesh, Madhya Pradesh, NCT of Delhi, Punjab, Uttar Pradesh, West Bengal.
+
 ### What requires direct verification
 
-The following must be calculated by direct API or file access before this report can be considered complete:
-- [ ] Exact row count for onion and potato specifically in S-1 (OGD API) and S-2 (archived files)
-- [ ] Missing-value percentage by column for onion and potato in the target markets
-- [ ] Exact and conflicting duplicate counts
-- [ ] Date-range continuity gaps (calendar days with no reporting) per market
-- [ ] Percentage of market-days with zero or null Arrivals
-- [ ] Overlapping date coverage across at least three candidate markets
-- [ ] Confirmation of onion and potato presence in S-2 (the archived 12 commodities must be inspected)
+The following must still be calculated by direct API or file access before this report can be considered complete:
+- [ ] **S-1 (OGD API — BLOCKING):** Exact row count for onion and potato; missing-value percentage by column; exact and conflicting duplicate counts; date-range continuity gaps per market; percentage of market-days with zero or null Arrivals; overlapping coverage across ≥3 candidate markets.
+- [ ] **S-4 full label date range:** Download full anomaly label CSVs via Git LFS to confirm the maximum ENDDATE for both onion and potato. Determine whether label coverage predates 2016.
 
 > **This is an open item.** The feasibility recommendation below is based on the architectural sufficiency of the confirmed schema and coverage; the precise data-quality statistics require direct data access.
 
@@ -303,9 +334,9 @@ Based on the confirmed schema:
 
 ## 11. Known Limitations
 
-1. **No direct database access in this audit.** Precise row counts, missing-value percentages, duplicate counts, and date-gap statistics for onion and potato were not independently calculated from raw data. They must be calculated in the next step before full M-1 completion.
+1. **No direct OGD API sampling yet.** Precise row counts, missing-value percentages, duplicate counts, and date-gap statistics for onion and potato at S-1 (OGD API) must be calculated before this report is finalized. This remains the primary outstanding item.
 
-2. **Onion and potato presence in S-2 is unconfirmed.** The iancovert archive covers "12 food products" but does not list them explicitly. Direct file inspection is required.
+2. **S-2 (iancovert) is closed and rejected.** Onion and Potato are definitively absent from the archive. This limitation is now resolved — the archive is not a viable source for this project.
 
 3. **AGMARKNET reporting lag.** Data is published with a 2–7 day lag from trade dates. This must be documented in the feature engineering specification to avoid inadvertent look-ahead.
 
@@ -313,11 +344,13 @@ Based on the confirmed schema:
 
 5. **Variety inconsistency.** The `Variety` field encoding varies across markets and states. Filtering for consistent commodity-variety combinations may reduce the effective market count.
 
-6. **S-4 anomaly labels require methodology review.** Before using ICTD-IITD anomaly labels as ground truth, the labelling methodology must be documented and verified. Labels based on rule-based anomaly flags may not align with the research definition of a price anomaly for CropCast.
+6. **S-4 anomaly labels are algorithmic, not verified ground truth.** The labelling methodology is transparent (three rule-based comparisons), but the labels are endogenous to AGMARKNET data and are not independently human-verified. They must be described explicitly as weak supervision, not authoritative anomaly events.
 
-7. **DoCA/FCA data is retail/city-level.** It cannot be merged with AGMARKNET mandi-level data without a clearly justified and documented methodology.
+7. **S-4 anomaly label start year is 2016, not 2011.** Both onion and potato label files begin at 2016-01-01. The paper's 2011–2021 range refers to the price data window, not the anomaly labels. This limits the evaluation window for anomaly detection to 2016–present only.
 
-8. **NHRDF access reproducibility is unconfirmed.** The web form may not support programmatic bulk retrieval, which would make it unsuitable as a primary source.
+8. **DoCA/FCA data is retail/city-level.** It cannot be merged with AGMARKNET mandi-level data without a clearly justified and documented methodology.
+
+9. **NHRDF access reproducibility is unconfirmed.** The web form may not support programmatic bulk retrieval.
 
 ---
 
@@ -335,18 +368,16 @@ Based on the confirmed schema:
 - It is reproducible via the API (API key is free).
 - Coverage almost certainly exceeds the preferred 3-year, 3-market target based on the ~211 onion and ~180 potato markets documented in independent research.
 
-**Supplementary sources:**
-- S-2 (iancovert archive, 2008–2017) as a convenience pre-assembled dataset for the historical period, contingent on confirmation that onion and potato are among the 12 archived commodities.
-- S-4 (ICTD-IITD) for anomaly label alignment, subject to methodology review.
+**Supplementary sources (revised):**
+- S-2 (iancovert archive): **REJECTED.** Onion and Potato are definitively absent from the archive. This supplementary source is closed.
+- S-4 (ICTD-IITD): Confirmed as a research reference for anomaly label alignment. Label schema, markets, and partial date range (2016–2021 estimated) confirmed by direct inspection. Labelling methodology is transparent (three rule-based criteria) and limitations are documented. Suitable for weak-supervision evaluation only.
 
-**Recommended data mode:** Real-world data (Option A per requirements). Synthetic data is not needed given the expected scale of the OGD dataset. Hybrid evaluation (Option C) should be considered for the anomaly detection component if the S-4 labels cannot be aligned with the primary dataset.
+**Recommended data mode:** Real-world data (Option A per requirements). Synthetic data is not needed given the expected scale of the OGD dataset. Hybrid evaluation (Option C) should be considered for the anomaly detection component if alignment between S-4 labels and S-1 primary data cannot be achieved.
 
 ### What must be confirmed before this recommendation is locked
 
-- [ ] Direct API access to OGD resource `9ef84268-d588-465a-a308-a864a43d0070` to sample actual records and confirm onion and potato presence, date coverage, and reporting regularity.
-- [ ] Calculation of missing-value percentages and date gaps for 3–5 candidate markets.
-- [ ] Confirmation that onion and potato are among the 12 commodities in the S-2 archive.
-- [ ] Review of ICTD-IITD labelling methodology to determine whether their anomaly labels can be aligned with the selected primary dataset.
+- [ ] **BLOCKING:** Direct API access to OGD resource `9ef84268-d588-465a-a308-a864a43d0070` to sample actual records, confirm onion and potato presence, calculate date coverage, missing-value rates, and reporting regularity. Requires API key registration at data.gov.in.
+- [ ] **Remaining:** Download full ICTD-IITD anomaly label files (Git LFS) to confirm maximum ENDDATE for both onion and potato, and verify whether label coverage predates 2016.
 
 ---
 
