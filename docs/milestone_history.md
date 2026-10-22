@@ -95,38 +95,50 @@ This file records planned, in-progress, completed, and blocked milestones with e
 - [ ] `docs/milestone_history.md` updated at milestone completion.
 - [ ] Status summary produced.
 
-### Actual Completions (as of 2026-10-19, second update)
-- Five candidate sources investigated and recorded: OGD/AGMARKNET API, iancovert archive, DoCA/FCA PMS, ICTD-IITD, NHRDF.
-- AGMARKNET schema (10 columns) confirmed from multiple independent sources.
-- Onion and Potato confirmed present in S-1 (OGD API).
-- License confirmed for S-1 (GODL-India — open research use).
-- Dataset strategy formalised: real-world data first; synthetic only with documented justification and researcher approval (DEC-011).
-- `reports/dataset_feasibility.md` produced (5 sources, comparison table, schema, recommendation).
-- **S-2 (iancovert archive) — CLOSED:** GitHub Contents API directly returned the complete list of 12 commodity directories. **Onion is NOT present. Potato is NOT present.** The archive covers exclusively pulses, legumes, and grains (Arhar, Black Gram, Cowpea, Green Gram, Green Peas, Kabuli Chana, Lentil, Maize, Rice, Soyabean, Wheat, White Peas). S-2 is rejected with no further investigation needed. Decision recorded as DEC-012.
-- **S-4 (ICTD-IITD) — Potato label inspection complete:**
-  - Potato anomaly label schema confirmed: `STARTDATE, ENDDATE, lastMonth, lastYear, SameMonth, MAXMINRATIO, STATENAME, MANDINAME`
-  - Potato label earliest STARTDATE: 2016-01-01. File continues beyond 2017-05 (full end date requires Git LFS download).
-  - Potato label markets confirmed: Punjab (5 markets), West Bengal (7 markets), Uttar Pradesh (4 markets), NCT of Delhi (Azadpur).
-  - Potato states in `Data/Original/Potato/` confirmed: Gujarat, Himachal Pradesh, Madhya Pradesh, NCT of Delhi, Punjab, Uttar Pradesh, West Bengal (7 states).
-  - Onion label earliest STARTDATE confirmed: 2016-01-01.
-  - **Critical discrepancy noted:** Both label files start at 2016-01-01, not 2011. The paper's 2011–2021 range refers to the price data scope, not the anomaly label scope. This limits anomaly evaluation to ≥2016.
-- `docs/research_log.md` updated: RES-002 updated with definitive commodity list and rejection; RES-004 updated with potato label schema, markets, date range, and states.
-- `reports/dataset_feasibility.md` updated: S-2 section revised with full commodity list and rejection; S-4 section expanded with confirmed potato coverage; comparison table updated; limitations updated.
+### Actual Completions (as of 2026-10-20, third update)
+
+**Completed since last update:**
+
+- **OGD API (S-1) — directly sampled (2026-10-20):**
+  - Representative Onion and Potato records retrieved from resource `9ef84268-d588-465a-a308-a864a43d0070`.
+  - Files saved: `reports/Onion_api_sample.csv` (369 rows), `reports/Potato_api_sample.csv` (299 rows), single date 20/10/2026.
+  - Confirmed schema (10 columns): `state, district, market, commodity, variety, grade, arrival_date, min_price, max_price, modal_price`.
+  - **CRITICAL: No `Arrivals (Tonnes)` column in this OGD resource.** This was previously assumed present; it is absent. The portal schema and the OGD API resource schema differ.
+  - Onion sample: 213 pure Onion rows + 156 Onion Green across 18 states, 222 distinct markets. 0 nulls, 0 duplicates, 1 suspicious 0.01 placeholder (Punjab/Tarntaran/Patti APMC — variety="Other", grade="Non-FAQ"). Modal price range: 1,800–7,500 INR/quintal.
+  - Potato sample: 230 pure Potato rows + 69 Sweet Potato across 17 states, 236 distinct markets. 0 nulls, 0 duplicates, 1 suspicious 0.01 placeholder (Punjab/Tarntaran/Patti APMC — variety="Potato", grade="Local"). Modal price range: 350–7,600 INR/quintal.
+  - Grade and Variety columns present (absent from some prior schema descriptions).
+
+- **S-2 (iancovert archive) — DEFINITIVELY CLOSED (2026-10-19):**
+  - GitHub API recursive tree returned complete 12-commodity list. Neither Onion nor Potato is present.
+  - Archive covers: Arhar, Black Gram, Cowpea, Green Gram, Green Peas, Kabuli Chana, Lentil, Maize, Rice, Soyabean, Wheat, White Peas (2008–2017, ~297 MB total).
+  - DEC-012 recorded. S-2 rejected with no further investigation.
+
+- **S-4 (ICTD-IITD) — fully characterised (2026-10-19):**
+  - Onion + Potato both confirmed in `Data/Original/` (multiple states each).
+  - Anomaly label schema confirmed for both commodities: `STARTDATE, ENDDATE, lastMonth, lastYear, SameMonth, MAXMINRATIO, STATENAME, MANDINAME`.
+  - Potato label markets confirmed: Punjab (5), West Bengal (7), UP (4), Delhi (Azadpur) — 17 state+market combos.
+  - Label date range: earliest STARTDATE 2016-01-01 for both Onion and Potato.
+  - Labels are algorithmic/rule-based (three statistical comparisons), not independently human-verified ground truth.
+
+- **Documentation updated:** `docs/research_log.md` RES-001 updated with full observed schema and quality statistics; RES-002 updated with confirmed commodity list and rejection; DEC-012 and DEC-013 recorded.
 
 ### Evidence
-- `reports/dataset_feasibility.md` — feasibility report (updated with S-2 closure, S-4 potato confirmation)
-- `docs/research_log.md` — RES-001 through RES-005 (RES-002 and RES-004 updated)
-- `docs/decision_log.md` — DEC-010, DEC-011, DEC-012
-- Direct observations: GitHub Contents API (`https://api.github.com/repos/iancovert/Agmarknet/contents/`) returned the complete 12-directory listing (no Onion, no Potato); ICTD-IITD potato ShowAnomaliesPrice.csv fetched and schema/markets confirmed; ICTD-IITD Potato directory confirmed 7 states via GitHub Contents API
+- `reports/Onion_api_sample.csv` — 369 rows, directly retrieved from OGD API, 20/10/2026
+- `reports/Potato_api_sample.csv` — 299 rows, directly retrieved from OGD API, 20/10/2026
+- `docs/research_log.md` — RES-001 through RES-005 (RES-001 and RES-002 updated with directly observed findings)
+- `docs/decision_log.md` — DEC-010 through DEC-013
+- GitHub API tree inspection (2026-10-19): confirms iancovert archive contains no Onion or Potato
+- Python script analysis of CSV samples (2026-10-20): confirms schema, row counts, quality statistics
 
 ### Deviations from Plan
-- Direct OGD API sampling not yet performed — requires API key registration (BLOCKING).
-- iancovert commodity list confirmed definitively: Onion and Potato are absent. This is a deviation from the expected use of S-2 as a supplementary source.
+- S-2 (iancovert archive) cannot be used as supplementary source — Onion and Potato are absent.
+- OGD API resource `9ef84268-d588-465a-a308-a864a43d0070` does not provide arrival volume data. This affects Req 4 AC 5 and Req 6 AC 7 (supply-related features and anomaly signals).
+- Historical date-range statistics for the full dataset (multiple years) not yet calculated — the sample is a single day's records only. Full historical coverage requires a multi-date API query.
 
 ### Outstanding Issues
-- [ ] **BLOCKING:** Register for data.gov.in API key and execute live OGD API sample for Onion and Potato (resource ID `9ef84268-d588-465a-a308-a864a43d0070`) to calculate actual row counts, date range, missing-value rates, duplicate counts, and date gaps. **Requires researcher to register an account and obtain the key.**
-- [ ] **Remaining:** Download full ICTD-IITD anomaly label files via Git LFS to confirm the precise maximum ENDDATE for onion and potato labels, and verify whether label coverage predates 2016.
-- [ ] Update `reports/dataset_feasibility.md` Sections 6 and 7 with independently calculated statistics once API sampling is complete.
+- [ ] **RESEARCHER INPUT REQUIRED (arrival data strategy):** The OGD resource has no arrivals column. Options: (a) investigate whether AGMARKNET portal (agmarknet.gov.in) provides a reproducible arrivals data source; (b) use NHRDF for key markets; (c) accept absence of arrival data and restrict experiments accordingly. **This is a scope decision requiring researcher approval before M-1 can close.**
+- [ ] **Remaining:** Execute a multi-date historical API query to confirm the actual date range and reporting regularity per market (monthly sampling recommended, 2015–2026). This requires the API key.
+- [ ] **Remaining:** Update `reports/dataset_feasibility.md` Sections 5 and 6 to reflect the confirmed OGD schema (no arrivals, 10 columns), sample quality statistics, and revised recommendation.
 - [ ] Researcher review and approval of updated feasibility report before proceeding to technical design.
 
 ---

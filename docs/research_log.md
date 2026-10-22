@@ -37,26 +37,70 @@ Each entry records: source name, URL, retrieval date, schema summary, coverage d
 ## Entries
 
 ### RES-001: AGMARKNET via OGD Platform (data.gov.in)
-- **Date accessed:** 2026-10-19
+- **Date accessed:** 2026-10-19 (initial investigation); sample retrieved 2026-10-20
 - **URL:** https://data.gov.in/resource/9ef84268-d588-465a-a308-a864a43d0070
 - **Source type:** Official government — Ministry of Agriculture and Farmers Welfare, NIC
 - **Data owner:** Government of India
-- **License / Terms of use:** Government Open Data License – India (GODL-India). Free for research use with attribution. API key required (free registration).
-- **Date range:** ~March 2000 – present (exact onion/potato coverage start requires API verification)
-- **Record count:** Not independently calculated — requires API sampling
-- **Commodities covered:** 300+ commodities. Onion and Potato confirmed present.
-- **Markets covered:** 3,000+ regulated APMC mandis. ~211 onion markets, ~180 potato markets identified in independent research.
-- **Price fields available:** Min Price (Rs./Quintal), Max Price (Rs./Quintal), Modal Price (Rs./Quintal)
-- **Units and currency:** INR per quintal
-- **Arrival / supply data:** Yes — `Arrivals (Tonnes)` field confirmed in schema
-- **Schema summary:** State Name, District Name, Market Name, Commodity, Variety, Group, Arrivals (Tonnes), Min Price (Rs./Quintal), Max Price (Rs./Quintal), Modal Price (Rs./Quintal), Reported Date
-- **Missing values:** Not calculated — documented as a known issue (irregular reporting, consecutive missed days)
-- **Duplicate records:** Not calculated
-- **Accessibility method:** REST API with pagination. Free API key required from https://data.gov.in/apis. No bulk historical download.
-- **Reproducibility:** Yes — authoritative government source. API allows historical queries by date range. Known 2–7 day publication lag from trade dates.
-- **Quality findings:** Irregular reporting frequency across markets; some weekly, some daily. Field names have changed across API resource versions. Upstream feed publishes with 2–7 day lag. data.gov.in has had intermittent periods of not publishing newer prices.
-- **Selection / rejection rationale:** Selected as primary source. Authoritative government data, correct schema, licensed for research, includes arrivals, covers both onion and potato at mandi level. Direct API verification pending.
-- **Status:** Selected (primary) — pending direct API verification
+- **License / Terms of use:** Government Open Data License – India (GODL-India). Free for research use with attribution. API key required (free registration at https://data.gov.in/apis).
+- **Date range:** ~March 2000 – present. Sample retrieved on 20/10/2026.
+- **Record count:** Not independently calculated for the full historical dataset — API returns paginated results; total count requires iterating all pages. Single-day sample retrieved: 369 rows for Onion (incl. Onion Green), 299 rows for Potato (incl. Sweet Potato).
+
+**Confirmed schema (directly observed from retrieved CSV samples):**
+
+| Column        | Type   | Notes                                         |
+|---------------|--------|-----------------------------------------------|
+| state         | string | State name                                    |
+| district      | string | District name                                 |
+| market        | string | Market/mandi name                             |
+| commodity     | string | Commodity name ("Onion", "Onion Green", "Potato", "Sweet Potato") |
+| variety       | string | Variety name (e.g., "Bellary", "Nasik", "Red Nanital", "Other", "FAQ") |
+| grade         | string | Grade (e.g., "FAQ", "Local", "Grade A", "Medium") |
+| arrival_date  | string | Date in DD/MM/YYYY format                     |
+| min_price     | string | Minimum price (INR/quintal)                   |
+| max_price     | string | Maximum price (INR/quintal)                   |
+| modal_price   | string | Modal price (INR/quintal)                     |
+
+**CRITICAL FINDING — No arrivals column:** The resource `9ef84268-d588-465a-a308-a864a43d0070` does NOT contain a market arrivals (volume) field. The schema is price-only. This differs from the AGMARKNET portal schema (`Arrivals (Tonnes)` is present in the portal's downloadable/scrapable format but is absent from this OGD API resource.
+
+**Sample data-quality statistics (independently calculated from 20/10/2026 sample):**
+
+Onion sample (369 rows, single date 20/10/2026):
+- Commodity values: "Onion" (213 rows), "Onion Green" (156 rows)
+- Distinct states: 18 (Andhra Pradesh, Assam, Bihar, Chandigarh, Gujarat, Haryana, Himachal Pradesh, Keralam, Madhya Pradesh, Maharashtra, Punjab, Rajasthan, Tamil Nadu, Telangana, Tripura, Uttar Pradesh, Uttarakhand, West Bengal)
+- Distinct state+market combinations: 222
+- Null/empty modal_price: 0
+- Suspicious modal_price (value = 0.01): 1 (Punjab/Tarntaran/Patti APMC, commodity=Onion, variety=Other, grade=Non-FAQ — probable data-entry placeholder)
+- Exact duplicates (same state+district+market+commodity+variety+date): 0
+- Conflicting duplicates (same natural key, differing prices): 0
+- Onion (excl. Onion Green) modal_price range: 1,800 – 7,500 INR/quintal
+
+Potato sample (299 rows, single date 20/10/2026):
+- Commodity values: "Potato" (230 rows), "Sweet Potato" (69 rows)
+- Distinct states: 17
+- Distinct state+market combinations: 236
+- Null/empty modal_price: 0
+- Suspicious modal_price (value = 0.01): 1 (Punjab/Tarntaran/Patti APMC, commodity=Potato, variety=Potato, grade=Local — same market as Onion anomaly, probable placeholder row)
+- Exact duplicates: 0
+- Conflicting duplicates: 0
+- Potato modal_price range: 350 – 7,600 INR/quintal
+
+**Single-date sample limitation:** These statistics are from a single date (20/10/2026). They confirm the schema, commodity presence, geographic breadth, and absence of nulls/duplicates on that date. They cannot be used to assess historical coverage, multi-year reporting continuity, date gaps, or year-on-year completeness. A multi-date historical query is required for those assessments.
+
+**Schema discrepancy with prior assumptions:**
+- The OGD resource schema has 10 columns, not the 11-column AGMARKNET portal schema. It has `grade` (not in the AGMARKNET portal schema) and lacks `Arrivals (Tonnes)` and `Group`.
+- The `arrival_date` field name is different from the portal's `Reported Date`.
+- The commodity column contains both "Onion" and "Onion Green" as separate entries — filtering is required.
+
+**Access and reproducibility:**
+- API key required (free account at data.gov.in). Confirmed: unauthenticated requests return `{"error": "Key not authorised"}`.
+- Historical queries require date-range filtering via API parameters. Single-date sample only retrieved in this investigation.
+- The `datagovindia` Python library (`pip install datagovindia`) provides a programmatic interface.
+- Known publication lag: 2–7 days from APMC trade dates.
+- Mandi Price API (mandi-api.vercel.app) noted data.gov.in had not published prices newer than 24 Sept 2026 as of late October 2026 — intermittent publication gaps are a confirmed issue.
+
+- **Quality findings summary:** No nulls, no duplicates in single-day sample. One suspicious 0.01 placeholder value (Punjab/Patti APMC, consistent across Onion and Potato). Commodity column mixes target commodity with related varieties (Onion Green, Sweet Potato) — must filter. No arrivals field in this OGD resource.
+- **Selection / rejection rationale:** Retained as primary source for price data. Arrival data must be sought from an alternative source (AGMARKNET portal direct access, NHRDF, or documented as unavailable).
+- **Status:** Selected (primary, price data only) — arrival data gap documented; historical range requires further API sampling
 
 ---
 

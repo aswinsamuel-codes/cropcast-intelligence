@@ -192,3 +192,28 @@ Each entry records: date, context, alternatives considered, rationale, outcome, 
 - **Outcome:** S-2 is **closed and rejected** as a data source for CropCast. The previous "BLOCKED on commodity confirmation" status is resolved. No further investigation of this source is needed or warranted.
 - **Approval status:** Independent finding — no researcher approval required (factual determination, not a policy choice).
 - **Related files/refs:** `reports/dataset_feasibility.md` Section 3 (S-2), `docs/research_log.md` RES-002
+
+---
+
+### DEC-012: iancovert/Agmarknet Archive Rejected — Onion and Potato Absent
+- **Date:** 2026-10-19
+- **Context:** The iancovert/Agmarknet archive (S-2) was listed as a supplementary backup source. Direct inspection of the repository via the GitHub API was required to confirm commodity coverage.
+- **Evidence:** GitHub Contents API (`https://api.github.com/repos/iancovert/Agmarknet/git/trees/master?recursive=1`) returned the complete file tree (truncated=false). The 12 commodity directories are: Arhar (Tur-Red Gram), Black Gram (Urd Beans), Cowpea (Lobia-Karamani), Green Gram (Moong), Green Peas, Kabuli Chana (Chickpeas-White), Lentil (Masur), Maize, Rice, Soyabean, Wheat, White Peas. Year coverage: 2008–2017. Total size: ~297 MB. Neither "Onion" nor "Potato" appears in any directory or file name.
+- **Outcome:** S-2 rejected as a data source for CropCast. No supplementary archive is available for the 2008–2017 period for onion and potato.
+- **Approval status:** Decision is factual (commodity absence confirmed by direct inspection). No researcher approval required.
+- **Related files/refs:** `docs/research_log.md` RES-002
+
+---
+
+### DEC-013: OGD API Resource Lacks Arrivals Column — Arrival Data Strategy Required
+- **Date:** 2026-10-20
+- **Context:** The OGD API resource `9ef84268-d588-465a-a308-a864a43d0070` was sampled directly. The retrieved CSV schema contains only 10 columns: state, district, market, commodity, variety, grade, arrival_date, min_price, max_price, modal_price. There is no arrivals (volume) column.
+- **Evidence:** Onion and Potato CSV samples retrieved 20/10/2026 (369 and 299 rows respectively). Python analysis confirmed 10-column schema with no arrivals field. This differs from the AGMARKNET portal's downloadable schema which includes `Arrivals (Tonnes)`.
+- **Alternatives considered:**
+  1. Accept the OGD resource as-is, proceed without arrival data.
+  2. Investigate whether the AGMARKNET portal itself (agmarknet.gov.in, not the OGD resource) provides arrivals data that can be accessed reproducibly.
+  3. Use NHRDF as a supplementary arrivals source for key onion/potato markets.
+  4. Document arrival data as unavailable from the primary source and restrict the anomaly detection experiment accordingly.
+- **Outcome:** Decision pending researcher input. The OGD resource is still the primary price source. Arrival data availability from the AGMARKNET portal (separate from the OGD API) requires further investigation. If arrivals are unavailable, the supply-related anomaly signal (Req 6 AC 7, Req 4 AC 5) cannot be computed and must be documented as an unmet criterion.
+- **Approval status:** Pending — researcher input required on arrival data strategy (see M-1 blocker below).
+- **Related files/refs:** `reports/Onion_api_sample.csv`, `reports/Potato_api_sample.csv`, `docs/research_log.md` RES-001, `requirements.md` Req 4 AC 5, Req 6 AC 7
