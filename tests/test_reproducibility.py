@@ -143,6 +143,24 @@ class TestRunManifests(ManifestFixture):
         self.assertFalse(ok)
         self.assertIn("hash", detail)
 
+    def test_interrupted_run_is_marked_and_never_trusted(self):
+        from src.run_records import mark_interrupted
+        rec = RunRecorder(self.cfg, "forecasting")
+        rec.start()
+        path = Path(self.cfg["paths"]["runs_dir"]) / rec.run_id / "manifest.json"
+        m = mark_interrupted(path, ["process gone"])
+        self.assertEqual(m["status"], "interrupted")
+        self.assertEqual(m["interruption_evidence"], ["process gone"])
+        ok, detail = verify_run_manifests(self.cfg, kinds=("forecasting",))
+        self.assertFalse(ok)
+        self.assertIn("interrupted", detail)
+        with self.assertRaises(ValueError):
+            mark_interrupted(path, ["again"])  # only a running manifest can be marked
+        # A later completed run supersedes the interrupted one
+        self.complete_run()
+        ok, detail = verify_run_manifests(self.cfg, kinds=("forecasting",))
+        self.assertTrue(ok, detail)
+
     def test_no_runs_fails(self):
         ok, detail = verify_run_manifests(self.cfg, kinds=("forecasting",))
         self.assertFalse(ok)

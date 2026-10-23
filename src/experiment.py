@@ -49,6 +49,6 @@ def append_run(log_path: Path, record: Dict[str, Any]) -> None:
 
 # Run records live in src/run_records.py; re-exported here as the experiment API
 from src.run_records import (  # noqa: E402,F401
-    RunRecorder, WarningTally, code_fingerprint, git_state, seed_everything, verify_run_manifests,
+    RunRecorder, WarningTally, code_fingerprint, git_state, mark_interrupted, seed_everything, verify_run_manifests,
     write_retrospective_manifest,
 )

@@ -238,3 +238,19 @@ Each entry records: symptoms, reproduction steps, root cause (if established), a
   - Future work: a detrended robust score with robust (median/MAD) standardisation.
 - **Status:** Accepted limitation (documented)
 - **Related files/refs:** `reports/anomaly_analysis.md` §2, EXP-002
+
+### ISS-016: Run B (first attempt) was killed when the agent session ended
+- **Date reported:** 2026-10-24
+- **Phase / component:** Run B execution (`python -m src.reporting.notebooks --execute`, run as a background task of the agent session)
+- **Symptoms:** After the agent session ended, the background task was reported as stopped. Run manifest `forecasting-20261023T200219Z-d206cfb6` remained `running` with no end time, and no Python process existed.
+- **What completed:** Notebooks 01 (data audit and dataset rebuild) and 02 (EDA) finished and were saved at 01:31–01:32 IST from clean commit `b7d38d6`.
+- **What did not:**
+  - Notebook 03 died about 3 minutes into forecasting: 15 onion validation records, no test stage, no outputs written.
+  - Notebook 04 never started.
+- **Root cause:** Background shell tasks are children of the agent session and are terminated with it.
+- **Resolution:**
+  - `src.run_records.mark_interrupted` marks the manifest `interrupted` with the evidence above (never `completed`). `verify_run_manifests` refuses an interrupted latest run.
+  - Notebooks 03 and 04 were re-executed as a process detached from the session.
+  - The partial records stay in the JSONL log under the interrupted run ID and are not used.
+- **Verified by:** `tests/test_reproducibility.py::test_interrupted_run_is_marked_and_never_trusted`; the run-A artifacts on disk are unchanged (timestamps and the checksums recorded in the run-A manifest).
+- **Status:** Resolved

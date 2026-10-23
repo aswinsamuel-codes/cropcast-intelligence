@@ -1,5 +1,5 @@
 series_id,transform,adf_stat,adf_p,kpss_stat,kpss_p_bounded
-onion_maharashtra,log_level,-3.36375,0.0122583,1.80954,0.01
-onion_maharashtra,log_return,-8.0368,1.89319e-12,0.0502945,0.1
-potato_uttar_pradesh,log_level,-3.14982,0.0230795,2.19531,0.01
-potato_uttar_pradesh,log_return,-5.92951,2.39916e-07,0.080583,0.1
+onion_maharashtra,log_level,-3.3637544398587345,0.01225831157351479,1.809535739850871,0.01
+onion_maharashtra,log_return,-8.036797774948576,1.893190402028636e-12,0.05029453031265978,0.1
+potato_uttar_pradesh,log_level,-3.149817231993773,0.023079496938043752,2.1953137786908727,0.01
+potato_uttar_pradesh,log_return,-5.929510252542728,2.399156183096601e-07,0.0805829790590716,0.1

@@ -1,0 +1,287 @@
+{
+  "run_id": "forecasting-20261023T200219Z-d206cfb6",
+  "kind": "forecasting",
+  "status": "interrupted",
+  "started_at": "2026-10-23T20:02:19.060761+00:00",
+  "ended_at": null,
+  "git": {
+    "commit": "b7d38d697af8e396b210ca5a210f1e00d5496988",
+    "dirty": false,
+    "dirty_paths": []
+  },
+  "code_fingerprint_start": {
+    "sha256": "a6e4216fceb7c12220fb21e525775cdffa3436e233aab90dc17ec65faa478d77",
+    "files": 30,
+    "per_file": {
+      "src/__init__.py": "c8e2da7c02b7f87b23565c1ac83ea320e711ac06328be9706a8409360bc7d425",
+      "src/analysis/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "src/analysis/eda.py": "55d0cdb20f05f7b00664c81deabd1e0295cc0777d050f158035a645c60562419",
+      "src/anomaly_detection/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "src/anomaly_detection/run.py": "343e881c3d488fccc041cd297bc5b8aaabd94dbec7acec247c9af250bd43370c",
+      "src/anomaly_detection/scoring.py": "c8c97faaa0aeb5fa347af9bf28dc5d3703fb0fb34e78bc667f3b15bae731353d",
+      "src/config.py": "f77c87d1182154206c522dd5a47b3aabec80ac581fe05950e6c7f51f4eb5e93f",
+      "src/data/__init__.py": "b9290917fb4d109ba4a55b0167a93e62b6440126b2a38c11cd2d8b5047d7ec0f",
+      "src/data/dataset.py": "50232d933f1b9ef1d9254e537831fe90ca58170606774f866b2cec654b4bef59",
+      "src/data/ingest_ceda.py": "993223442a6b3297408451793466fe1a341be95e20a51294e7cafa522b86d65d",
+      "src/data/validate.py": "0f483d9c1c733e3134450e4d8ae62844e5ac4011be7622b9c64de9dc4265cb99",
+      "src/evaluation/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "src/evaluation/metrics.py": "dc28c2d0f705b4412e036c3e1788f2f4ae47cc53b24a18a8136ebe95db681a0e",
+      "src/experiment.py": "81610910928c36c65357616b4d95d8e5755d1f6be0ad39c9ddeb71dd8a9a7338",
+      "src/features/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "src/features/build.py": "7fc2d4afa24b9ad34ce6d8da0dc7ba0aba3c4fbb58abfd31802b9c7a95b30fca",
+      "src/forecasting/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "src/forecasting/models.py": "eb3963899896b058bf8fb408c7860019aabec8138e19d724c7434dec0ae714de",
+      "src/forecasting/run.py": "ec6524bf2ab654d8ab4795e320ab5def91acdc6b415563a68484c941bc34eb28",
+      "src/reporting/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "src/reporting/build_report.py": "07dbf3748e2d426de270e7fbffc3d5e1325b138f44b94de0d7a6f1a5b7f951d8",
+      "src/reporting/diagnose_sarima_convergence.py": "3c988fc8c7b963abba41d8d5d82f319af0d31bbf1eca4586ce733dec40099114",
+      "src/reporting/notebooks.py": "9dd941ed2bfcb51b0d11561025390c5fd8e295c75a5bebae9000efbd5708d0c9",
+      "src/reporting/report_tables.py": "54c11ed3b59b1ddcd446041850c3fbd627dbb0a95db400af4893ccf1b3c1b13a",
+      "src/reporting/verify_anomaly.py": "14cf6bd4847672f2870b5bcfb7a19e314b57b16dc7fff8381c57fda3ddd43325",
+      "src/reporting/verify_results.py": "ab100dee310017866d4a2d04b2962d3e53cffcee5e5672fc522b039ce3f0b251",
+      "src/run_records.py": "4646e67ad2efe5b1c468abf2c9c52430e272fcf35a3c1165b71ebf9995f03ff1",
+      "src/verify.py": "b7b32b930bf7c12112b0f13c1b2df4a004ac6292fdc6966980759534a5a1e26e",
+      "configs/config.json": "bb9c72549a23988ab66eb66ca20f698014ac04d7b222eb255c6c71ebf70e6161",
+      "requirements.txt": "8896993da80e26070c7085c0dad62f7085e84766a48b61daf9cdbd88e9d5ccdf"
+    }
+  },
+  "config_sha256": "788473bc72a18dd9a6658c3619c4f62bf718bef787aef10a07768550f9718a5d",
+  "config": {
+    "random_seed": 20261023,
+    "paths": {
+      "raw_dir": "data/raw/ceda",
+      "manifest": "data/raw/ceda_manifest.json",
+      "audit_report": "data/raw/m2_validation_audit.json",
+      "processed_dir": "data/processed",
+      "figures_dir": "figures",
+      "tables_dir": "reports/tables",
+      "reports_dir": "reports",
+      "experiment_log": "reports/experiment_log.jsonl",
+      "ictd_labels": {
+        "onion_maharashtra": "reports/ictd_onion_labels.csv",
+        "potato_uttar_pradesh": "reports/ictd_potato_labels.csv"
+      },
+      "forecasts_dir": "reports/forecasts",
+      "runs_dir": "reports/runs"
+    },
+    "dataset": {
+      "version": "v1",
+      "start_date": "2016-01-01",
+      "end_date": "2022-12-31",
+      "chunk_months": 6,
+      "series": {
+        "onion_maharashtra": {
+          "commodity": "Onion",
+          "state": "Maharashtra",
+          "commodity_id": 23,
+          "census_state_id": 27,
+          "ictd_state": "MAHARASHTRA"
+        },
+        "potato_uttar_pradesh": {
+          "commodity": "Potato",
+          "state": "Uttar Pradesh",
+          "commodity_id": 24,
+          "census_state_id": 9,
+          "ictd_state": "UTTAR PRADESH"
+        }
+      },
+      "extreme_value_factor": 100.0
+    },
+    "attribution": "Data: CEDA Agri Market Data, Centre for Economic Data and Analysis (CEDA), Ashoka University; original source DMI, Ministry of Agriculture and Farmers Welfare (Agmarknet).",
+    "eda": {
+      "bootstrap_block_months": 6,
+      "bootstrap_reps": 2000
+    },
+    "forecasting": {
+      "protocol_version": "1.1",
+      "split": {
+        "train": 0.6,
+        "validation": 0.2,
+        "test": 0.2
+      },
+      "horizon_market_days": 1,
+      "seasonal_period": 7,
+      "test_refit_every": 1,
+      "validation_refit_every": 7,
+      "features": {
+        "price_lags": [
+          1,
+          2,
+          3,
+          5,
+          7
+        ],
+        "rolling_windows": [
+          7,
+          14
+        ],
+        "calendar": [
+          "dow_origin",
+          "month_origin",
+          "dow_target"
+        ],
+        "arrival_lags": [
+          1,
+          2
+        ],
+        "model_input_transform": "log-ratio to last price; target = next log return"
+      },
+      "models": {
+        "naive": {},
+        "seasonal_naive": {
+          "period": 7
+        },
+        "linear_regression": {},
+        "decision_tree": {
+          "grid": {
+            "max_depth": [
+              3,
+              5,
+              8
+            ],
+            "min_samples_leaf": [
+              5,
+              20,
+              50
+            ]
+          }
+        },
+        "random_forest": {
+          "n_estimators": 300,
+          "n_jobs": 4,
+          "grid": {
+            "max_depth": [
+              5,
+              10,
+              null
+            ],
+            "min_samples_leaf": [
+              5,
+              20
+            ],
+            "max_features": [
+              0.5,
+              1.0
+            ]
+          }
+        },
+        "sarima": {
+          "d": 1,
+          "seasonal_period": 7,
+          "grid": {
+            "p": [
+              0,
+              1,
+              2
+            ],
+            "q": [
+              0,
+              1,
+              2
+            ],
+            "P": [
+              0,
+              1
+            ],
+            "Q": [
+              0,
+              1
+            ]
+          },
+          "top_k_by_aic": 3,
+          "maxiter": 200
+        },
+        "ets": {
+          "seasonal": "add",
+          "seasonal_period": 7,
+          "grid": {
+            "trend": [
+              null,
+              "add_damped"
+            ]
+          }
+        }
+      },
+      "comparison": {
+        "baseline": "naive",
+        "dm_loss": "absolute",
+        "fdr_alpha": 0.05
+      }
+    },
+    "anomaly": {
+      "protocol_version": "1.0",
+      "residual_model": "sarima order with lowest training-set AIC (reports/tables/forecast_sarima_aic.csv)",
+      "residual_burn_in_market_days": 182,
+      "residual_refit_every": 28,
+      "zscore_window": 30,
+      "robust": {
+        "level_window": 28,
+        "weekday_history": 52,
+        "scale_window": 56
+      },
+      "standardize_min_periods": 90,
+      "weights": {
+        "residual": 0.5,
+        "robust": 0.5
+      },
+      "threshold": 3.0,
+      "threshold_sensitivity": [
+        2.5,
+        3.0,
+        3.5,
+        4.0,
+        5.0
+      ],
+      "coverage_arrival_fraction_of_median": 0.1,
+      "weak_labels": {
+        "label_columns": [
+          "lastMonth",
+          "lastYear",
+          "SameMonth"
+        ],
+        "positive_value": "Anomaly",
+        "permutations": 1000
+      },
+      "shocks": {
+        "segment": "test",
+        "magnitudes": [
+          -0.5,
+          -0.3,
+          -0.2,
+          -0.1,
+          0.1,
+          0.2,
+          0.3,
+          0.5
+        ],
+        "shocks_per_run": 6,
+        "min_gap_market_days": 60,
+        "repeats": 5,
+        "exclude_days_after_shock": 7,
+        "residual_params": "frozen at segment start (state updates only)"
+      }
+    }
+  },
+  "dataset_version": "v1:b5f21e02b681",
+  "dataset_csv_sha256": "b5f21e02b681c7887af340ba6e5d22ec9b3847bfd171da8e7ba3ffc24152b773",
+  "software": {
+    "python": "3.11.9",
+    "numpy": "2.4.6",
+    "pandas": "3.1.0",
+    "scipy": "1.17.1",
+    "scikit-learn": "1.9.1",
+    "statsmodels": "0.15.0"
+  },
+  "random_seed": 20261023,
+  "artifacts": {},
+  "warnings": [],
+  "warning_counts": {},
+  "interrupted_marked_at": "2026-10-23T20:15:24.305407+00:00",
+  "interruption_evidence": [
+    "Started 2026-10-23T20:02:19Z from clean commit b7d38d6 inside notebook 03 (python -m src.reporting.notebooks --execute).",
+    "No Python process exists at 2026-10-23T20:13Z (01:43 IST check); the parent Claude Code session ended and its background task was reported as stopped without a completion record.",
+    "Last log record from this run: 2026-10-23T20:05:26Z (onion validation, random_forest); 15 validation records in total; no test-stage records.",
+    "No output artifact was written: forecast tables, predictions and figures 13-14 on disk still carry run A's timestamps (2026-10-24 00:25 IST).",
+    "Its 15 log records remain in reports/experiment_log.jsonl, tagged with this run_id; they are not used by any result."
+  ]
+}

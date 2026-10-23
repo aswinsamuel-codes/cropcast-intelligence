@@ -144,6 +144,21 @@ class RunRecorder:
         self._write()
 
 
+def mark_interrupted(manifest_path: Path, evidence: List[str]) -> Dict[str, Any]:
+    """
+    Close a manifest left in status "running" by a process that no longer exists (e.g. killed with
+    its parent session). The run is marked "interrupted", never "completed", and the evidence is kept.
+    """
+    m = json.loads(Path(manifest_path).read_text(encoding="utf-8"))
+    if m.get("status") != "running":
+        raise ValueError(f"{m.get('run_id')}: only a 'running' manifest can be marked interrupted (status={m.get('status')})")
+    m.update(status="interrupted", ended_at=None, interrupted_marked_at=_now(), interruption_evidence=list(evidence))
+    tmp = Path(manifest_path).with_suffix(".json.tmp")
+    tmp.write_text(json.dumps(m, indent=2, default=str) + "\n", encoding="utf-8")
+    tmp.replace(manifest_path)
+    return m
+
+
 def write_retrospective_manifest(cfg: Dict[str, Any], kind: str, run_started: str, run_ended: str,
                                  artifacts: Iterable[Path], provenance_notes: List[str],
                                  log_records_window: Tuple[str, str]) -> Path:
