@@ -1,0 +1,59 @@
+series_id,family,params,val_mae,val_rmse,config_hash,seconds
+onion_maharashtra,naive,{},102.454,166.165,47f050dd78637d5f59a4ef7e40fdca469d0faed65a57ee0bd281ececf805d0c0,0.043447
+onion_maharashtra,seasonal_naive,{},221.517,351.353,e610e64547896787d981a80729468059088108b60b7a6833633067c757ebaab4,0.0474279
+onion_maharashtra,linear_regression,{},106.683,170.704,5ab3ef8c0aa368067a6910b7e51e8640e0dcf67b2c51faff74a75bcf8308e11b,0.2243
+onion_maharashtra,decision_tree,"{""max_depth"": 3, ""min_samples_leaf"": 5}",106.076,178.008,058bcd84a7128281a2e094929dd517553c5059814a8a5618f7b6af20c8b2ca03,0.474871
+onion_maharashtra,decision_tree,"{""max_depth"": 3, ""min_samples_leaf"": 20}",103.018,167.845,b46e9fa404ab6da54e0e4158fc9febe7fb7028318fe24ecc92fced563a7a074d,0.549532
+onion_maharashtra,decision_tree,"{""max_depth"": 3, ""min_samples_leaf"": 50}",102.664,169.773,ad11af8c800417f9d06a2d45e066b14ab8f565feb2cc2d8a42bfbda293939252,0.527206
+onion_maharashtra,decision_tree,"{""max_depth"": 5, ""min_samples_leaf"": 5}",105.059,180.982,4d540e0512fbfb733723484140f7f10bc7feba2584d7081937a1ac1c413bec8a,0.684212
+onion_maharashtra,decision_tree,"{""max_depth"": 5, ""min_samples_leaf"": 20}",102.992,168.385,d1905431c08682d3056dd0a46eeb3a6aa952a5810aa4a89d7c10632d1a1b97eb,0.648418
+onion_maharashtra,decision_tree,"{""max_depth"": 5, ""min_samples_leaf"": 50}",100.759,168.971,3df716d78a99ffb399fa14cd5fe2e9571fbaaa25d7d166fee18d49329155eb0d,0.626263
+onion_maharashtra,decision_tree,"{""max_depth"": 8, ""min_samples_leaf"": 5}",109.803,182.618,1e80a40eb2be0081e48a061fbe607d2e821b2a60a69b8d8329933e1615f71b0a,0.868905
+onion_maharashtra,decision_tree,"{""max_depth"": 8, ""min_samples_leaf"": 20}",109.297,176.56,4f635150078c3b9b0b46cd734cba3332ba1743fdb8e406acb2250cf473fa04be,0.83426
+onion_maharashtra,decision_tree,"{""max_depth"": 8, ""min_samples_leaf"": 50}",102.638,171.207,fe2377e19164e34752131f1799b2eb78c806b66b616128899222bebb58e6fd61,0.799103
+onion_maharashtra,random_forest,"{""max_depth"": 5, ""max_features"": 0.5, ""min_samples_leaf"": 5}",98.7297,163.922,e419f236403a58e838ecb6a3eb9c91cc97bca2843ad26c2beb0d15530952ced5,57.7898
+onion_maharashtra,random_forest,"{""max_depth"": 5, ""max_features"": 0.5, ""min_samples_leaf"": 20}",99.4474,164.671,7246be281f5e583d4ed143dc3c4c378723a1274e84846e9c79e6df67a96e47ad,59.2767
+onion_maharashtra,random_forest,"{""max_depth"": 5, ""max_features"": 1.0, ""min_samples_leaf"": 5}",98.3682,163.559,1d2e74016a524f6dd4775fb9e2d1b5330fba23be3a3b15cd8f5ce255596433bc,65.9704
+onion_maharashtra,random_forest,"{""max_depth"": 5, ""max_features"": 1.0, ""min_samples_leaf"": 20}",99.3129,165.779,e99399fb85b66105b31b80ad52d0f69ad4eb70c841542b7280bffbd8c137ff82,57.2654
+onion_maharashtra,random_forest,"{""max_depth"": 10, ""max_features"": 0.5, ""min_samples_leaf"": 5}",99.1661,164.496,17cb67955d340cbbd47875ffff8a79f9921631bcdd22cfa4e9cfc7a58062395e,50.4319
+onion_maharashtra,random_forest,"{""max_depth"": 10, ""max_features"": 0.5, ""min_samples_leaf"": 20}",99.4271,164.78,264062b0e43890e3a1ded428a7aa5688d3a7dee4afed1f6828d398e31d36634f,47.9689
+onion_maharashtra,random_forest,"{""max_depth"": 10, ""max_features"": 1.0, ""min_samples_leaf"": 5}",99.2292,164.68,c5985cab00af4ea6260083c8b09da3463a17e5d28777500682601483b125e482,67.1724
+onion_maharashtra,random_forest,"{""max_depth"": 10, ""max_features"": 1.0, ""min_samples_leaf"": 20}",99.602,166.034,e226d316ab32d8bd0734cbfc02dfa5459acfd7eb9053b9e22974b58a744211df,57.3587
+onion_maharashtra,random_forest,"{""max_depth"": null, ""max_features"": 0.5, ""min_samples_leaf"": 5}",99.2236,164.34,63d715050dd11b39cf0a7ebfcab867e7bb8e96ca698103fa0afc524fa4c73e84,56.1113
+onion_maharashtra,random_forest,"{""max_depth"": null, ""max_features"": 0.5, ""min_samples_leaf"": 20}",99.4406,164.881,7bfaa18845dfff591385fedbeabe80083a041f80b866f58556c0da3ceafe03a9,52.2602
+onion_maharashtra,random_forest,"{""max_depth"": null, ""max_features"": 1.0, ""min_samples_leaf"": 5}",99.3692,164.791,c40fe8dca7ba3e2cf26349743ddf60051b2755fa04025bd46eb9b1a8153adc61,84.8204
+onion_maharashtra,random_forest,"{""max_depth"": null, ""max_features"": 1.0, ""min_samples_leaf"": 20}",99.5244,166.004,07b7ba6ccc74ae178fadf624ef5efc6e6db1584bda0845749a6be04f874cc5ee,68.4527
+onion_maharashtra,ets,"{""trend"": null}",104.901,168.205,e0390beb71ae3445e371e516561804d0b68057e1092f95b69fdb97d85d9986b9,5.54216
+onion_maharashtra,ets,"{""trend"": ""add_damped""}",105.152,169.001,02ae565a015a36415db95960e8a086351c1fd086bec187d637002f1d563e0dd6,31.8765
+onion_maharashtra,sarima,"{""P"": 1, ""Q"": 1, ""p"": 0, ""q"": 2}",101.582,165.884,9490f4698226372ac8643732dae822b1f16c8fb3a2431294874f697927bef574,45.8252
+onion_maharashtra,sarima,"{""P"": 1, ""Q"": 1, ""p"": 2, ""q"": 0}",101.659,165.779,160bdab060e4bf05a1b1c5c00c18a2ab37b21735db4307c3f7e5c59d7e8e1fda,41.9739
+onion_maharashtra,sarima,"{""P"": 1, ""Q"": 1, ""p"": 1, ""q"": 1}",101.567,165.849,f2f333842bf5a898f2036f7fe719e5f8602b3496cfb2e7204fc0b9466f1b8fc4,47.4131
+potato_uttar_pradesh,naive,{},22.0289,35.5333,d8187514d7e07ce18f053387b6c26e69d29154d90cd7916e519484945acc8dac,0.0320992
+potato_uttar_pradesh,seasonal_naive,{},67.417,133.358,73115b226697f9026e723011fdacb6248a006c0620bc31091f7734e0e6e85d9b,0.458297
+potato_uttar_pradesh,linear_regression,{},18.7989,33.4979,bafbebd553cbd1384d890fa920ff8c44f03e885f56ba296d64edd1fed6ec23ed,0.202268
+potato_uttar_pradesh,decision_tree,"{""max_depth"": 3, ""min_samples_leaf"": 5}",18.4309,33.2811,b3e7346ceb182758ee536618adea1c4838f3910c79ccff6714eb2c987726033a,0.486561
+potato_uttar_pradesh,decision_tree,"{""max_depth"": 3, ""min_samples_leaf"": 20}",17.7351,30.2554,6b98801c16be272ad354c1c10f98fab383f360e3de9a5d484d8196772e2608b3,0.456649
+potato_uttar_pradesh,decision_tree,"{""max_depth"": 3, ""min_samples_leaf"": 50}",17.462,30.0437,6303bffb2cc1fddeefae269619f204d4bb78912d48490a82f96936f6119a1056,0.481759
+potato_uttar_pradesh,decision_tree,"{""max_depth"": 5, ""min_samples_leaf"": 5}",17.3001,31.8242,4010a3ce82ad8802a2a85c44e42ee653d0e6aaf41baf5bb3994cb45aaa5a89ab,0.645513
+potato_uttar_pradesh,decision_tree,"{""max_depth"": 5, ""min_samples_leaf"": 20}",16.2045,28.7216,fca5bc767387db21fd70e90afe6b2a108d8d5dc08f778f27255f82038ecc177d,0.633533
+potato_uttar_pradesh,decision_tree,"{""max_depth"": 5, ""min_samples_leaf"": 50}",16.6628,28.5691,c5b0e4b8b225a83a44cf10249a9f7297694e86999c8b11889fbed60fea1fe88a,0.62918
+potato_uttar_pradesh,decision_tree,"{""max_depth"": 8, ""min_samples_leaf"": 5}",17.6703,33.8763,e646497ad6634f0e5d784fed1d04f1ffff099e18ed4cdc0aeae47e4764a35d52,0.854954
+potato_uttar_pradesh,decision_tree,"{""max_depth"": 8, ""min_samples_leaf"": 20}",16.28,29.7716,39a425cd4a77360b0736fc1951722862307da34fdc24a95950834b97b197a843,0.777185
+potato_uttar_pradesh,decision_tree,"{""max_depth"": 8, ""min_samples_leaf"": 50}",17.1262,28.9886,d8be652584daa5636dc2a50070c4dabf8b53fbeffd720edfa8e206abfe4d6fb7,0.730809
+potato_uttar_pradesh,random_forest,"{""max_depth"": 5, ""max_features"": 0.5, ""min_samples_leaf"": 5}",15.442,26.9707,7fbe8f2e6d74b7350ae9274e036e5cab0a877043b891ba7502912215ecbc5eeb,46.8501
+potato_uttar_pradesh,random_forest,"{""max_depth"": 5, ""max_features"": 0.5, ""min_samples_leaf"": 20}",15.5797,27.2469,b555a3dbbebc996c2210b69281c2689eb2f35b81a86ce97c7f085f9553670f4f,40.4315
+potato_uttar_pradesh,random_forest,"{""max_depth"": 5, ""max_features"": 1.0, ""min_samples_leaf"": 5}",15.4064,27.1723,285d437f5e6cd808e259498cd6fd33ee20174e552fdddbd4db90ba29aafb81f9,47.4525
+potato_uttar_pradesh,random_forest,"{""max_depth"": 5, ""max_features"": 1.0, ""min_samples_leaf"": 20}",15.6287,27.6592,1496c02566e6cbb88b8039e6d65347267b8ea4322cb2240517a200f63008fd56,45.3324
+potato_uttar_pradesh,random_forest,"{""max_depth"": 10, ""max_features"": 0.5, ""min_samples_leaf"": 5}",14.7626,27.05,f4117dcdaf3386a254626f81f144c950b23732fa8daca13259e5d240784241d3,49.8658
+potato_uttar_pradesh,random_forest,"{""max_depth"": 10, ""max_features"": 0.5, ""min_samples_leaf"": 20}",15.5361,27.4682,2a7c574b7a4a7371dee6c0ad9f52e31957edd56367e81d881b849d4850284f18,49.9842
+potato_uttar_pradesh,random_forest,"{""max_depth"": 10, ""max_features"": 1.0, ""min_samples_leaf"": 5}",14.9307,27.4767,6e5fc5729b686c485c3ea3438a6a27faa5db005a0bcafcb4bf7ef87ef5f45494,65.1111
+potato_uttar_pradesh,random_forest,"{""max_depth"": 10, ""max_features"": 1.0, ""min_samples_leaf"": 20}",15.693,27.9703,982e8510ddf39251a214f5046efc6e44fa3f9da80bc6d1bb424dd297fad1fa02,58.2213
+potato_uttar_pradesh,random_forest,"{""max_depth"": null, ""max_features"": 0.5, ""min_samples_leaf"": 5}",14.8965,27.1529,903e89fa26e4778a97bc9f739307846803f0c070eddeb2bfd75a3aeb536700b1,48.7291
+potato_uttar_pradesh,random_forest,"{""max_depth"": null, ""max_features"": 0.5, ""min_samples_leaf"": 20}",15.5287,27.514,dc6e785eff57b9e507554b94681a41df4842ff0b4c1fb76ad368d29c5fdf7f6b,47.5478
+potato_uttar_pradesh,random_forest,"{""max_depth"": null, ""max_features"": 1.0, ""min_samples_leaf"": 5}",15.0328,27.5996,1e6c59037d055626fd209a5b4c54bc5bf61ba5868855506c2ac79408bddf1e5c,83.957
+potato_uttar_pradesh,random_forest,"{""max_depth"": null, ""max_features"": 1.0, ""min_samples_leaf"": 20}",15.7448,28.0164,9c7d775eb699674d8622782c0292a81425dcde85a81b424cf1f1607681037cc8,68.4986
+potato_uttar_pradesh,ets,"{""trend"": null}",18.9513,33.0118,05cb42f271597ccaeed786634ffcbc65f4389074e872b7c2134ebb37e8612cfa,4.27273
+potato_uttar_pradesh,ets,"{""trend"": ""add_damped""}",17.2009,31.4962,0db8718087cbbeb25f2b8fe928bbad2dd3ee4a5ea53d54c0dbacf76d689f76a7,26.1595
+potato_uttar_pradesh,sarima,"{""P"": 1, ""Q"": 1, ""p"": 2, ""q"": 2}",17.3708,31.672,654dafb871b36ba70c6dc0c9e3e91f449cbf0ec38bc0c364cb364bacb2c664f7,55.3528
+potato_uttar_pradesh,sarima,"{""P"": 1, ""Q"": 1, ""p"": 1, ""q"": 2}",17.4973,31.9678,a5e43573fd97bfb7a171ea6c6fdb33dc878a2c8cd9a44242979b887f4d687046,48.449
+potato_uttar_pradesh,sarima,"{""P"": 1, ""Q"": 0, ""p"": 1, ""q"": 2}",20.0439,34.9561,aa6db98a89652b632169bfb347ba0eb088807a0237bf73dbcedaa02742605533,31.2591

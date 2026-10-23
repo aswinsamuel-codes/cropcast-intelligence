@@ -310,3 +310,41 @@ Each entry records: date, context, alternatives considered, rationale, outcome, 
   - Deterministic output: CSV SHA-256 `b5f21e02b681c7887af340ba6e5d22ec9b3847bfd171da8e7ba3ffc24152b773`, identical across rebuilds. The dataset version ID used in experiment hashes is `v1:b5f21e02b681`.
 - **Approval status:** Engineering decision under end-to-end authorisation.
 - **Related files/refs:** `src/data/dataset.py`, `data/processed/cropcast_analysis_v1.meta.json`, `tests/test_dataset.py`
+
+### DEC-020: Forecasting Protocol v1.1 — Validation Refit Cadence
+- **Date:** 2026-10-23 (fixed before any model was fitted)
+- **Context:** Req 5.6 requires walk-forward evaluation on the test set with retraining at each step. Applying the same every-step refit to the validation grid would take about 12,000 random-forest fits plus SARIMA refits, beyond the machine's practical budget (7.3 GB RAM, about 0.8 GB free).
+- **Alternatives considered:**
+  1. Every-step refits in validation too (infeasible).
+  2. A smaller grid (weakens tuning).
+  3. Refit every 7 origins during validation only, keeping every-step refits on test. **Chosen.**
+- **Outcome:** `validation_refit_every = 7` and `test_refit_every = 1` in `configs/config.json` (`docs/forecasting_protocol.md` §4).
+  - Between refits, feature models apply the last fitted model to current features, and univariate models update their state with fixed parameters.
+  - No look-ahead is possible either way: `tests/test_features.py` checks forecasts are unchanged when future values are perturbed, for refit 1 and 7.
+- **Approval status:** Engineering decision under end-to-end authorisation, recorded before results.
+- **Related files/refs:** `docs/forecasting_protocol.md`, `src/forecasting/run.py`, `src/forecasting/models.py`
+
+### DEC-021: Anomaly Protocol v1.0 — Causal Standardisation and Fixed Threshold
+- **Date:** 2026-10-23 (fixed before any anomaly score was computed)
+- **Context:** Req 6.4 standardises signals "over the evaluation window" before combining them. Statistics over the whole window would let later data influence earlier scores.
+- **Outcome:**
+  - Signals are standardised with the expanding mean and SD of earlier values only (minimum 90), and the composite is re-standardised the same way.
+  - The threshold is |score| > 3, the conservative MAD-rule cut-off discussed by Leys et al. (2013), with sensitivity reported for 2.5–5.
+  - Shock-evaluation residual parameters are frozen at the start of the test segment, for computational feasibility.
+  - Full protocol: `docs/anomaly_protocol.md`.
+- **Approval status:** Engineering decision under end-to-end authorisation, recorded before results.
+- **Related files/refs:** `docs/anomaly_protocol.md`, `src/anomaly_detection/`
+
+### DEC-022: Derived Files Containing Source Values Are Not Committed
+- **Date:** 2026-10-24
+- **Context:** Several generated files embed CEDA source values:
+  - test predictions (`reports/forecasts/test_*.csv`, with daily actual and origin prices);
+  - run copies of those predictions;
+  - `reports/tables/anomaly_scores.csv` (the full daily price and arrival series).
+  CEDA's terms do not clearly permit redistribution (DEC-019, RES-014).
+- **Outcome:**
+  - These files are git-ignored and stay local, like the dataset.
+  - Committed results are aggregate metrics, model configurations, small event tables, figures (with CEDA credit) and run manifests. Manifests still record the SHA-256 of the ignored files, so the local copies can be verified.
+  - A fresh user regenerates them from the documented pipeline after obtaining CEDA access.
+- **Approval status:** Decided under end-to-end authorisation (conservative licensing choice).
+- **Related files/refs:** `.gitignore`, `docs/reproducibility.md`

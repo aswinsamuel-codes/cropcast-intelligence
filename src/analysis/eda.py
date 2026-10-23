@@ -139,7 +139,7 @@ def run(cfg: Dict[str, Any]) -> Dict[str, Any]:
         desc_rows.append({"series_id": sid, "variable": "log_return_modal",
                           **dict(describe(market_day_log_returns(g)), cv=float("nan"))})
     desc = pd.DataFrame(desc_rows)
-    desc.to_csv(tables / "eda_descriptive_stats.csv", index=False, float_format="%.6g")
+    desc.to_csv(tables / "eda_descriptive_stats.csv", index=False)
     summary["descriptive"] = desc.to_dict(orient="records")
 
     # --- Coverage and gaps ---
@@ -177,9 +177,9 @@ def run(cfg: Dict[str, Any]) -> Dict[str, Any]:
                                     "modal_q25": gm["modal_price"].quantile(0.25), "modal_q75": gm["modal_price"].quantile(0.75),
                                     "arrival_median": gm["arrival_qty"].median()})
     annual = pd.DataFrame(annual)
-    annual.to_csv(tables / "eda_annual_summary.csv", index=False, float_format="%.6g")
+    annual.to_csv(tables / "eda_annual_summary.csv", index=False)
     monthly_profile = pd.DataFrame(monthly_profile)
-    monthly_profile.to_csv(tables / "eda_monthly_profile.csv", index=False, float_format="%.6g")
+    monthly_profile.to_csv(tables / "eda_monthly_profile.csv", index=False)
     summary["annual"] = annual.to_dict(orient="records")
     summary["monthly_profile"] = monthly_profile.to_dict(orient="records")
 
@@ -220,8 +220,8 @@ def run(cfg: Dict[str, Any]) -> Dict[str, Any]:
         fig.savefig(figs / f"fig06_acf_{sid}.png")
         plt.close(fig)
     stat_df = pd.DataFrame(stat_rows)
-    stat_df.to_csv(tables / "eda_stationarity.csv", index=False, float_format="%.6g")
-    pd.DataFrame(acf_rows).to_csv(tables / "eda_acf.csv", index=False, float_format="%.6g")
+    stat_df.to_csv(tables / "eda_stationarity.csv", index=False)
+    pd.DataFrame(acf_rows).to_csv(tables / "eda_acf.csv", index=False)
     kw_p = [seasonal[s]["weekday_kruskal_p"] for s in series_ids]
     reject, p_adj, *_ = multipletests(kw_p, alpha=0.05, method="fdr_bh")
     for s, rj, pa in zip(series_ids, reject, p_adj):
@@ -258,7 +258,7 @@ def run(cfg: Dict[str, Any]) -> Dict[str, Any]:
     fig.savefig(figs / "fig12_weekday_composition.png")
     plt.close(fig)
     weekday = pd.DataFrame(weekday_rows)
-    weekday.to_csv(tables / "eda_weekday_profile.csv", index=False, float_format="%.6g")
+    weekday.to_csv(tables / "eda_weekday_profile.csv", index=False)
     summary["weekday_profile"] = weekday.to_dict(orient="records")
 
     # --- Decomposition (Req 3.6) on monthly means ---
@@ -306,7 +306,7 @@ def run(cfg: Dict[str, Any]) -> Dict[str, Any]:
     add_credit(fig, cfg)
     fig.savefig(figs / "fig07_rolling_volatility.png")
     plt.close(fig)
-    pd.DataFrame(extremes).to_csv(tables / "eda_extreme_moves.csv", index=False, float_format="%.6g")
+    pd.DataFrame(extremes).to_csv(tables / "eda_extreme_moves.csv", index=False)
     summary["volatility"] = vol
     summary["extreme_moves"] = pd.DataFrame(extremes).astype({"date": str}).to_dict(orient="records")
 
@@ -347,7 +347,7 @@ def run(cfg: Dict[str, Any]) -> Dict[str, Any]:
         for c in m:
             monthly_all[f"{LABELS[sid].split()[-1]}: {c}"] = np.log(m[c])
     mat = pd.DataFrame(monthly_all).corr(method="spearman")
-    mat.to_csv(tables / "eda_monthly_spearman_matrix.csv", float_format="%.4f")
+    mat.to_csv(tables / "eda_monthly_spearman_matrix.csv")
     fig, ax = plt.subplots(figsize=(6.4, 5.4))
     im = ax.imshow(mat.values, cmap="RdBu_r", vmin=-1, vmax=1)
     ax.set_xticks(range(len(mat)), mat.columns, rotation=60, ha="right", fontsize=7)
@@ -402,7 +402,7 @@ def run(cfg: Dict[str, Any]) -> Dict[str, Any]:
                            "prior_14d_median_modal": window["modal_price"].median(),
                            "min_price": gi.at[d, "min_price"], "max_price": gi.at[d, "max_price"]})
     iss003 = pd.DataFrame(iss003)
-    iss003.to_csv(tables / "eda_iss003_extreme_arrivals.csv", index=False, float_format="%.6g")
+    iss003.to_csv(tables / "eda_iss003_extreme_arrivals.csv", index=False)
     summary["iss003"] = iss003.astype({"date": str}).to_dict(orient="records")
     # A state mean over many mandis is rarely a whole number; integer modal prices suggest
     # that only one or a few mandis reported that day (indirect evidence; mandi counts are not in the data)

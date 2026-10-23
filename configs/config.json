@@ -12,7 +12,9 @@
     "ictd_labels": {
       "onion_maharashtra": "reports/ictd_onion_labels.csv",
       "potato_uttar_pradesh": "reports/ictd_potato_labels.csv"
-    }
+    },
+    "forecasts_dir": "reports/forecasts",
+    "runs_dir": "reports/runs"
   },
   "dataset": {
     "version": "v1",
@@ -41,5 +43,174 @@
   "eda": {
     "bootstrap_block_months": 6,
     "bootstrap_reps": 2000
+  },
+  "forecasting": {
+    "protocol_version": "1.1",
+    "split": {
+      "train": 0.6,
+      "validation": 0.2,
+      "test": 0.2
+    },
+    "horizon_market_days": 1,
+    "seasonal_period": 7,
+    "test_refit_every": 1,
+    "validation_refit_every": 7,
+    "features": {
+      "price_lags": [
+        1,
+        2,
+        3,
+        5,
+        7
+      ],
+      "rolling_windows": [
+        7,
+        14
+      ],
+      "calendar": [
+        "dow_origin",
+        "month_origin",
+        "dow_target"
+      ],
+      "arrival_lags": [
+        1,
+        2
+      ],
+      "model_input_transform": "log-ratio to last price; target = next log return"
+    },
+    "models": {
+      "naive": {},
+      "seasonal_naive": {
+        "period": 7
+      },
+      "linear_regression": {},
+      "decision_tree": {
+        "grid": {
+          "max_depth": [
+            3,
+            5,
+            8
+          ],
+          "min_samples_leaf": [
+            5,
+            20,
+            50
+          ]
+        }
+      },
+      "random_forest": {
+        "n_estimators": 300,
+        "n_jobs": 4,
+        "grid": {
+          "max_depth": [
+            5,
+            10,
+            null
+          ],
+          "min_samples_leaf": [
+            5,
+            20
+          ],
+          "max_features": [
+            0.5,
+            1.0
+          ]
+        }
+      },
+      "sarima": {
+        "d": 1,
+        "seasonal_period": 7,
+        "grid": {
+          "p": [
+            0,
+            1,
+            2
+          ],
+          "q": [
+            0,
+            1,
+            2
+          ],
+          "P": [
+            0,
+            1
+          ],
+          "Q": [
+            0,
+            1
+          ]
+        },
+        "top_k_by_aic": 3,
+        "maxiter": 200
+      },
+      "ets": {
+        "seasonal": "add",
+        "seasonal_period": 7,
+        "grid": {
+          "trend": [
+            null,
+            "add_damped"
+          ]
+        }
+      }
+    },
+    "comparison": {
+      "baseline": "naive",
+      "dm_loss": "absolute",
+      "fdr_alpha": 0.05
+    }
+  },
+  "anomaly": {
+    "protocol_version": "1.0",
+    "residual_model": "sarima order with lowest training-set AIC (reports/tables/forecast_sarima_aic.csv)",
+    "residual_burn_in_market_days": 182,
+    "residual_refit_every": 28,
+    "zscore_window": 30,
+    "robust": {
+      "level_window": 28,
+      "weekday_history": 52,
+      "scale_window": 56
+    },
+    "standardize_min_periods": 90,
+    "weights": {
+      "residual": 0.5,
+      "robust": 0.5
+    },
+    "threshold": 3.0,
+    "threshold_sensitivity": [
+      2.5,
+      3.0,
+      3.5,
+      4.0,
+      5.0
+    ],
+    "coverage_arrival_fraction_of_median": 0.1,
+    "weak_labels": {
+      "label_columns": [
+        "lastMonth",
+        "lastYear",
+        "SameMonth"
+      ],
+      "positive_value": "Anomaly",
+      "permutations": 1000
+    },
+    "shocks": {
+      "segment": "test",
+      "magnitudes": [
+        -0.5,
+        -0.3,
+        -0.2,
+        -0.1,
+        0.1,
+        0.2,
+        0.3,
+        0.5
+      ],
+      "shocks_per_run": 6,
+      "min_gap_market_days": 60,
+      "repeats": 5,
+      "exclude_days_after_shock": 7,
+      "residual_params": "frozen at segment start (state updates only)"
+    }
   }
 }

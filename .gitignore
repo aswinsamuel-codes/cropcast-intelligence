@@ -27,3 +27,9 @@ reports/ictd_*_labels*.csv
 
 # Notebook checkpoints
 .ipynb_checkpoints/
+
+# Derived files that embed CEDA source values (daily prices/arrivals) stay local (DEC-022)
+reports/forecasts/
+reports/runs/**/forecasts/
+reports/tables/anomaly_scores.csv
+reports/runs/**/anomaly_scores.csv

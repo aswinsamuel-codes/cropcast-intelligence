@@ -167,3 +167,42 @@ Each entry records: symptoms, reproduction steps, root cause (if established), a
 - **Verified by:** All 20,320 numeric values compared equal to the raw JSON. Two rebuilds give an identical SHA-256 (`b5f21e02…`).
 - **Status:** Resolved
 - **Related files/refs:** `src/data/dataset.py`, DEC-019
+
+### ISS-011: scikit-learn parallel warning flooded the forecasting log
+- **Date reported:** 2026-10-23
+- **Phase / component:** Forecasting (`src/forecasting/run.py`)
+- **Symptoms:** The first forecasting run's log grew to 34 MB after 28 result lines, almost all one repeated `UserWarning` from `sklearn/utils/parallel.py` (`sklearn.utils.parallel.delayed` should be used with `sklearn.utils.parallel.Parallel`), emitted once per random-forest tree when `n_jobs > 1`.
+- **Root cause:** An interaction between scikit-learn 1.9.1's parallel-config propagation and joblib. It concerns forwarding *thread-local scikit-learn configuration* to workers. CropCast uses the default configuration, so results are unaffected.
+- **Resolution:** The warning is filtered by message in `Runner.__init__`, so it also covers notebook 03. The running experiment was not restarted, because the warning does not change computations.
+- **Verified by:** Message inspection (114,050 identical warnings, no other warning types). The Phase 9 reproducibility rerun is to confirm identical metrics with the filter in place.
+- **Status:** Resolved (cosmetic)
+- **Related files/refs:** `src/forecasting/run.py`
+
+### ISS-012: Random-forest predictions were not bit-reproducible under parallel prediction
+- **Date reported:** 2026-10-24
+- **Phase / component:** Forecasting reproducibility (`src/forecasting/models.py`)
+- **Symptoms:** Two random forests fitted with identical data, `random_state` and `n_jobs = 4` gave predictions differing in 23 of 50 elements, by about 1e-16 (maximum relative difference 2.1e-16). The fitted trees were bit-identical.
+- **Reproduction steps:** `tests/test_reproducibility.py` (first draft): fit twice with `n_jobs = 4` and compare `predict` outputs bit for bit.
+- **Root cause:** scikit-learn's parallel prediction accumulates per-tree outputs across threads in a non-deterministic order, and floating-point addition is not associative. An earlier claim in `docs/reproducibility.md` that results "do not depend on the number of jobs" was wrong, and has been corrected.
+- **Attempted solutions:**
+  1. Fit in parallel and predict serially: set `n_jobs = 1` on the fitted model before `predict`.
+- **Resolution:** Implemented in `FeatureModel.fit` after the first forecasting run (run A) completed. That run had loaded the old code and was not interrupted. Run A's random-forest forecasts may therefore differ from run B's by about 1e-16 relative; every other model is expected to match exactly.
+- **Verified by:** `test_parallel_fit_serial_predict_is_bit_identical` and `test_feature_model_predicts_serially`.
+- **Status:** Resolved
+- **Related files/refs:** `src/forecasting/models.py`, `tests/test_reproducibility.py`, `docs/reproducibility.md` §3
+
+### ISS-013: Result tables were rounded to 6 significant digits, so the independent verifier failed
+- **Date reported:** 2026-10-24
+- **Phase / component:** Forecasting outputs (`src/forecasting/run.py`; also the anomaly and EDA table writers)
+- **Symptoms:** `src.reporting.verify_results` reported 13 mismatches between `forecast_test_metrics.csv` (run A) and metrics recomputed from the saved predictions, with relative differences of 6e-8 to 3.9e-6. That exceeds the verifier's 1e-6 tolerance.
+- **Root cause:** Tables were written with `float_format="%.6g"`, so the stored metrics were lossy. The predictions were stored at full precision and were correct.
+- **Attempted solutions:**
+  1. Relax the verifier tolerance. Rejected: that would weaken the check.
+  2. Write all result tables at full precision, and compute metrics through one shared function, `src.forecasting.run.evaluate`. Run A's metrics were regenerated from its preserved predictions with that function; its original 6-digit table is kept unchanged. **Chosen.**
+- **Resolution:**
+  - Full-precision writers are now used in the forecasting, anomaly and EDA code.
+  - Run A's full-precision table is `reports/runs/forecasting-retrospective-20261023T180644/artifacts/tables/forecast_test_metrics_full_precision.csv`.
+  - Every verdict is identical between the 6-digit and full-precision tables.
+- **Verified by:** `python -m src.reporting.verify_results --metrics <run A full-precision table> --forecasts-dir <run A forecasts>` gives 14 rows × 7 statistics with 0 problems.
+- **Status:** Resolved
+- **Related files/refs:** `src/forecasting/run.py`, `src/reporting/verify_results.py`, ISS-012

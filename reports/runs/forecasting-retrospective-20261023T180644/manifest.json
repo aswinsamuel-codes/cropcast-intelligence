@@ -1,0 +1,59 @@
+{
+  "run_id": "forecasting-retrospective-20261023T180644",
+  "kind": "forecasting",
+  "status": "completed",
+  "retrospective": true,
+  "started_at": "2026-10-23T18:06:44+00:00",
+  "ended_at": "2026-10-23T18:55:43+00:00",
+  "manifest_written_at": "2026-10-23T18:58:16.920735+00:00",
+  "git": {
+    "commit": "unknown at run time",
+    "dirty": true,
+    "dirty_paths": []
+  },
+  "code_fingerprint_start": null,
+  "code_fingerprint_end": null,
+  "tree_changed_during_run": null,
+  "provenance_notes": [
+    "Run A: first full forecasting run, executed before run records existed (python -m src.forecasting.run, background task).",
+    "Started 2026-10-23T18:06:44Z, finished 2026-10-23T18:55:43Z (00:25:43 IST) per process creation time and log; exit code 0.",
+    "Code state: HEAD was fc54af7, but src/forecasting, src/features, src/evaluation and src/experiment.py were untracked (uncommitted) when the run started; no code fingerprint was captured.",
+    "src/forecasting/run.py was edited on disk during the run (warning filter added at 23:52 IST). The running interpreter had already loaded the module, so the run's behaviour was unaffected; the on-disk file no longer matches the code that ran.",
+    "Configuration: configs/config.json as of run start (forecasting section, protocol v1.1); per-model parameters are in the JSONL log records. The full snapshot was not saved. paths.runs_dir was added after the run.",
+    "Warnings: 172,732 identical sklearn parallel UserWarnings (ISS-011, cosmetic). SARIMA ConvergenceWarning and ETS warnings were suppressed inside the model code, so their counts for this run are unknown.",
+    "Random forest predictions used parallel prediction, which is not bit-reproducible (ISS-012); expected deviation from a serial-prediction rerun is about 1e-16 relative.",
+    "Artifacts are copies of reports/forecasts/test_*.csv, reports/tables/forecast_*.csv and figures fig13/fig14 taken immediately after completion, plus a log with the repeated warning lines removed (count appended)."
+  ],
+  "config_sha256": null,
+  "config": null,
+  "config_note": "Configuration snapshot was not captured at run time; see per-record fields in the JSONL log.",
+  "dataset_version": "v1:b5f21e02b681",
+  "dataset_csv_sha256": "b5f21e02b681c7887af340ba6e5d22ec9b3847bfd171da8e7ba3ffc24152b773",
+  "software": {
+    "python": "3.11.9",
+    "numpy": "2.4.6",
+    "pandas": "3.1.0",
+    "scipy": "1.17.1",
+    "scikit-learn": "1.9.1",
+    "statsmodels": "0.15.0"
+  },
+  "random_seed": 20261023,
+  "artifacts": {
+    "reports/runs/forecasting-retrospective-20261023T180644/artifacts/figures/fig13_residuals_onion_maharashtra.png": "7f5e922c2e4534f4ea39474b2253eb8f45893de07d8f1ee39fe6108ae535a547",
+    "reports/runs/forecasting-retrospective-20261023T180644/artifacts/figures/fig13_residuals_potato_uttar_pradesh.png": "87a827d44a803caa0a7f24a670c6f5bd793bfb67472b61f2846aa065d53e0719",
+    "reports/runs/forecasting-retrospective-20261023T180644/artifacts/figures/fig14_test_forecasts.png": "8745ce47640eabb0b98219668f9c4ed3732239a4677927501a6b50c5e6e4b5ee",
+    "reports/runs/forecasting-retrospective-20261023T180644/artifacts/forecasts/test_onion_maharashtra.csv": "36ebbec9351ba46f831c6fa56eb0842394a74c4b5613b0bfbce433bfffe9b933",
+    "reports/runs/forecasting-retrospective-20261023T180644/artifacts/forecasts/test_potato_uttar_pradesh.csv": "46e4634a0dddedd06ab738012afa24c0117d12e3e157802802934aaa952ff17a",
+    "reports/runs/forecasting-retrospective-20261023T180644/artifacts/tables/forecast_sarima_aic.csv": "2816d04327f18bac2089f22d868b0530f3b8cf8908d91452a26ad01ebacc1fcd",
+    "reports/runs/forecasting-retrospective-20261023T180644/artifacts/tables/forecast_test_breakdown.csv": "5b14b27cb2ec5f7cde59e1ed9e3a8c67c42f68d8c4a40440c41d38a00b2ee9ee",
+    "reports/runs/forecasting-retrospective-20261023T180644/artifacts/tables/forecast_test_metrics.csv": "42d9644f1311246384314d05fcad8d697e863b9ac0e9135df7cb7ae1e0d2a710",
+    "reports/runs/forecasting-retrospective-20261023T180644/artifacts/tables/forecast_validation_results.csv": "2118c4d6f51d2064f1ee719b7e8236620f1baab859ab164642fe25f1bad31341",
+    "reports/runs/forecasting-retrospective-20261023T180644/run_log_filtered.txt": "4b0df24a89d08b0b4f876e5c84e5be0db4719622fc6d6e20dbf784d583fb018d"
+  },
+  "log_records_window": [
+    "2026-10-23T18:06:44+00:00",
+    "2026-10-23T18:55:44+00:00"
+  ],
+  "warnings": [],
+  "warning_counts": {}
+}
