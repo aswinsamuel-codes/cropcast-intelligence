@@ -114,11 +114,12 @@ TABLES: Dict[str, Callable[[Path], str]] = {
     "anomaly_weak": table_anomaly_weak,
     "anomaly_shocks": table_anomaly_shocks,
 }
-MARKER = re.compile(r"(<!-- BEGIN TABLE:(\w+) -->\n)(.*?)(\n<!-- END TABLE:\2 -->)", re.S)
+# Matches empty placeholders (adjacent marker lines) as well as filled tables
+MARKER = re.compile(r"(<!-- BEGIN TABLE:(\w+) -->\r?\n)(.*?)(<!-- END TABLE:\2 -->)", re.S)
 
 
 def refresh(text: str, tables: Path) -> str:
-    return MARKER.sub(lambda m: m.group(1) + TABLES[m.group(2)](tables) + m.group(4), text)
+    return MARKER.sub(lambda m: m.group(1) + TABLES[m.group(2)](tables) + "\n" + m.group(4), text)
 
 
 def main() -> int:
@@ -132,7 +133,8 @@ def main() -> int:
     new = refresh(text, tables)
     found = [m.group(2) for m in MARKER.finditer(text)]
     if args.check:
-        ok = new == text
+        # A document without any table markers must not pass vacuously
+        ok = new == text and bool(found)
         print(json.dumps({"tables_found": found, "up_to_date": ok}))
         return 0 if ok else 1
     path.write_text(new, encoding="utf-8")

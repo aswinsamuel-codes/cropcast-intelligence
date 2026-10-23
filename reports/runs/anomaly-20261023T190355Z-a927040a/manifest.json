@@ -1,0 +1,341 @@
+{
+  "run_id": "anomaly-20261023T190355Z-a927040a",
+  "kind": "anomaly",
+  "status": "completed",
+  "started_at": "2026-10-23T19:03:55.851204+00:00",
+  "ended_at": "2026-10-23T19:28:35.373390+00:00",
+  "git": {
+    "commit": "cd565668f79ca6e71c944ffc411fc8dd2e19ae47",
+    "dirty": false,
+    "dirty_paths": []
+  },
+  "code_fingerprint_start": {
+    "sha256": "e7389d24077dfe1e426c30265eda6c2ab1f8462143e12867ac6bafb536c9643c",
+    "files": 29,
+    "per_file": {
+      "src/__init__.py": "c8e2da7c02b7f87b23565c1ac83ea320e711ac06328be9706a8409360bc7d425",
+      "src/analysis/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "src/analysis/eda.py": "55d0cdb20f05f7b00664c81deabd1e0295cc0777d050f158035a645c60562419",
+      "src/anomaly_detection/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "src/anomaly_detection/run.py": "343e881c3d488fccc041cd297bc5b8aaabd94dbec7acec247c9af250bd43370c",
+      "src/anomaly_detection/scoring.py": "c8c97faaa0aeb5fa347af9bf28dc5d3703fb0fb34e78bc667f3b15bae731353d",
+      "src/config.py": "f77c87d1182154206c522dd5a47b3aabec80ac581fe05950e6c7f51f4eb5e93f",
+      "src/data/__init__.py": "b9290917fb4d109ba4a55b0167a93e62b6440126b2a38c11cd2d8b5047d7ec0f",
+      "src/data/dataset.py": "50232d933f1b9ef1d9254e537831fe90ca58170606774f866b2cec654b4bef59",
+      "src/data/ingest_ceda.py": "993223442a6b3297408451793466fe1a341be95e20a51294e7cafa522b86d65d",
+      "src/data/validate.py": "0f483d9c1c733e3134450e4d8ae62844e5ac4011be7622b9c64de9dc4265cb99",
+      "src/evaluation/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "src/evaluation/metrics.py": "dc28c2d0f705b4412e036c3e1788f2f4ae47cc53b24a18a8136ebe95db681a0e",
+      "src/experiment.py": "81610910928c36c65357616b4d95d8e5755d1f6be0ad39c9ddeb71dd8a9a7338",
+      "src/features/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "src/features/build.py": "7fc2d4afa24b9ad34ce6d8da0dc7ba0aba3c4fbb58abfd31802b9c7a95b30fca",
+      "src/forecasting/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "src/forecasting/models.py": "eb3963899896b058bf8fb408c7860019aabec8138e19d724c7434dec0ae714de",
+      "src/forecasting/run.py": "ec6524bf2ab654d8ab4795e320ab5def91acdc6b415563a68484c941bc34eb28",
+      "src/reporting/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "src/reporting/build_report.py": "07dbf3748e2d426de270e7fbffc3d5e1325b138f44b94de0d7a6f1a5b7f951d8",
+      "src/reporting/notebooks.py": "9dd941ed2bfcb51b0d11561025390c5fd8e295c75a5bebae9000efbd5708d0c9",
+      "src/reporting/report_tables.py": "eb46fd83aabeb7099aa9c3fc1184c0568ccb308b83fb722b4ab6a4a4b744449e",
+      "src/reporting/verify_anomaly.py": "cd7cac6f0005fbb948d1369861a59549810a970a0a549a925f1579e6b9b09c4e",
+      "src/reporting/verify_results.py": "ab100dee310017866d4a2d04b2962d3e53cffcee5e5672fc522b039ce3f0b251",
+      "src/run_records.py": "4646e67ad2efe5b1c468abf2c9c52430e272fcf35a3c1165b71ebf9995f03ff1",
+      "src/verify.py": "b7b32b930bf7c12112b0f13c1b2df4a004ac6292fdc6966980759534a5a1e26e",
+      "configs/config.json": "bb9c72549a23988ab66eb66ca20f698014ac04d7b222eb255c6c71ebf70e6161",
+      "requirements.txt": "8896993da80e26070c7085c0dad62f7085e84766a48b61daf9cdbd88e9d5ccdf"
+    }
+  },
+  "config_sha256": "788473bc72a18dd9a6658c3619c4f62bf718bef787aef10a07768550f9718a5d",
+  "config": {
+    "random_seed": 20261023,
+    "paths": {
+      "raw_dir": "data/raw/ceda",
+      "manifest": "data/raw/ceda_manifest.json",
+      "audit_report": "data/raw/m2_validation_audit.json",
+      "processed_dir": "data/processed",
+      "figures_dir": "figures",
+      "tables_dir": "reports/tables",
+      "reports_dir": "reports",
+      "experiment_log": "reports/experiment_log.jsonl",
+      "ictd_labels": {
+        "onion_maharashtra": "reports/ictd_onion_labels.csv",
+        "potato_uttar_pradesh": "reports/ictd_potato_labels.csv"
+      },
+      "forecasts_dir": "reports/forecasts",
+      "runs_dir": "reports/runs"
+    },
+    "dataset": {
+      "version": "v1",
+      "start_date": "2016-01-01",
+      "end_date": "2022-12-31",
+      "chunk_months": 6,
+      "series": {
+        "onion_maharashtra": {
+          "commodity": "Onion",
+          "state": "Maharashtra",
+          "commodity_id": 23,
+          "census_state_id": 27,
+          "ictd_state": "MAHARASHTRA"
+        },
+        "potato_uttar_pradesh": {
+          "commodity": "Potato",
+          "state": "Uttar Pradesh",
+          "commodity_id": 24,
+          "census_state_id": 9,
+          "ictd_state": "UTTAR PRADESH"
+        }
+      },
+      "extreme_value_factor": 100.0
+    },
+    "attribution": "Data: CEDA Agri Market Data, Centre for Economic Data and Analysis (CEDA), Ashoka University; original source DMI, Ministry of Agriculture and Farmers Welfare (Agmarknet).",
+    "eda": {
+      "bootstrap_block_months": 6,
+      "bootstrap_reps": 2000
+    },
+    "forecasting": {
+      "protocol_version": "1.1",
+      "split": {
+        "train": 0.6,
+        "validation": 0.2,
+        "test": 0.2
+      },
+      "horizon_market_days": 1,
+      "seasonal_period": 7,
+      "test_refit_every": 1,
+      "validation_refit_every": 7,
+      "features": {
+        "price_lags": [
+          1,
+          2,
+          3,
+          5,
+          7
+        ],
+        "rolling_windows": [
+          7,
+          14
+        ],
+        "calendar": [
+          "dow_origin",
+          "month_origin",
+          "dow_target"
+        ],
+        "arrival_lags": [
+          1,
+          2
+        ],
+        "model_input_transform": "log-ratio to last price; target = next log return"
+      },
+      "models": {
+        "naive": {},
+        "seasonal_naive": {
+          "period": 7
+        },
+        "linear_regression": {},
+        "decision_tree": {
+          "grid": {
+            "max_depth": [
+              3,
+              5,
+              8
+            ],
+            "min_samples_leaf": [
+              5,
+              20,
+              50
+            ]
+          }
+        },
+        "random_forest": {
+          "n_estimators": 300,
+          "n_jobs": 4,
+          "grid": {
+            "max_depth": [
+              5,
+              10,
+              null
+            ],
+            "min_samples_leaf": [
+              5,
+              20
+            ],
+            "max_features": [
+              0.5,
+              1.0
+            ]
+          }
+        },
+        "sarima": {
+          "d": 1,
+          "seasonal_period": 7,
+          "grid": {
+            "p": [
+              0,
+              1,
+              2
+            ],
+            "q": [
+              0,
+              1,
+              2
+            ],
+            "P": [
+              0,
+              1
+            ],
+            "Q": [
+              0,
+              1
+            ]
+          },
+          "top_k_by_aic": 3,
+          "maxiter": 200
+        },
+        "ets": {
+          "seasonal": "add",
+          "seasonal_period": 7,
+          "grid": {
+            "trend": [
+              null,
+              "add_damped"
+            ]
+          }
+        }
+      },
+      "comparison": {
+        "baseline": "naive",
+        "dm_loss": "absolute",
+        "fdr_alpha": 0.05
+      }
+    },
+    "anomaly": {
+      "protocol_version": "1.0",
+      "residual_model": "sarima order with lowest training-set AIC (reports/tables/forecast_sarima_aic.csv)",
+      "residual_burn_in_market_days": 182,
+      "residual_refit_every": 28,
+      "zscore_window": 30,
+      "robust": {
+        "level_window": 28,
+        "weekday_history": 52,
+        "scale_window": 56
+      },
+      "standardize_min_periods": 90,
+      "weights": {
+        "residual": 0.5,
+        "robust": 0.5
+      },
+      "threshold": 3.0,
+      "threshold_sensitivity": [
+        2.5,
+        3.0,
+        3.5,
+        4.0,
+        5.0
+      ],
+      "coverage_arrival_fraction_of_median": 0.1,
+      "weak_labels": {
+        "label_columns": [
+          "lastMonth",
+          "lastYear",
+          "SameMonth"
+        ],
+        "positive_value": "Anomaly",
+        "permutations": 1000
+      },
+      "shocks": {
+        "segment": "test",
+        "magnitudes": [
+          -0.5,
+          -0.3,
+          -0.2,
+          -0.1,
+          0.1,
+          0.2,
+          0.3,
+          0.5
+        ],
+        "shocks_per_run": 6,
+        "min_gap_market_days": 60,
+        "repeats": 5,
+        "exclude_days_after_shock": 7,
+        "residual_params": "frozen at segment start (state updates only)"
+      }
+    }
+  },
+  "dataset_version": "v1:b5f21e02b681",
+  "dataset_csv_sha256": "b5f21e02b681c7887af340ba6e5d22ec9b3847bfd171da8e7ba3ffc24152b773",
+  "software": {
+    "python": "3.11.9",
+    "numpy": "2.4.6",
+    "pandas": "3.1.0",
+    "scipy": "1.17.1",
+    "scikit-learn": "1.9.1",
+    "statsmodels": "0.15.0"
+  },
+  "random_seed": 20261023,
+  "artifacts": {
+    "reports/tables/anomaly_scores.csv": "aaba89d1c87847a0e9db17c02ac5e832a3f2fea9484a3960a7d3a5acf2f4b9e5",
+    "reports/tables/anomaly_events.csv": "92db1d072c61fb993bc1547a000e58fce17d5cd2cabde000f1456a464db1aba9",
+    "reports/tables/anomaly_weak_label_agreement.csv": "883ef842c363dd85012f002f38dac34dead759f39aaa60eb28376b15672db7d2",
+    "reports/tables/anomaly_shock_runs.csv": "b6df147b8a0f0e7fc278f01944b65abdec1f21b6424f33baa954c66dcdb3071f",
+    "reports/tables/anomaly_shock_recall.csv": "2c2b3866814dd17f25fee1c1042c55fc7a7eaed8f79a68c81a64111182d3e1bd",
+    "reports/tables/anomaly_threshold_sensitivity.csv": "3f25224db5196dd7dc0224d59bf9f4a5d90674e18559826c3806abe5b91ec127",
+    "reports/tables/anomaly_event_classes.csv": "3eb7183df3ec415008a8a4e4959350ae81bffdffdee93d376026d73404c481cf",
+    "reports/tables/anomaly_summary.json": "891d58ec5e133403813c588b8ce1b68f15a17bbf480553a44ee7a7f85e192e72",
+    "figures/fig15_anomaly_score_distributions.png": "a2c2ee47a64511cb2b11b8eef57f5f41ee96981e5aa87395cacee7657b344c01",
+    "figures/fig16_shock_recall.png": "ccd44f91d3725ffb4931b0aef489ce78b0dacd860870088e08f6eeefe5fdb9f8",
+    "figures/fig17_anomaly_timeline.png": "438c9172fc9c9a84394133509b1bd66cb68cc6d3c66f339d0a7c758100b406a9",
+    "figures/fig18_threshold_sensitivity.png": "3f4caa7e1a61ae3698d66da99abe14621c4a94163b3a0f34dd2d036d41542f3b"
+  },
+  "warnings": [],
+  "warning_counts": {
+    "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals": 5,
+    "RuntimeWarning: All-NaN slice encountered": 1
+  },
+  "git_end": {
+    "commit": "cd565668f79ca6e71c944ffc411fc8dd2e19ae47",
+    "dirty": true,
+    "dirty_paths": [
+      "?? src/reporting/diagnose_sarima_convergence.py"
+    ]
+  },
+  "code_fingerprint_end": {
+    "sha256": "55586692ca81442fd12580f1081909d619b5b908f2c24d9c1ce2afeae6b4c321",
+    "files": 30,
+    "per_file": {
+      "src/__init__.py": "c8e2da7c02b7f87b23565c1ac83ea320e711ac06328be9706a8409360bc7d425",
+      "src/analysis/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "src/analysis/eda.py": "55d0cdb20f05f7b00664c81deabd1e0295cc0777d050f158035a645c60562419",
+      "src/anomaly_detection/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "src/anomaly_detection/run.py": "343e881c3d488fccc041cd297bc5b8aaabd94dbec7acec247c9af250bd43370c",
+      "src/anomaly_detection/scoring.py": "c8c97faaa0aeb5fa347af9bf28dc5d3703fb0fb34e78bc667f3b15bae731353d",
+      "src/config.py": "f77c87d1182154206c522dd5a47b3aabec80ac581fe05950e6c7f51f4eb5e93f",
+      "src/data/__init__.py": "b9290917fb4d109ba4a55b0167a93e62b6440126b2a38c11cd2d8b5047d7ec0f",
+      "src/data/dataset.py": "50232d933f1b9ef1d9254e537831fe90ca58170606774f866b2cec654b4bef59",
+      "src/data/ingest_ceda.py": "993223442a6b3297408451793466fe1a341be95e20a51294e7cafa522b86d65d",
+      "src/data/validate.py": "0f483d9c1c733e3134450e4d8ae62844e5ac4011be7622b9c64de9dc4265cb99",
+      "src/evaluation/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "src/evaluation/metrics.py": "dc28c2d0f705b4412e036c3e1788f2f4ae47cc53b24a18a8136ebe95db681a0e",
+      "src/experiment.py": "81610910928c36c65357616b4d95d8e5755d1f6be0ad39c9ddeb71dd8a9a7338",
+      "src/features/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "src/features/build.py": "7fc2d4afa24b9ad34ce6d8da0dc7ba0aba3c4fbb58abfd31802b9c7a95b30fca",
+      "src/forecasting/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "src/forecasting/models.py": "eb3963899896b058bf8fb408c7860019aabec8138e19d724c7434dec0ae714de",
+      "src/forecasting/run.py": "ec6524bf2ab654d8ab4795e320ab5def91acdc6b415563a68484c941bc34eb28",
+      "src/reporting/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "src/reporting/build_report.py": "07dbf3748e2d426de270e7fbffc3d5e1325b138f44b94de0d7a6f1a5b7f951d8",
+      "src/reporting/diagnose_sarima_convergence.py": "e621f52cbbed795f8322a9dc0d8dc7c206ebbd89abd99ba2f9574a9679c483c5",
+      "src/reporting/notebooks.py": "9dd941ed2bfcb51b0d11561025390c5fd8e295c75a5bebae9000efbd5708d0c9",
+      "src/reporting/report_tables.py": "eb46fd83aabeb7099aa9c3fc1184c0568ccb308b83fb722b4ab6a4a4b744449e",
+      "src/reporting/verify_anomaly.py": "cd7cac6f0005fbb948d1369861a59549810a970a0a549a925f1579e6b9b09c4e",
+      "src/reporting/verify_results.py": "ab100dee310017866d4a2d04b2962d3e53cffcee5e5672fc522b039ce3f0b251",
+      "src/run_records.py": "4646e67ad2efe5b1c468abf2c9c52430e272fcf35a3c1165b71ebf9995f03ff1",
+      "src/verify.py": "b7b32b930bf7c12112b0f13c1b2df4a004ac6292fdc6966980759534a5a1e26e",
+      "configs/config.json": "bb9c72549a23988ab66eb66ca20f698014ac04d7b222eb255c6c71ebf70e6161",
+      "requirements.txt": "8896993da80e26070c7085c0dad62f7085e84766a48b61daf9cdbd88e9d5ccdf"
+    }
+  },
+  "tree_changed_during_run": true,
+  "files_changed_during_run": [
+    "src/reporting/diagnose_sarima_convergence.py"
+  ]
+}

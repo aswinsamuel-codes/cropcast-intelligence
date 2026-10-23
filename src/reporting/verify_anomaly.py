@@ -76,9 +76,71 @@ def close(a, b) -> bool:
     return bool(np.array_equal(np.isnan(a), np.isnan(b)) and np.allclose(a[~np.isnan(a)], b[~np.isnan(b)], rtol=TOL, atol=TOL))
 
 
+def verify_shocks(cfg, df, problems: list) -> int:
+    """
+    Re-derive every synthetic-shock run: positions from the seeded generator, spacing and range,
+    injection, frozen-parameter SARIMA residuals (production model), scores from this module's
+    independent loops, and per-run recall and false-positive rate.
+    """
+    from src.features.build import build_features
+    from src.forecasting.models import SarimaModel, SeriesData, split_origins
+    a = cfg["anomaly"]
+    sh = a["shocks"]
+    runs = pd.read_csv(resolve_path(cfg["paths"]["tables_dir"]) / "anomaly_shock_runs.csv")
+    aic = pd.read_csv(resolve_path(cfg["paths"]["tables_dir"]) / "forecast_sarima_aic.csv")
+    rng = np.random.default_rng(cfg["random_seed"])  # consumed in the same order as the production run
+    checks = 0
+    for sid, g in df.groupby("series_id"):
+        g = g.sort_values("date").reset_index(drop=True)
+        n = len(g)
+        o = aic[(aic.series_id == sid) & aic.aic.notna()].sort_values("aic").iloc[0]
+        sp = split_origins(n, cfg["forecasting"]["split"]["train"], cfg["forecasting"]["split"]["validation"])
+        seg_start = sp["test"][0] + 1
+        clean = pd.read_csv(resolve_path(cfg["paths"]["tables_dir"]) / "anomaly_scores.csv")
+        clean_e = clean[clean.series_id == sid]["raw_residual"].to_numpy()
+        wd = g["date"].dt.day_of_week.to_numpy()
+        mp, w = a["standardize_min_periods"], a["weights"]
+        rows = runs[runs.series_id == sid]
+        for mag in sh["magnitudes"]:
+            for rep in range(sh["repeats"]):
+                free = (n - 1 - (seg_start + 30)) - (sh["shocks_per_run"] - 1) * sh["min_gap_market_days"]
+                picks = np.sort(rng.choice(free, size=sh["shocks_per_run"], replace=False))
+                pos = [int(seg_start + 30 + p + k * sh["min_gap_market_days"]) for k, p in enumerate(picks)]
+                checks += 1
+                if any(b - a_ < sh["min_gap_market_days"] for a_, b in zip(pos, pos[1:])) or not all(seg_start + 30 <= p < n - 1 for p in pos):
+                    problems.append(f"{sid} shock {mag}/{rep}: positions violate spacing or range")
+                price = g["modal_price"].to_numpy().copy()
+                price[pos] *= (1 + mag)
+                g2 = g.copy()
+                g2["modal_price"] = price
+                data = SeriesData(build_features(g2))
+                model = SarimaModel(data, (int(o.p), 1, int(o.q)), (int(o.P), 0, int(o.Q), 7))
+                e = clean_e.copy()
+                e[seg_start:] = np.nan
+                for i, t in enumerate(range(seg_start - 1, n - 1)):
+                    model.fit(t) if i == 0 else model.update(t)
+                    e[t + 1] = data.logy[t + 1] - np.log(model.forecast(t))
+                logy = np.log(price)
+                zr = standardize(z_prior(e, a["zscore_window"]), mp)
+                zb = standardize(robust(logy, wd, a["robust"]["level_window"], a["robust"]["weekday_history"],
+                                        a["robust"]["scale_window"]), mp)
+                comp = standardize(w["residual"] * zr + w["robust"] * zb, mp)
+                excl = {p + j for p in pos for j in range(sh["exclude_days_after_shock"] + 1)}
+                clean_idx = [i for i in range(seg_start, n) if i not in excl]
+                for m, arr in (("residual", zr), ("robust", zb), ("composite", comp)):
+                    checks += 1
+                    recall = float(np.mean(np.abs(arr[pos]) > a["threshold"]))
+                    fpr = float(np.mean(np.abs(arr[clean_idx]) > a["threshold"]))
+                    rep_row = rows[(rows.method == m) & np.isclose(rows.magnitude, mag) & (rows["repeat"] == rep)]
+                    if rep_row.empty or not close([recall, fpr], [rep_row.recall.iloc[0], rep_row.false_positive_rate_clean_days.iloc[0]]):
+                        problems.append(f"{sid} shock {mag}/{rep}/{m}: recall/FPR differ")
+    return checks
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--full", action="store_true")
+    parser.add_argument("--full", action="store_true", help="recompute SARIMA residuals and all shock runs")
+    parser.add_argument("--shocks", action="store_true", help="recompute all synthetic-shock runs")
     args = parser.parse_args()
     cfg = load_config()
     a = cfg["anomaly"]
@@ -153,7 +215,9 @@ def main() -> int:
             checks += 1
             if not close(r.reindex(range(len(g))).to_numpy(), e):
                 problems.append(f"{sid}: recomputed SARIMA residuals differ")
-    print(json.dumps({"checks": checks, "full": args.full, "problems": problems}, indent=2))
+    if args.full or args.shocks:
+        checks += verify_shocks(cfg, df, problems)
+    print(json.dumps({"checks": checks, "full": args.full, "shocks": args.full or args.shocks, "problems": problems}, indent=2))
     return 0 if not problems else 1
 
 

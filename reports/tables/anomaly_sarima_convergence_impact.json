@@ -1,0 +1,117 @@
+[
+  {
+    "series_id": "potato_uttar_pradesh",
+    "fit_origin": 742,
+    "fit_origin_date": "2018-01-12",
+    "segment_targets": "2018-01-13..2018-02-09",
+    "period": "train",
+    "original_iterations": 2,
+    "original_llf": 1765.0253505175606,
+    "original_warnflag": 2,
+    "diagnostic_start": "cold",
+    "diagnostic_converged": true,
+    "diagnostic_iterations": 92,
+    "diagnostic_llf": 1762.7187969118017,
+    "llf_original_minus_diagnostic": 2.306553605758836,
+    "max_abs_param_change": 0.16214167829288784,
+    "max_abs_residual_change": 0.0031988041676118684,
+    "replay_matches_saved_residuals": true,
+    "detection_changes_at_threshold_all_days": {
+      "residual": 0,
+      "robust": 0,
+      "composite": 0
+    }
+  },
+  {
+    "series_id": "potato_uttar_pradesh",
+    "fit_origin": 1498,
+    "fit_origin_date": "2020-02-07",
+    "segment_targets": "2020-02-08..2020-03-06",
+    "period": "train",
+    "original_iterations": 1,
+    "original_llf": 3774.1910840962714,
+    "original_warnflag": 2,
+    "diagnostic_start": "cold",
+    "diagnostic_converged": true,
+    "diagnostic_iterations": 59,
+    "diagnostic_llf": 3773.889403428844,
+    "llf_original_minus_diagnostic": 0.30168066742726296,
+    "max_abs_param_change": 0.06915751775810608,
+    "max_abs_residual_change": 0.004147525144992059,
+    "replay_matches_saved_residuals": true,
+    "detection_changes_at_threshold_all_days": {
+      "residual": 0,
+      "robust": 0,
+      "composite": 0
+    }
+  },
+  {
+    "series_id": "potato_uttar_pradesh",
+    "fit_origin": 1918,
+    "fit_origin_date": "2021-04-02",
+    "segment_targets": "2021-04-03..2021-04-30",
+    "period": "validation",
+    "original_iterations": 2,
+    "original_llf": 4837.142585063511,
+    "original_warnflag": 2,
+    "diagnostic_start": "cold",
+    "diagnostic_converged": true,
+    "diagnostic_iterations": 66,
+    "diagnostic_llf": 4836.970149502256,
+    "llf_original_minus_diagnostic": 0.17243556125504256,
+    "max_abs_param_change": 0.012093524286059254,
+    "max_abs_residual_change": 0.0014973674975040652,
+    "replay_matches_saved_residuals": true,
+    "detection_changes_at_threshold_all_days": {
+      "residual": 0,
+      "robust": 0,
+      "composite": 0
+    }
+  },
+  {
+    "series_id": "potato_uttar_pradesh",
+    "fit_origin": 1946,
+    "fit_origin_date": "2021-04-30",
+    "segment_targets": "2021-05-01..2021-05-28",
+    "period": "validation",
+    "original_iterations": 1,
+    "original_llf": 4910.495103060008,
+    "original_warnflag": 2,
+    "diagnostic_start": "cold",
+    "diagnostic_converged": true,
+    "diagnostic_iterations": 81,
+    "diagnostic_llf": 4910.657659182123,
+    "llf_original_minus_diagnostic": -0.16255612211534753,
+    "max_abs_param_change": 0.016623809857831406,
+    "max_abs_residual_change": 0.0009939824000912978,
+    "replay_matches_saved_residuals": true,
+    "detection_changes_at_threshold_all_days": {
+      "residual": 0,
+      "robust": 0,
+      "composite": 0
+    }
+  },
+  {
+    "series_id": "potato_uttar_pradesh",
+    "fit_origin": 2198,
+    "fit_origin_date": "2022-01-07",
+    "segment_targets": "2022-01-08..2022-02-04",
+    "period": "test",
+    "original_iterations": 1,
+    "original_llf": 5617.380764494209,
+    "original_warnflag": 2,
+    "diagnostic_start": "cold",
+    "diagnostic_converged": true,
+    "diagnostic_iterations": 78,
+    "diagnostic_llf": 5617.807206249156,
+    "llf_original_minus_diagnostic": -0.42644175494660885,
+    "max_abs_param_change": 0.018195899180246222,
+    "max_abs_residual_change": 0.002116242140873581,
+    "replay_matches_saved_residuals": true,
+    "detection_changes_at_threshold_all_days": {
+      "residual": 0,
+      "robust": 0,
+      "composite": 0
+    }
+  }
+]

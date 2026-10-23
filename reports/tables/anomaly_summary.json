@@ -1,0 +1,51 @@
+{
+  "onion_maharashtra": {
+    "sarima_order": {
+      "p": 0,
+      "q": 2,
+      "P": 1,
+      "Q": 1
+    },
+    "scored_days": 2077,
+    "first_scored_date": "2017-03-29",
+    "runtime_seconds": 680.1
+  },
+  "potato_uttar_pradesh": {
+    "sarima_order": {
+      "p": 2,
+      "q": 2,
+      "P": 1,
+      "Q": 1
+    },
+    "scored_days": 2111,
+    "first_scored_date": "2017-03-22",
+    "runtime_seconds": 797.3
+  },
+  "event_classes": {
+    "onion_maharashtra|composite": {
+      "Sunday/Monday (composition-prone)": 6,
+      "coverage anomaly (ISS-003 type)": 2,
+      "other": 15
+    },
+    "onion_maharashtra|residual": {
+      "Sunday/Monday (composition-prone)": 9,
+      "coverage anomaly (ISS-003 type)": 1,
+      "other": 16
+    },
+    "onion_maharashtra|robust": {
+      "Sunday/Monday (composition-prone)": 9,
+      "coverage anomaly (ISS-003 type)": 1,
+      "other": 28
+    },
+    "potato_uttar_pradesh|composite": {
+      "Sunday/Monday (composition-prone)": 6,
+      "coverage anomaly (ISS-003 type)": 4,
+      "other": 16
+    },
+    "potato_uttar_pradesh|residual": {
+      "Sunday/Monday (composition-prone)": 10,
+      "coverage anomaly (ISS-003 type)": 5,
+      "other": 13
+    }
+  }
+}

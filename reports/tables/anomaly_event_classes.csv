@@ -1,0 +1,6 @@
+series_id,method,Sunday/Monday (composition-prone),coverage anomaly (ISS-003 type),other
+onion_maharashtra,composite,6,2,15
+onion_maharashtra,residual,9,1,16
+onion_maharashtra,robust,9,1,28
+potato_uttar_pradesh,composite,6,4,16
+potato_uttar_pradesh,residual,10,5,13

@@ -55,5 +55,39 @@ class TestRender(unittest.TestCase):
         self.assertTrue(runs and runs[0].bold)
 
 
+class TestReportTables(unittest.TestCase):
+    """Result tables are generated from saved artifacts; empty placeholders and NaN must be handled."""
+
+    def setUp(self):
+        import pandas as pd
+        self.tables = Path(tempfile.mkdtemp())
+        pd.DataFrame([
+            {"series_id": "potato_uttar_pradesh", "method": "robust", "evaluated_days": 10, "label_base_rate": 0.5,
+             "tp": 0, "fp": 0, "fn": 5, "precision": float("nan"), "recall": 0.0, "f1": 0.0,
+             "null_precision_median": float("nan"), "randomisation_p_precision": float("nan")},
+        ]).to_csv(self.tables / "anomaly_weak_label_agreement.csv", index=False)
+
+    def test_empty_placeholder_is_filled_and_nan_shown_as_dash(self):
+        from src.reporting.report_tables import refresh
+        text = "a\n<!-- BEGIN TABLE:anomaly_weak -->\n<!-- END TABLE:anomaly_weak -->\nb\n"
+        out = refresh(text, self.tables)
+        row = [l for l in out.splitlines() if l.startswith("| Potato")][0]
+        cells = [c.strip() for c in row.strip("|").split("|")]
+        self.assertEqual(cells[4], "—")       # precision undefined, not 0
+        self.assertEqual(cells[5], "0.000")   # recall genuinely zero
+        self.assertEqual(refresh(out, self.tables), out)  # idempotent
+
+    def test_check_fails_without_markers(self):
+        import subprocess
+        import sys
+        from src.config import REPO_ROOT
+        doc = Path(tempfile.mkdtemp()) / "no_tables.md"
+        doc.write_text("# nothing here\n", encoding="utf-8")
+        rel = doc.resolve()
+        p = subprocess.run([sys.executable, "-m", "src.reporting.report_tables", "--check", "--report", str(rel)],
+                           cwd=REPO_ROOT, capture_output=True, text=True)
+        self.assertEqual(p.returncode, 1, p.stdout + p.stderr)
+
+
 if __name__ == "__main__":
     unittest.main()

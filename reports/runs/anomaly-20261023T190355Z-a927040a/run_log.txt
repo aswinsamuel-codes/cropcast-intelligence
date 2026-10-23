@@ -1,0 +1,28 @@
+2026-10-24 00:45:16,037 [INFO] cropcast.anomaly_detection.run: onion_maharashtra anomaly run done in 680.1s
+2026-10-24 00:45:29,596 [WARNING] cropcast.anomaly_detection.run: warning (first occurrence; all occurrences are counted in the run manifest): ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals [D:\MY works\CropCast\.venv\Lib\site-packages\statsmodels\tsa\statespace\mlemodel.py:737]
+2026-10-24 00:46:51,427 [WARNING] cropcast.anomaly_detection.run: warning (first occurrence; all occurrences are counted in the run manifest): RuntimeWarning: All-NaN slice encountered [D:\MY works\CropCast\src\anomaly_detection\run.py:212]
+2026-10-24 00:58:33,349 [INFO] cropcast.anomaly_detection.run: potato_uttar_pradesh anomaly run done in 797.3s
+{
+ "onion_maharashtra": {
+  "sarima_order": {
+   "p": 0,
+   "q": 2,
+   "P": 1,
+   "Q": 1
+  },
+  "scored_days": 2077,
+  "first_scored_date": "2017-03-29",
+  "runtime_seconds": 680.1
+ },
+ "potato_uttar_pradesh": {
+  "sarima_order": {
+   "p": 2,
+   "q": 2,
+   "P": 1,
+   "Q": 1
+  },
+  "scored_days": 2111,
+  "first_scored_date": "2017-03-22",
+  "runtime_seconds": 797.3
+ }
+}

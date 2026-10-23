@@ -206,3 +206,35 @@ Each entry records: symptoms, reproduction steps, root cause (if established), a
 - **Verified by:** `python -m src.reporting.verify_results --metrics <run A full-precision table> --forecasts-dir <run A forecasts>` gives 14 rows × 7 statistics with 0 problems.
 - **Status:** Resolved
 - **Related files/refs:** `src/forecasting/run.py`, `src/reporting/verify_results.py`, ISS-012
+
+### ISS-014: Five SARIMA refits in the potato anomaly residual model stopped without convergence
+- **Date reported:** 2026-10-24
+- **Phase / component:** Anomaly detection (`src/anomaly_detection/run.py` residual walk-forward)
+- **Symptoms:** The run manifest counted 5 `ConvergenceWarning`s. The warning tally surfaced them; they were not suppressed.
+- **Investigation:** `src/reporting/diagnose_sarima_convergence.py` replays the refit schedule.
+  - **Where:** all 5 are potato refits (of 85), at 2018-01-12 and 2020-02-07 (train), 2021-04-02 and 2021-04-30 (validation), and 2022-01-07 (test). Onion and the frozen shock fits all converged.
+  - **Cause:** each was a warm-started L-BFGS run that stopped after 1–2 iterations with `warnflag = 2`.
+  - **Cold-start check:** refits converge. Three warm fits have a *higher* log-likelihood than the cold optimum; two (2021-04-30, 2022-01-07) are lower by 0.16 and 0.43.
+- **Impact:** substituting the converged cold-start parameters changes the residuals by ≤ 0.0042 (log scale) and changes **no** detection at |score| > 3.
+- **Resolution:** Results retained and usable. The limitation is documented in `reports/anomaly_analysis.md` §5. No rerun was made to change results.
+- **Verified by:** `anomaly_sarima_convergence.csv` and `anomaly_sarima_convergence_impact.json`; the independent verifier reproduced the same 5 warnings.
+- **Status:** Accepted limitation (assessed)
+- **Related files/refs:** EXP-002
+
+### ISS-015: The robust anomaly score made zero detections for potato (protocol design weakness)
+- **Date reported:** 2026-10-24
+- **Phase / component:** Anomaly protocol v1.0 (`robust_weekday_score` followed by `causal_standardize`)
+- **Symptoms:**
+  - The potato robust score made 0 detections at |score| > 3 over 2,111 scored days (9 at 2.5).
+  - Precision is undefined; recall is 0 and F1 is 0 by 2TP/(2TP+FP+FN).
+  - Its shock recall is low (0.17–0.77).
+  - A `RuntimeWarning: All-NaN slice` came from the randomisation median, which is all undefined when there are no detections.
+- **Root cause:**
+  1. The deviation from the trailing 28-day median absorbs potato's smooth trends: the raw score exceeds |3| on 16% of days.
+  2. The protocol's second standardisation uses an expanding *mean and SD*. That is not robust, and is inflated by the extreme Nov–Dec 2016 collapse values (raw score about −18.8), which compresses all later standardised scores (maximum |z| = 2.94).
+- **Resolution:**
+  - Not changed after seeing results (protocol integrity).
+  - Undefined precision is kept as NaN in the tables, the verifier and the report (shown as "—"), and never as 0.
+  - Future work: a detrended robust score with robust (median/MAD) standardisation.
+- **Status:** Accepted limitation (documented)
+- **Related files/refs:** `reports/anomaly_analysis.md` §2, EXP-002
