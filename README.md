@@ -9,7 +9,16 @@ CropCast studies daily state-level wholesale prices and arrivals for **Maharasht
 - a pre-registered, leakage-free forecasting comparison against naive baselines;
 - an exploratory, causal anomaly-screening study.
 
-<!-- RESULTS_SUMMARY -->
+## Results at a glance (verified)
+
+| Question | Finding |
+|---|---|
+| Does any model beat the naive next-day forecast? | **Onion:** no (all five candidates within ±5% of naive MAE; no BH-adjusted DM test significant). **Potato:** yes, all five (random forest −26.3% MAE, BH p < 0.001), but mostly by anticipating weekly reporting-composition effects (exploratory). |
+| What does anomaly screening of state aggregates find? | 26–54% of detections are data-coverage or Sunday/Monday composition events. ICTD weak labels cover 59–72% of days and are uninformative (no agreement beyond chance). Synthetic shocks: potato shocks of ±10% are detected; onion needs ±30–50%. |
+| Is it reproducible? | The dataset rebuilds byte-identically. Two full forecasting runs agree (13/14 prediction columns bit-identical, random forest ≤ 2.3e-16). Two anomaly runs are exactly equal. All metrics are independently recomputed from saved predictions. |
+
+Deliverables: `reports/final_report.pdf` / `.docx` (source `reports/final_report.md`), `reports/eda_report.md`, `reports/experiment_results.md`, `reports/anomaly_analysis.md`, `reports/literature_review.md`, and executed notebooks in `notebooks/`. Reproducibility policy and evidence: `docs/reproducibility.md`.
+
 
 ## Repository layout
 
@@ -56,7 +65,9 @@ Provenance (source, retrieval dates, checksums) is recorded in `data/raw/README.
 
 ## Reproduce all results
 
-Run from the repository root, in this order:
+Quick integrity check (no retraining, a few minutes): `.venv/Scripts/python -m src.verify`
+
+Full reproduction, run from the repository root in this order:
 
 ```
 .venv/Scripts/python -m src.data.validate --output data/raw/m2_validation_audit.json

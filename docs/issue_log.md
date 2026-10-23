@@ -254,3 +254,57 @@ Each entry records: symptoms, reproduction steps, root cause (if established), a
   - The partial records stay in the JSONL log under the interrupted run ID and are not used.
 - **Verified by:** `tests/test_reproducibility.py::test_interrupted_run_is_marked_and_never_trusted`; the run-A artifacts on disk are unchanged (timestamps and the checksums recorded in the run-A manifest).
 - **Status:** Resolved
+
+### ISS-017: 73 SARIMA fits in the forecasting experiment stopped without convergence
+- **Date reported:** 2026-10-24
+- **Phase / component:** Forecasting (run B; the same fits ran in run A, where the warnings were suppressed in the model code)
+- **Symptoms:** Run B's warning tally recorded 73 `ConvergenceWarning`s and 8 `EstimationWarning`s.
+- **Investigation:** `src/reporting/diagnose_forecast_convergence.py` replays the exact SARIMA fit sequence.
+  - **Fidelity:** the replay reproduces the saved test forecasts **exactly**.
+  - **Location:**
+    - Onion: 21 test fits and 1 validation fit.
+    - Potato: 31 test fits and 20 validation fits.
+    - AIC grid: none. All 8 `EstimationWarning`s are onion AIC-grid start-parameter adjustments.
+- **Impact:** replacing each non-converged test fit with a cold-start converged fit gives:
+
+  | Series | Test MAE | Largest forecast change | DM statistic |
+  |---|---|---|---|
+  | Onion | 60.5751 → 60.5726 | 0.36 INR/q | −1.412 → −1.413 |
+  | Potato | 10.9671 → 10.9647 | 0.95 INR/q | −6.870 → −6.873 |
+
+  All verdicts are unchanged.
+- **Not assessed:** whether the 21 non-converged validation fits could change SARIMA order selection.
+- **Resolution:** Results retained. The limitation is documented in the final report (§8, §9).
+- **Status:** Accepted limitation (assessed)
+- **Related files/refs:** `reports/tables/forecast_sarima_convergence.csv`, `forecast_sarima_convergence_impact.json`, EXP-003
+
+### ISS-018: Report rendering defects found by visual inspection of the generated PDF
+- **Date reported:** 2026-10-24
+- **Phase / component:** `src/reporting/build_report.py`, `src/reporting/report_tables.py`
+- **Symptoms (first renders):**
+  - 19 pages.
+  - Headings in Calibri (Word heading styles use theme fonts).
+  - Numbered lists continuing across the document.
+  - Nested bullets flattened.
+  - Fenced code shown as literal backticks.
+  - Equal-width table columns splitting numbers ("0.02 / 5") and headers.
+  - Orphaned table headers.
+  - Table 3 omitting the zero-detection Potato/Robust row.
+- **Root causes:**
+  - Theme-font attributes on heading styles.
+  - Word's shared "List Number" counter.
+  - No fence handling.
+  - **Fixed-layout tables are sized by `w:gridCol`, not by cell widths** (earlier width changes therefore had no effect).
+  - The class table iterated over observed classes only.
+- **Resolution:**
+  - Strip theme fonts.
+  - Literal numbers with hanging indents.
+  - Level-2 bullet style.
+  - Code-fence rendering.
+  - Content-based grid widths with hard minimums for numbers and short headers.
+  - Kept-together rows with repeated header rows.
+  - Shorter generated labels, with legends in captions.
+  - Zero rows shown, with a class-count consistency check.
+  - The report text was condensed to about 10 body pages (14 pages including references and appendices).
+- **Verified by:** six regression tests in `tests/test_build_report.py`, all of which fail on the pre-fix code; page-by-page inspection of the rendered PDF.
+- **Status:** Resolved

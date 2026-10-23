@@ -30,6 +30,12 @@ from docx.shared import Inches, Pt
 from src.config import REPO_ROOT
 
 FONT = "Times New Roman"
+FIGURE_WIDTH_IN = 5.2
+TABLE_WIDTH_IN = 6.5  # page width (8.5 in) minus two 1-inch margins
+CHAR_IN = 0.072       # approximate width of one Times New Roman character at 9.5 pt
+CELL_PAD_IN = 0.16    # left + right cell margins
+# Back matter (references, appendices) is single-spaced at 11 pt; the body keeps 12 pt at 1.5 spacing
+BACK_MATTER_PREFIXES = ("References", "Appendix")
 INLINE = re.compile(r"(\*\*[^*]+\*\*|\*[^*]+\*|`[^`]+`)")
 
 
@@ -87,7 +93,13 @@ def _style_document(doc: Document) -> None:
     for lvl, size in ((1, 14), (2, 13), (3, 12)):
         st = doc.styles[f"Heading {lvl}"]
         st.font.name = FONT
-        st.element.rPr.rFonts.set(qn("w:eastAsia"), FONT)
+        rfonts = st.element.rPr.rFonts
+        # Heading styles default to theme fonts (Calibri Light), which override the font name
+        for attr in ("w:asciiTheme", "w:hAnsiTheme", "w:eastAsiaTheme", "w:cstheme"):
+            if rfonts.get(qn(attr)) is not None:
+                del rfonts.attrib[qn(attr)]
+        rfonts.set(qn("w:eastAsia"), FONT)
+        rfonts.set(qn("w:cs"), FONT)
         st.font.size = Pt(size)
         st.font.bold = True
         st.font.color.rgb = None
@@ -104,6 +116,46 @@ def _table(doc: Document, rows: List[List[str]]) -> None:
     t = doc.add_table(rows=1 + len(body), cols=len(header))
     t.style = "Table Grid"
     t.alignment = WD_TABLE_ALIGNMENT.CENTER
+    # Size columns by content (equal widths break words in narrow columns). Each column first gets an
+    # absolute minimum that fits its longest unbreakable word at 9.5 pt (bold headers ~15% wider, plus
+    # cell padding); the remaining width is shared in proportion to typical cell length.
+    rows_all = [header] + body
+    mins, hard, typical = [], [], []
+    numeric = re.compile(r"^[<>≤≥+\-−–]?[\d.,]+(%|e[-+]?\d+)?$")
+    for j in range(len(header)):
+        cells = [r[j].strip().replace("`", "").replace("**", "") for r in rows_all[1:] if j < len(r)] or [""]
+        tokens = [w for c in cells for w in c.split()]
+        body_word = max((len(w) for w in tokens), default=1)
+        head_word = max((len(w) for w in header[j].strip().replace("**", "").split()), default=1)
+        mins.append(max(body_word * CHAR_IN, head_word * CHAR_IN * 1.15) + CELL_PAD_IN)
+        # Numbers must never split; text can wrap between (or, if it must, within) words
+        num_word = max((len(w) for w in tokens if numeric.match(w)), default=0)
+        # Short header words (e.g. "MAPE") must not split either; bold capitals are about 1.4x wider
+        short_head = max((len(w) for w in header[j].strip().replace("**", "").split() if len(w) <= 6), default=0)
+        hard.append(max(num_word * CHAR_IN, short_head * CHAR_IN * 1.4, 2 * CHAR_IN) + CELL_PAD_IN)
+        typical.append(max(sorted(len(c) for c in cells)[len(cells) // 2], 1))
+    spare = TABLE_WIDTH_IN - sum(mins)
+    if spare >= 0:
+        widths = [m + spare * tw / sum(typical) for m, tw in zip(mins, typical)]
+    else:
+        # Not every word fits: give each column its hard (numeric) minimum, then share the remaining
+        # width in proportion to how much more each column wanted
+        give = TABLE_WIDTH_IN - sum(hard)
+        want = [max(m - h, 0) for m, h in zip(mins, hard)]
+        widths = [h + give * w / sum(want) if sum(want) else h for h, w in zip(hard, want)]
+    t.autofit = False
+    # A fixed-layout table is sized by its grid (w:gridCol), not by cell widths, so set both
+    for g, w in zip(t._tbl.tblGrid.findall(qn("w:gridCol")), widths):
+        g.set(qn("w:w"), str(int(round(w * 1440))))
+    for j, w in enumerate(widths):
+        for cell in t.columns[j].cells:
+            cell.width = Inches(w)
+    # Keep rows intact across pages and repeat the header row on continuation pages
+    for r_i, row in enumerate(t.rows):
+        tr_pr = row._tr.get_or_add_trPr()
+        tr_pr.append(OxmlElement("w:cantSplit"))
+        if r_i == 0:
+            tr_pr.append(OxmlElement("w:tblHeader"))
     for i, row in enumerate([header] + body):
         for j, cell in enumerate(row):
             c = t.cell(i, j)
@@ -111,6 +163,8 @@ def _table(doc: Document, rows: List[List[str]]) -> None:
             p = c.paragraphs[0]
             p.paragraph_format.line_spacing_rule = WD_LINE_SPACING.SINGLE
             p.paragraph_format.space_after = Pt(0)
+            # Keep each row with the next so a short table is not split from its header
+            p.paragraph_format.keep_with_next = i < len(body)
             add_inline(p, cell.strip(), size=9.5, base_bold=(i == 0))
     doc.add_paragraph().paragraph_format.space_after = Pt(2)
 
@@ -122,10 +176,29 @@ def render(md_path: Path, out_path: Path) -> Path:
     base = md_path.parent
     i = 0
     title_done = False
+    back_matter = False
+
+    def compact(p) -> None:
+        if back_matter:
+            p.paragraph_format.line_spacing_rule = WD_LINE_SPACING.SINGLE
+            p.paragraph_format.space_after = Pt(3)
+
     while i < len(lines):
         line = lines[i].rstrip()
         if not line.strip():
             i += 1
+            continue
+        if line.strip().startswith("```"):
+            i += 1
+            while i < len(lines) and not lines[i].strip().startswith("```"):
+                p = doc.add_paragraph()
+                p.paragraph_format.line_spacing_rule = WD_LINE_SPACING.SINGLE
+                p.paragraph_format.space_after = Pt(0)
+                r = p.add_run(lines[i].rstrip())
+                _set_font(r, 10)
+                r.font.name = "Consolas"
+                i += 1
+            i += 1  # closing fence
             continue
         if line.strip() == "<!-- pagebreak -->":
             doc.add_page_break()
@@ -145,6 +218,7 @@ def render(md_path: Path, out_path: Path) -> Path:
                 add_inline(p, text, size=16, base_bold=True)
                 title_done = True
             else:
+                back_matter = back_matter or text.startswith(BACK_MATTER_PREFIXES)
                 h = doc.add_heading(level=max(1, level - 1))
                 add_inline(h, text, size={1: 14, 2: 13, 3: 12}[max(1, level - 1)], base_bold=True)
             i += 1
@@ -162,7 +236,7 @@ def render(md_path: Path, out_path: Path) -> Path:
             p = doc.add_paragraph()
             p.alignment = WD_ALIGN_PARAGRAPH.CENTER
             p.paragraph_format.keep_with_next = True
-            p.add_run().add_picture(str((base / src).resolve()), width=Inches(6.2))
+            p.add_run().add_picture(str((base / src).resolve()), width=Inches(FIGURE_WIDTH_IN))
             c = doc.add_paragraph()
             c.alignment = WD_ALIGN_PARAGRAPH.CENTER
             c.paragraph_format.line_spacing_rule = WD_LINE_SPACING.SINGLE
@@ -171,15 +245,29 @@ def render(md_path: Path, out_path: Path) -> Path:
             continue
         m = re.match(r"^(\s*)([-*]|\d+\.)\s+(.*)", line)
         if m:
-            style = "List Number" if m.group(2)[0].isdigit() else "List Bullet"
-            p = doc.add_paragraph(style=style)
-            add_inline(p, m.group(3))
+            nested = len(m.group(1)) >= 2
+            if m.group(2)[0].isdigit():
+                # Word's "List Number" style shares one counter across the document, so every list
+                # would continue the previous one's numbering. Render the Markdown number with a
+                # hanging indent instead, so each list restarts where the source does.
+                p = doc.add_paragraph()
+                indent = 0.5 if nested else 0.25
+                p.paragraph_format.left_indent = Inches(indent + 0.25)
+                p.paragraph_format.first_line_indent = Inches(-0.25)
+                p.paragraph_format.space_after = Pt(2)
+                add_inline(p, f"{m.group(2)}\t{m.group(3)}", size=11 if back_matter else None)
+                p.paragraph_format.tab_stops.add_tab_stop(Inches(indent + 0.25))
+            else:
+                p = doc.add_paragraph(style="List Bullet 2" if nested else "List Bullet")
+                p.paragraph_format.space_after = Pt(2)
+                add_inline(p, m.group(3), size=11 if back_matter else None)
+            compact(p)
             i += 1
             continue
         # Paragraph: merge consecutive non-special lines
         buf = [line.strip()]
         i += 1
-        while i < len(lines) and lines[i].strip() and not re.match(r"^(#|\||!\[|\s*([-*]|\d+\.)\s|<!--)", lines[i]):
+        while i < len(lines) and lines[i].strip() and not re.match(r"^(#|\||!\[|\s*([-*]|\d+\.)\s|<!--|```)", lines[i]):
             buf.append(lines[i].strip())
             i += 1
         text = " ".join(buf)
@@ -191,7 +279,8 @@ def render(md_path: Path, out_path: Path) -> Path:
             add_inline(p, text, size=10)
         else:
             p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-            add_inline(p, text)
+            add_inline(p, text, size=11 if back_matter else None)
+            compact(p)
     doc.save(out_path)
     return out_path
 

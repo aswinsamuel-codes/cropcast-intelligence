@@ -1,0 +1,28 @@
+{
+  "onion_maharashtra": {
+    "selected_order": "(1, 1, 1)(1, 0, 1, 7)",
+    "test_fits": 505,
+    "test_non_converged": 21,
+    "replay_equals_saved_forecasts": true,
+    "test_mae_saved": 60.575050627120035,
+    "test_mae_cold_substituted": 60.57259280439079,
+    "max_abs_forecast_change": 0.3576351673514182,
+    "dm_stat_saved": -1.4119319604175777,
+    "dm_stat_cold_substituted": -1.4134775614864288,
+    "p_value_saved": 0.1585870902544231,
+    "p_value_cold_substituted": 0.1581326765680269
+  },
+  "potato_uttar_pradesh": {
+    "selected_order": "(2, 1, 2)(1, 0, 1, 7)",
+    "test_fits": 512,
+    "test_non_converged": 31,
+    "replay_equals_saved_forecasts": true,
+    "test_mae_saved": 10.96712452886334,
+    "test_mae_cold_substituted": 10.96469281324459,
+    "max_abs_forecast_change": 0.952494768257111,
+    "dm_stat_saved": -6.869935660769589,
+    "dm_stat_cold_substituted": -6.873142389619352,
+    "p_value_saved": 1.8739567317644028e-11,
+    "p_value_cold_substituted": 1.8357837823014637e-11
+  }
+}

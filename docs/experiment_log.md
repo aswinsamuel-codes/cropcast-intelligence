@@ -117,3 +117,26 @@ Each entry records: objective, hypothesis, dataset version, configuration hash, 
   - 5 SARIMA fits stopped abnormally; the impact is assessed as negligible (ISS-014).
   - The scoring window starts in March 2017, so the ISS-002 regime is almost entirely unscored.
 - **Status:** Completed (verified, with documented limitations)
+
+### EXP-003: Forecasting comparison, run B (reproduction of EXP-001 from a recorded clean commit)
+- **Date:** 2026-10-23 20:15Z – 21:01Z (UTC) · **Run:** `reports/runs/forecasting-20261023T201550Z-548f1c24/`
+- **Provenance:**
+  - Executed inside `notebooks/03_forecasting.ipynb` as a process detached from the agent session.
+  - Clean tree at commit `debc531` at both start and end; code fingerprint `78cc1826f2a2` unchanged; no code change during the run.
+  - Configuration hash `788473bc72a1`; dataset `v1:b5f21e02b681`.
+  - An earlier attempt was killed with the agent session and is marked `interrupted` (ISS-016).
+- **Independent verification:** `verify_results`, 14 rows × 7 statistics, 0 problems.
+- **Comparison with run A** (`src.reporting.compare_runs`, rules fixed beforehand; record in `reports/runs/reproducibility_comparison_A_vs_B.json`):
+  - **Predictions:** 13 of 14 test-prediction columns are bit-identical. The onion random forest differs by at most 2.34e-16 relative (limit 1e-12; run A used parallel prediction, ISS-012).
+  - **Metrics:** the maximum relative difference is 1.0e-15; selected settings, verdicts and configuration hashes are identical.
+  - **SARIMA AIC and validation tables:** run B rounded to 6 significant digits equals run A exactly (run A's tables were stored at 6 digits, ISS-013).
+- **Results:** identical to EXP-001 (Table 1 of the final report).
+- **New evidence not available for run A:** the warning tally recorded 73 SARIMA `ConvergenceWarning`s and 8 `EstimationWarning`s; assessed in ISS-017.
+- **Status:** Completed (verified; reproduces run A)
+
+### EXP-004: Anomaly screening, run 2 (reproduction of EXP-002)
+- **Date:** 2026-10-23 21:01Z – 21:29Z (UTC) · **Run:** `reports/runs/anomaly-20261023T210159Z-73d3e703/`
+- **Provenance:** executed inside `notebooks/04_anomaly_analysis.ipynb`. Clean tree at `debc531` at start and end, with no code change during the run. 12 artifacts verified.
+- **Comparison with anomaly run 1:** all 7 result tables are **exactly equal**, including `anomaly_scores.csv` (all daily scores) and all 80 shock runs. The same 6 warnings were counted (5 ConvergenceWarning, 1 All-NaN).
+- **Independent verification:** `verify_anomaly`, 46 checks, 0 problems (the full 368-check verification ran on run 1, whose outputs are identical).
+- **Status:** Completed (verified; reproduces run 1)

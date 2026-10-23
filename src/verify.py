@@ -83,7 +83,7 @@ def stage_dataset_rebuild(cfg) -> Result:
     sha = hashlib.sha256(rebuilt).hexdigest()
     same_bytes = rebuilt == (recorded_dir / f"cropcast_analysis_{version}.csv").read_bytes()
     ok = sha == meta["csv_sha256"] and same_bytes
-    return ok, f"rebuilt SHA-256 {sha[:16]}…, recorded {meta['csv_sha256'][:16]}…, byte-identical={same_bytes}"
+    return ok, f"rebuilt SHA-256 {sha[:16]}..., recorded {meta['csv_sha256'][:16]}..., byte-identical={same_bytes}"
 
 
 def stage_unit_tests(cfg) -> Result:
@@ -111,9 +111,18 @@ def stage_anomaly(cfg, full: bool = False) -> Result:
     return p.returncode == 0, f"{out.get('checks', 0)} checks; problems: {out['problems'] or 'none'}"
 
 
+REPORTS_WITH_TABLES = ("reports/final_report.md", "reports/experiment_results.md", "reports/anomaly_analysis.md")
+
+
 def stage_report_tables(cfg) -> Result:
-    p = _run(["-m", "src.reporting.report_tables", "--check"])
-    return p.returncode == 0, p.stdout.strip() or p.stderr[-300:]
+    """Every document with generated tables must match the saved artifacts."""
+    details, ok = [], True
+    for doc in REPORTS_WITH_TABLES:
+        p = _run(["-m", "src.reporting.report_tables", "--check", "--report", doc])
+        ok &= p.returncode == 0
+        found = json.loads(p.stdout).get("tables_found", []) if p.stdout.strip().startswith("{") else []
+        details.append(f"{doc}: {len(found)} tables {'up to date' if p.returncode == 0 else 'OUT OF DATE'}")
+    return ok, "; ".join(details)
 
 
 def stage_notebooks(cfg) -> Result:

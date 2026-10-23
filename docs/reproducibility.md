@@ -76,7 +76,15 @@ Every per-model record in `reports/experiment_log.jsonl` carries the run ID and 
 
 ## 5. Evidence of reproducibility
 
-The run history is recorded in `docs/experiment_log.md` (EXP entries) and `reports/runs/`.
+The run history is recorded in `docs/experiment_log.md` (EXP-001 to EXP-004) and `reports/runs/`. Demonstrated on the development machine (Python 3.11.9, Windows 11):
+
+| Run pair | Provenance | Agreement under the §2/§3 rules |
+|---|---|---|
+| Forecasting run A (retrospective) vs run B (`debc531`, clean, no change during run) | Run A's executed code is **not recorded**; only its outputs are verified | 13/14 prediction columns bit-identical; random forest ≤ 2.34e-16 relative (ISS-012); metrics ≤ 1.0e-15; selection, verdicts and configuration hashes identical; AIC and validation tables equal at run A's 6-digit storage precision |
+| Anomaly run 1 (`cd56566`, one unrelated file added mid-run) vs run 2 (`debc531`, clean) | Both recorded | All 7 result tables exactly equal |
+| Dataset rebuilds | — | Byte-identical (SHA-256 `b5f21e02…`) on every rebuild, including inside notebook 01 |
+
+The machine-readable record is `reports/runs/reproducibility_comparison_A_vs_B.json` (`python -m src.reporting.compare_runs`). An interrupted attempt (`forecasting-20261023T200219Z-d206cfb6`) is marked `interrupted` and is never used (ISS-016).
 
 ## 6. Data access
 

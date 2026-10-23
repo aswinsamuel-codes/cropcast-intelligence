@@ -1,0 +1,142 @@
+series_id,method,date,score,modal_price,arrival_qty,weekday,class
+onion_maharashtra,residual,2017-03-30,3.5627670305057153,752.8461538461538,6241.0,Thursday,other
+onion_maharashtra,residual,2017-07-27,3.9688925980045737,953.7872340425532,20563.0,Thursday,other
+onion_maharashtra,residual,2017-07-28,4.256297297029755,1134.1714285714286,20496.0,Friday,other
+onion_maharashtra,residual,2017-12-01,-3.1772606721273275,2343.1724137931033,11632.0,Friday,other
+onion_maharashtra,residual,2018-02-02,-3.0807294093329696,1323.9666666666667,24032.0,Friday,other
+onion_maharashtra,residual,2018-04-14,3.7112080199604773,791.6666666666666,4073.0,Saturday,other
+onion_maharashtra,residual,2018-04-16,3.567809494498174,899.0909090909091,9339.0,Monday,Sunday/Monday (composition-prone)
+onion_maharashtra,residual,2018-04-17,-3.4586795800084587,619.7954545454545,22737.0,Tuesday,other
+onion_maharashtra,residual,2018-05-30,3.2733776649327826,729.1951219512196,21646.0,Wednesday,other
+onion_maharashtra,residual,2018-09-23,3.0272583213879543,892.1875,3541.0,Sunday,Sunday/Monday (composition-prone)
+onion_maharashtra,residual,2018-10-04,3.1991446914610937,1017.6326530612245,20882.0,Thursday,other
+onion_maharashtra,residual,2019-03-03,6.030845302062792,775.695652173913,7622.0,Sunday,Sunday/Monday (composition-prone)
+onion_maharashtra,residual,2019-09-19,3.0425625601344457,3422.76,19308.0,Thursday,other
+onion_maharashtra,residual,2019-10-22,3.592172199464744,2782.75,10004.0,Tuesday,other
+onion_maharashtra,residual,2020-05-22,3.4961351032812624,943.0333333333333,9773.0,Friday,other
+onion_maharashtra,residual,2020-08-15,3.5234786208225324,1121.5384615384614,3249.0,Saturday,other
+onion_maharashtra,residual,2020-08-18,4.52797755456788,1521.28125,6534.0,Tuesday,other
+onion_maharashtra,residual,2020-12-09,3.062480055043914,2542.625,10357.0,Wednesday,other
+onion_maharashtra,residual,2021-03-08,-3.087524870224183,1480.6290322580646,35299.0,Monday,Sunday/Monday (composition-prone)
+onion_maharashtra,residual,2021-10-04,3.325910323823064,2623.5283018867926,29945.0,Monday,Sunday/Monday (composition-prone)
+onion_maharashtra,residual,2022-01-26,-3.6480578038856573,1656.0,252.0,Wednesday,coverage anomaly (ISS-003 type)
+onion_maharashtra,residual,2022-02-27,-3.3486734274461085,1694.5714285714287,8204.0,Sunday,Sunday/Monday (composition-prone)
+onion_maharashtra,residual,2022-03-07,-3.293698831077991,1284.5094339622642,38983.0,Monday,Sunday/Monday (composition-prone)
+onion_maharashtra,residual,2022-04-03,3.603351006335397,1105.4545454545455,2513.0,Sunday,Sunday/Monday (composition-prone)
+onion_maharashtra,residual,2022-08-11,3.744394986331059,1247.3076923076924,15503.0,Thursday,other
+onion_maharashtra,residual,2022-12-19,3.38994092606287,1297.0422535211267,21827.0,Monday,Sunday/Monday (composition-prone)
+onion_maharashtra,robust,2017-03-30,3.8897960654818986,752.8461538461538,6241.0,Thursday,other
+onion_maharashtra,robust,2017-05-02,-3.1363721749813336,457.1111111111111,36012.0,Tuesday,other
+onion_maharashtra,robust,2017-07-27,3.7380018936106656,953.7872340425532,20563.0,Thursday,other
+onion_maharashtra,robust,2017-07-28,5.097203263914409,1134.1714285714286,20496.0,Friday,other
+onion_maharashtra,robust,2017-07-29,4.3457983783187135,1084.1290322580646,15865.0,Saturday,other
+onion_maharashtra,robust,2017-07-30,3.8048656265799483,1125.76,17695.0,Sunday,Sunday/Monday (composition-prone)
+onion_maharashtra,robust,2017-07-31,4.891631462208994,1189.439024390244,33987.0,Monday,Sunday/Monday (composition-prone)
+onion_maharashtra,robust,2017-08-01,4.632283069371323,1180.7954545454545,29837.0,Tuesday,other
+onion_maharashtra,robust,2017-08-02,5.066733556560711,1333.9782608695652,27048.0,Wednesday,other
+onion_maharashtra,robust,2017-08-03,6.733882718563004,1763.0851063829787,26671.0,Thursday,other
+onion_maharashtra,robust,2017-08-04,6.705730521719715,1881.7692307692307,30713.0,Friday,other
+onion_maharashtra,robust,2017-08-05,5.889688367210793,1841.5806451612902,23954.0,Saturday,other
+onion_maharashtra,robust,2017-08-06,5.139567855912018,1900.6190476190477,13330.0,Sunday,Sunday/Monday (composition-prone)
+onion_maharashtra,robust,2017-08-07,5.174747508351938,1854.8148148148148,13741.0,Monday,Sunday/Monday (composition-prone)
+onion_maharashtra,robust,2017-08-08,5.102513460311237,2012.9574468085107,27171.0,Tuesday,other
+onion_maharashtra,robust,2017-08-09,4.770567750225503,2134.2162162162163,21713.0,Wednesday,other
+onion_maharashtra,robust,2017-08-10,3.6253922608900835,1987.139534883721,31300.0,Thursday,other
+onion_maharashtra,robust,2018-02-02,-3.2652338495247037,1323.9666666666667,24032.0,Friday,other
+onion_maharashtra,robust,2018-10-16,3.4828195248409926,1468.2608695652175,15111.0,Tuesday,other
+onion_maharashtra,robust,2018-10-17,4.108354567412424,1639.65,14318.0,Wednesday,other
+onion_maharashtra,robust,2018-10-18,3.618207350429444,1550.6470588235295,6380.0,Thursday,other
+onion_maharashtra,robust,2018-10-19,3.4361391670067483,1500.6666666666667,9915.0,Friday,other
+onion_maharashtra,robust,2020-04-17,-3.0149680478113288,823.2105263157895,4343.0,Friday,other
+onion_maharashtra,robust,2020-04-22,-3.0826493460843927,750.0,150.0,Wednesday,coverage anomaly (ISS-003 type)
+onion_maharashtra,robust,2020-08-14,3.6559510372773962,924.9166666666666,17365.0,Friday,other
+onion_maharashtra,robust,2020-08-15,5.154555651099345,1121.5384615384614,3249.0,Saturday,other
+onion_maharashtra,robust,2020-08-16,3.030662958339652,923.7368421052631,6544.0,Sunday,Sunday/Monday (composition-prone)
+onion_maharashtra,robust,2020-08-17,4.229532308257263,1053.622641509434,28366.0,Monday,Sunday/Monday (composition-prone)
+onion_maharashtra,robust,2020-08-18,7.4378194971803815,1521.28125,6534.0,Tuesday,other
+onion_maharashtra,robust,2020-08-19,6.335758623458648,1420.1904761904761,19635.0,Wednesday,other
+onion_maharashtra,robust,2020-08-20,4.660544760867678,1302.2291666666667,34373.0,Thursday,other
+onion_maharashtra,robust,2020-08-21,3.290357607883928,1120.4545454545455,8566.0,Friday,other
+onion_maharashtra,robust,2020-08-22,3.407100397809261,1162.5,5571.0,Saturday,other
+onion_maharashtra,robust,2020-08-23,3.325760401188386,1176.578947368421,8506.0,Sunday,Sunday/Monday (composition-prone)
+onion_maharashtra,robust,2020-08-26,3.396968115010013,1355.05,14018.0,Wednesday,other
+onion_maharashtra,robust,2021-10-04,3.9906543543987616,2623.5283018867926,29945.0,Monday,Sunday/Monday (composition-prone)
+onion_maharashtra,robust,2021-10-05,3.218128406014709,2566.2127659574467,24467.0,Tuesday,other
+onion_maharashtra,robust,2022-03-07,-3.1083464915033803,1284.5094339622642,38983.0,Monday,Sunday/Monday (composition-prone)
+onion_maharashtra,composite,2017-03-30,4.41716390689006,752.8461538461538,6241.0,Thursday,other
+onion_maharashtra,composite,2017-07-27,4.229591494526185,953.7872340425532,20563.0,Thursday,other
+onion_maharashtra,composite,2017-07-28,4.921985416162972,1134.1714285714286,20496.0,Friday,other
+onion_maharashtra,composite,2017-08-03,4.2961674913526435,1763.0851063829787,26671.0,Thursday,other
+onion_maharashtra,composite,2017-08-04,3.56232691024263,1881.7692307692307,30713.0,Friday,other
+onion_maharashtra,composite,2018-02-02,-3.330920754937371,1323.9666666666667,24032.0,Friday,other
+onion_maharashtra,composite,2018-10-04,3.5144825120268455,1017.6326530612245,20882.0,Thursday,other
+onion_maharashtra,composite,2018-10-16,3.1997829224888967,1468.2608695652175,15111.0,Tuesday,other
+onion_maharashtra,composite,2018-10-17,3.227032888948765,1639.65,14318.0,Wednesday,other
+onion_maharashtra,composite,2019-03-03,5.118334463753115,775.695652173913,7622.0,Sunday,Sunday/Monday (composition-prone)
+onion_maharashtra,composite,2020-04-14,-3.4029180306095457,850.0,205.0,Tuesday,coverage anomaly (ISS-003 type)
+onion_maharashtra,composite,2020-04-17,-3.206379978967975,823.2105263157895,4343.0,Friday,other
+onion_maharashtra,composite,2020-08-12,3.0207918884030502,861.780487804878,16389.0,Wednesday,other
+onion_maharashtra,composite,2020-08-14,3.344349971268574,924.9166666666666,17365.0,Friday,other
+onion_maharashtra,composite,2020-08-15,5.364793285836977,1121.5384615384614,3249.0,Saturday,other
+onion_maharashtra,composite,2020-08-17,3.278039603247904,1053.622641509434,28366.0,Monday,Sunday/Monday (composition-prone)
+onion_maharashtra,composite,2020-08-18,7.276802502782822,1521.28125,6534.0,Tuesday,other
+onion_maharashtra,composite,2020-08-19,3.8034254922172663,1420.1904761904761,19635.0,Wednesday,other
+onion_maharashtra,composite,2021-03-08,-3.3939851353073807,1480.6290322580646,35299.0,Monday,Sunday/Monday (composition-prone)
+onion_maharashtra,composite,2021-10-04,4.486413985409304,2623.5283018867926,29945.0,Monday,Sunday/Monday (composition-prone)
+onion_maharashtra,composite,2022-01-26,-3.1177402593000068,1656.0,252.0,Wednesday,coverage anomaly (ISS-003 type)
+onion_maharashtra,composite,2022-03-07,-3.89589884234225,1284.5094339622642,38983.0,Monday,Sunday/Monday (composition-prone)
+onion_maharashtra,composite,2022-06-12,3.0223217320423417,1190.72,7797.0,Sunday,Sunday/Monday (composition-prone)
+potato_uttar_pradesh,residual,2017-05-31,-3.0520313501352145,483.34444444444443,61520.8,Wednesday,other
+potato_uttar_pradesh,residual,2017-06-07,3.21569732137887,547.0566037735849,26707.6,Wednesday,other
+potato_uttar_pradesh,residual,2017-06-11,-3.310173584610613,508.5657894736842,5610.1,Sunday,Sunday/Monday (composition-prone)
+potato_uttar_pradesh,residual,2017-07-24,3.171777243780884,575.8882978723404,20509.699999999997,Monday,Sunday/Monday (composition-prone)
+potato_uttar_pradesh,residual,2017-07-30,5.1127937095672085,610.1666666666666,9136.8,Sunday,Sunday/Monday (composition-prone)
+potato_uttar_pradesh,residual,2017-11-22,4.261010018256372,509.31168831168833,13375.0,Wednesday,other
+potato_uttar_pradesh,residual,2018-01-26,-3.196431375433099,465.84615384615387,8212.550000000003,Friday,other
+potato_uttar_pradesh,residual,2018-08-15,-6.872342035237914,1131.3703703703704,3789.7999999999997,Wednesday,other
+potato_uttar_pradesh,residual,2018-11-07,-4.596779042410559,1137.3039215686274,8711.5,Wednesday,other
+potato_uttar_pradesh,residual,2019-03-09,4.282005838076387,590.5464480874317,20243.26,Saturday,other
+potato_uttar_pradesh,residual,2019-06-30,-3.287978841910284,770.8796296296297,11430.400000000005,Sunday,Sunday/Monday (composition-prone)
+potato_uttar_pradesh,residual,2019-08-15,-6.087008184455957,760.6271186440678,2937.6199999999994,Thursday,other
+potato_uttar_pradesh,residual,2019-10-26,3.251928827170454,914.1212121212121,14829.3,Saturday,other
+potato_uttar_pradesh,residual,2019-10-27,-3.5729855058769164,814.5967741935484,2642.6000000000004,Sunday,Sunday/Monday (composition-prone)
+potato_uttar_pradesh,residual,2019-12-22,-3.2198173245063155,1222.482142857143,5613.450000000001,Sunday,Sunday/Monday (composition-prone)
+potato_uttar_pradesh,residual,2020-01-26,-3.5579145546490447,1086.2987012987012,4321.139999999999,Sunday,Sunday/Monday (composition-prone)
+potato_uttar_pradesh,residual,2020-03-10,-15.746317480168893,1006.2307692307693,1246.8999999999999,Tuesday,coverage anomaly (ISS-003 type)
+potato_uttar_pradesh,residual,2020-03-22,-3.4247878996083463,1078.6296296296296,476.79999999999995,Sunday,coverage anomaly (ISS-003 type)
+potato_uttar_pradesh,residual,2020-08-15,-3.2319956507576366,2026.7592592592594,1130.8,Saturday,coverage anomaly (ISS-003 type)
+potato_uttar_pradesh,residual,2020-12-03,-3.269368300852263,2852.38202247191,7834.750000000001,Thursday,other
+potato_uttar_pradesh,residual,2020-12-04,-3.8879569903650983,2739.061855670103,9882.83,Friday,other
+potato_uttar_pradesh,residual,2020-12-05,-3.5693515403475033,2600.6544502617803,13035.639999999998,Saturday,other
+potato_uttar_pradesh,residual,2020-12-06,-3.7989719478373605,2358.4913793103447,3997.2300000000005,Sunday,Sunday/Monday (composition-prone)
+potato_uttar_pradesh,residual,2021-03-29,-3.6405587003057187,682.8260869565217,851.3,Monday,coverage anomaly (ISS-003 type)
+potato_uttar_pradesh,residual,2021-07-17,3.6100442269575606,1026.7383720930231,10314.330000000002,Saturday,other
+potato_uttar_pradesh,residual,2021-10-24,3.484765059129944,1093.7722772277227,4186.529999999999,Sunday,Sunday/Monday (composition-prone)
+potato_uttar_pradesh,residual,2021-10-31,-3.4223109838075727,1226.090909090909,4479.099999999999,Sunday,Sunday/Monday (composition-prone)
+potato_uttar_pradesh,residual,2022-07-02,-4.055785986313766,1217.6129032258063,1437.93,Saturday,coverage anomaly (ISS-003 type)
+potato_uttar_pradesh,composite,2017-05-31,-3.1024125401410236,483.34444444444443,61520.8,Wednesday,other
+potato_uttar_pradesh,composite,2017-06-07,3.4716486841101424,547.0566037735849,26707.6,Wednesday,other
+potato_uttar_pradesh,composite,2017-07-30,4.282640451357163,610.1666666666666,9136.8,Sunday,Sunday/Monday (composition-prone)
+potato_uttar_pradesh,composite,2017-11-22,3.797124435565703,509.31168831168833,13375.0,Wednesday,other
+potato_uttar_pradesh,composite,2018-01-26,-3.870564968970528,465.84615384615387,8212.550000000003,Friday,other
+potato_uttar_pradesh,composite,2018-08-15,-7.4794839651437135,1131.3703703703704,3789.7999999999997,Wednesday,other
+potato_uttar_pradesh,composite,2018-11-07,-5.236616775851096,1137.3039215686274,8711.5,Wednesday,other
+potato_uttar_pradesh,composite,2018-11-08,-3.328876393538807,1123.1182795698924,7521.900000000001,Thursday,other
+potato_uttar_pradesh,composite,2019-03-09,3.8800339524707157,590.5464480874317,20243.26,Saturday,other
+potato_uttar_pradesh,composite,2019-08-15,-6.186020403933101,760.6271186440678,2937.6199999999994,Thursday,other
+potato_uttar_pradesh,composite,2019-10-27,-3.2460796835918635,814.5967741935484,2642.6000000000004,Sunday,Sunday/Monday (composition-prone)
+potato_uttar_pradesh,composite,2020-01-26,-3.4369545815080578,1086.2987012987012,4321.139999999999,Sunday,Sunday/Monday (composition-prone)
+potato_uttar_pradesh,composite,2020-03-10,-13.359944300681445,1006.2307692307693,1246.8999999999999,Tuesday,coverage anomaly (ISS-003 type)
+potato_uttar_pradesh,composite,2020-08-15,-3.3125314782644932,2026.7592592592594,1130.8,Saturday,coverage anomaly (ISS-003 type)
+potato_uttar_pradesh,composite,2020-12-03,-3.41506640659663,2852.38202247191,7834.750000000001,Thursday,other
+potato_uttar_pradesh,composite,2020-12-04,-4.154960775067451,2739.061855670103,9882.83,Friday,other
+potato_uttar_pradesh,composite,2020-12-05,-4.2168585976378115,2600.6544502617803,13035.639999999998,Saturday,other
+potato_uttar_pradesh,composite,2020-12-06,-4.804439581786125,2358.4913793103447,3997.2300000000005,Sunday,Sunday/Monday (composition-prone)
+potato_uttar_pradesh,composite,2020-12-07,-3.9039149508522946,2294.1405405405403,13255.740000000002,Monday,Sunday/Monday (composition-prone)
+potato_uttar_pradesh,composite,2020-12-08,-3.1787220629233612,2213.359281437126,10732.49,Tuesday,other
+potato_uttar_pradesh,composite,2021-03-29,-3.134720772195789,682.8260869565217,851.3,Monday,coverage anomaly (ISS-003 type)
+potato_uttar_pradesh,composite,2021-08-28,-4.590806478413539,979.047619047619,6980.629999999999,Saturday,other
+potato_uttar_pradesh,composite,2021-10-24,4.054939458005125,1093.7722772277227,4186.529999999999,Sunday,Sunday/Monday (composition-prone)
+potato_uttar_pradesh,composite,2021-10-26,3.601988276046893,1172.0149253731342,9539.490000000002,Tuesday,other
+potato_uttar_pradesh,composite,2021-10-27,3.928174681467512,1215.5988372093022,12409.73,Wednesday,other
+potato_uttar_pradesh,composite,2022-07-02,-3.3239901591756875,1217.6129032258063,1437.93,Saturday,coverage anomaly (ISS-003 type)

@@ -55,6 +55,50 @@ class TestRender(unittest.TestCase):
         self.assertTrue(runs and runs[0].bold)
 
 
+class TestRendererRegressions(unittest.TestCase):
+    """Bugs found while inspecting the rendered report; each test fails on the earlier renderer."""
+
+    def setUp(self):
+        self.dir = Path(tempfile.mkdtemp())
+        (self.dir / "r.md").write_text(
+            "# T\n\n## 1. A\n\n1. first\n2. second\n\nText.\n\n1. again\n\n- outer\n  - inner\n\n"
+            "```\npython -m src.verify\n```\n\n"
+            "| Label | A long descriptive column with many words | MAPE % | F1 |\n|---|---|---|---|\n"
+            "| x | some fairly long text that can wrap between words easily | 4.01 | 0.025 |\n",
+            encoding="utf-8")
+        self.doc = Document(str(render(self.dir / "r.md", self.dir / "r.docx")))
+        self.texts = [p.text for p in self.doc.paragraphs]
+
+    def test_numbered_lists_restart(self):
+        self.assertIn("1.\tfirst", self.texts)
+        self.assertIn("1.\tagain", self.texts)
+
+    def test_nested_bullet_uses_level_two_style(self):
+        inner = [p for p in self.doc.paragraphs if p.text == "inner"][0]
+        self.assertEqual(inner.style.name, "List Bullet 2")
+
+    def test_code_fence_rendered_as_code_not_text(self):
+        self.assertNotIn("```", "\n".join(self.texts))
+        code = [p for p in self.doc.paragraphs if p.text == "python -m src.verify"][0]
+        self.assertEqual(code.runs[0].font.name, "Consolas")
+
+    def test_table_grid_widths_are_set_and_numbers_fit(self):
+        from docx.oxml.ns import qn
+        from src.reporting.build_report import CELL_PAD_IN, CHAR_IN
+        t = self.doc.tables[0]
+        grid = [int(g.get(qn("w:w"))) / 1440 for g in t._tbl.tblGrid.findall(qn("w:gridCol"))]
+        self.assertGreater(max(grid) - min(grid), 0.5)            # not the equal default
+        self.assertAlmostEqual(sum(grid), 6.5, places=2)          # fills the text width
+        self.assertGreaterEqual(grid[3], 5 * CHAR_IN + CELL_PAD_IN - 1e-3)  # "0.025" fits
+        self.assertGreaterEqual(grid[2], 4 * CHAR_IN * 1.4 + CELL_PAD_IN - 1e-3)  # "MAPE" header fits
+
+    def test_heading_style_has_no_theme_font(self):
+        from docx.oxml.ns import qn
+        rfonts = self.doc.styles["Heading 1"].element.rPr.rFonts
+        self.assertIsNone(rfonts.get(qn("w:asciiTheme")))
+        self.assertEqual(rfonts.get(qn("w:ascii")), "Times New Roman")
+
+
 class TestReportTables(unittest.TestCase):
     """Result tables are generated from saved artifacts; empty placeholders and NaN must be handled."""
 
@@ -76,6 +120,22 @@ class TestReportTables(unittest.TestCase):
         self.assertEqual(cells[4], "—")       # precision undefined, not 0
         self.assertEqual(cells[5], "0.000")   # recall genuinely zero
         self.assertEqual(refresh(out, self.tables), out)  # idempotent
+
+    def test_zero_detection_rows_are_shown(self):
+        import pandas as pd
+        from src.reporting.report_tables import table_anomaly_classes
+        pd.DataFrame([{"series_id": sid, "method": m, "Sunday/Monday (composition-prone)": 1, "other": 1}
+                      for sid in ("onion_maharashtra", "potato_uttar_pradesh") for m in ("residual", "robust", "composite")
+                      if not (sid == "potato_uttar_pradesh" and m == "robust")]
+                     ).to_csv(self.tables / "anomaly_event_classes.csv", index=False)
+        pd.DataFrame([{"series_id": sid, "method": m, "threshold": 3.0, "scored_days": 100,
+                       "detections": 0 if (sid == "potato_uttar_pradesh" and m == "robust") else 2,
+                       "rate_pct": 0.0 if (sid == "potato_uttar_pradesh" and m == "robust") else 2.0}
+                      for sid in ("onion_maharashtra", "potato_uttar_pradesh") for m in ("residual", "robust", "composite")]
+                     ).to_csv(self.tables / "anomaly_threshold_sensitivity.csv", index=False)
+        out = table_anomaly_classes(self.tables)
+        self.assertIn("| Potato | Robust | 100 | 0 (0.00%) | 0 | 0 |", out)
+        self.assertEqual(len([l for l in out.splitlines() if l.startswith(("| Onion", "| Potato"))]), 6)
 
     def test_check_fails_without_markers(self):
         import subprocess

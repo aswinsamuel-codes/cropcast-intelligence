@@ -8,10 +8,22 @@ All notable changes to the CropCast project are recorded here in reverse-chronol
 
 ## [Unreleased]
 
-### Planned
-- M-4 forecasting protocol, M-5 forecasting experiments, M-6 anomaly screening, M-7 final report (end-to-end authorisation, 2026-10-23).
-
 ### Completed
+- M-4 to M-7 and reproducibility (2026-10-24)
+  - **Forecasting:**
+    - Protocol v1.1.
+    - Runs A (retrospective) and B (clean, from `debc531`), independently verified.
+    - Onion: no model beats naive. Potato: all five improve (random forest −26.3% MAE), mostly through weekly composition (exploratory).
+  - **Anomaly screening:**
+    - Two runs, exactly equal; 368 independent checks.
+    - ICTD weak labels are uninformative.
+    - The potato robust score made zero detections (ISS-015).
+  - **Reproducibility:**
+    - Run manifests with a code fingerprint at start and end, and an `interrupted` status.
+    - `src/verify.py`, independent verifiers, `compare_runs`, convergence diagnostics.
+    - Synthetic end-to-end fixture test.
+  - **Fixes:** ISS-011 to ISS-018 (warning handling, random-forest determinism, table precision, convergence assessment, interrupted run, renderer defects).
+  - **Final report:** DOCX/PDF from `reports/final_report.md`, with generated tables; executed notebooks.
 - Milestone 3: Exploratory Data Analysis (2026-10-23)
   - `src/analysis/eda.py`, `reports/eda_report.md`, 12 figures in `figures/`, tables in `reports/tables/`.
   - Key findings: weekly composition effect; ISS-002 reporting regime (2016 – Apr 2017); ISS-003 partial-reporting evidence; potato price–arrival ρ = −0.60.

@@ -19,16 +19,17 @@ Data credit: CEDA Agri Market Data, Centre for Economic Data and Analysis (CEDA)
 
 ## 2. Real-data screening (Req 6.5 ablation)
 
-**Table A1.** Detections at |score| > 3, classified by data-quality context.
+**Table A1.** Detections at |score| > 3, classified by data-quality context. Sun/Mon = composition-prone Sunday or Monday; Coverage = arrivals below 10% of the median (ISS-003 type).
 
 <!-- BEGIN TABLE:anomaly_classes -->
-| Series | Score | Scored days | Detections | Sunday/Monday (composition-prone) | coverage anomaly (ISS-003 type) | other |
+| Series | Score | Scored days | Detections | Sun/Mon | Coverage | Other |
 |---|---|---|---|---|---|---|
-| Onion (MH) | Composite | 2077 | 23 (1.11%) | 6 | 2 | 15 |
-| Onion (MH) | Residual z-score | 2077 | 26 (1.25%) | 9 | 1 | 16 |
-| Onion (MH) | Robust weekday-adjusted | 2077 | 38 (1.83%) | 9 | 1 | 28 |
-| Potato (UP) | Composite | 2111 | 26 (1.23%) | 6 | 4 | 16 |
-| Potato (UP) | Residual z-score | 2111 | 28 (1.33%) | 10 | 5 | 13 |
+| Onion | Residual | 2077 | 26 (1.25%) | 9 | 1 | 16 |
+| Onion | Robust | 2077 | 38 (1.83%) | 9 | 1 | 28 |
+| Onion | Composite | 2077 | 23 (1.11%) | 6 | 2 | 15 |
+| Potato | Residual | 2111 | 28 (1.33%) | 10 | 5 | 13 |
+| Potato | Robust | 2111 | 0 (0.00%) | 0 | 0 | 0 |
+| Potato | Composite | 2111 | 26 (1.23%) | 6 | 4 | 16 |
 <!-- END TABLE:anomaly_classes -->
 
 **Classes.**
@@ -47,17 +48,17 @@ Data credit: CEDA Agri Market Data, Centre for Economic Data and Analysis (CEDA)
 
 ## 3. Agreement with ICTD-IITD weak labels (Req 6.6; not ground truth)
 
-**Table A2.** Agreement with ICTD windows (any of the three rule flags set to "Anomaly"; mandi-level; same Agmarknet source). Null precision is the median precision under 1,000 circular shifts of the detection sequence.
+**Table A2.** Agreement with ICTD windows (any of the three rule flags set to "Anomaly"; mandi-level; same Agmarknet source). Label rate = share of evaluated days inside a labelled window; Null precision = median precision under 1,000 circular shifts of the detection sequence; Rand. p = randomisation p-value.
 
 <!-- BEGIN TABLE:anomaly_weak -->
-| Series | Score | Evaluated days | Label base rate | Precision | Recall | F1 | Null precision (median) | Randomisation p |
+| Series | Score | Days | Label rate | Precision | Recall | F1 | Null precision | Rand. p |
 |---|---|---|---|---|---|---|---|---|
-| Onion (MH) | Residual z-score | 1484 | 0.586 | 0.579 | 0.013 | 0.025 | 0.579 | 0.613 |
-| Onion (MH) | Robust weekday-adjusted | 1484 | 0.586 | 0.200 | 0.008 | 0.015 | 0.629 | 0.900 |
-| Onion (MH) | Composite | 1484 | 0.586 | 0.316 | 0.007 | 0.014 | 0.632 | 0.918 |
-| Potato (UP) | Residual z-score | 1742 | 0.716 | 0.741 | 0.016 | 0.031 | 0.704 | 0.465 |
-| Potato (UP) | Robust weekday-adjusted | 1742 | 0.716 | — | 0.000 | 0.000 | — | — |
-| Potato (UP) | Composite | 1742 | 0.716 | 0.680 | 0.014 | 0.027 | 0.720 | 0.686 |
+| Onion | Residual | 1484 | 0.586 | 0.579 | 0.013 | 0.025 | 0.579 | 0.613 |
+| Onion | Robust | 1484 | 0.586 | 0.200 | 0.008 | 0.015 | 0.629 | 0.900 |
+| Onion | Composite | 1484 | 0.586 | 0.316 | 0.007 | 0.014 | 0.632 | 0.918 |
+| Potato | Residual | 1742 | 0.716 | 0.741 | 0.016 | 0.031 | 0.704 | 0.465 |
+| Potato | Robust | 1742 | 0.716 | — | 0.000 | 0.000 | — | — |
+| Potato | Composite | 1742 | 0.716 | 0.680 | 0.014 | 0.027 | 0.720 | 0.686 |
 <!-- END TABLE:anomaly_weak -->
 
 **Interpretation.** The weak labels are **uninformative for evaluating a state-level screen**:
@@ -78,26 +79,17 @@ These numbers neither support nor refute the screen. Weak-label agreement is **n
 **Table A3.** Mean shock recall (share of injected shock days flagged) and mean false-positive rate.
 
 <!-- BEGIN TABLE:anomaly_shocks -->
-| Series | Shock | Residual z-score | Robust weekday-adjusted | Composite |
-|---|---|---|---|---|
-| Onion (MH) | -50% | 1.00 | 0.40 | 1.00 |
-| Onion (MH) | -30% | 0.97 | 0.10 | 0.87 |
-| Onion (MH) | -20% | 0.73 | 0.07 | 0.53 |
-| Onion (MH) | -10% | 0.10 | 0.03 | 0.07 |
-| Onion (MH) | +10% | 0.10 | 0.00 | 0.03 |
-| Onion (MH) | +20% | 0.53 | 0.17 | 0.53 |
-| Onion (MH) | +30% | 0.87 | 0.03 | 0.67 |
-| Onion (MH) | +50% | 1.00 | 0.30 | 0.97 |
-| Potato (UP) | -50% | 1.00 | 0.77 | 1.00 |
-| Potato (UP) | -30% | 1.00 | 0.50 | 1.00 |
-| Potato (UP) | -20% | 1.00 | 0.27 | 1.00 |
-| Potato (UP) | -10% | 1.00 | 0.27 | 1.00 |
-| Potato (UP) | +10% | 1.00 | 0.17 | 1.00 |
-| Potato (UP) | +20% | 1.00 | 0.20 | 1.00 |
-| Potato (UP) | +30% | 1.00 | 0.40 | 1.00 |
-| Potato (UP) | +50% | 1.00 | 0.50 | 1.00 |
-| Onion (MH) | False-positive rate (clean days) | 0.98% | 0.48% | 0.51% |
-| Potato (UP) | False-positive rate (clean days) | 0.22% | 0.01% | 0.45% |
+| Shock | Onion Res | Onion Rob | Onion Com | Potato Res | Potato Rob | Potato Com |
+|---|---|---|---|---|---|---|
+| -50% | 1.00 | 0.40 | 1.00 | 1.00 | 0.77 | 1.00 |
+| -30% | 0.97 | 0.10 | 0.87 | 1.00 | 0.50 | 1.00 |
+| -20% | 0.73 | 0.07 | 0.53 | 1.00 | 0.27 | 1.00 |
+| -10% | 0.10 | 0.03 | 0.07 | 1.00 | 0.27 | 1.00 |
+| +10% | 0.10 | 0.00 | 0.03 | 1.00 | 0.17 | 1.00 |
+| +20% | 0.53 | 0.17 | 0.53 | 1.00 | 0.20 | 1.00 |
+| +30% | 0.87 | 0.03 | 0.67 | 1.00 | 0.40 | 1.00 |
+| +50% | 1.00 | 0.30 | 0.97 | 1.00 | 0.50 | 1.00 |
+| FPR (clean days) | 0.98% | 0.48% | 0.51% | 0.22% | 0.01% | 0.45% |
 <!-- END TABLE:anomaly_shocks -->
 
 **Findings.**

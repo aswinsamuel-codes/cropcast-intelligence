@@ -18,10 +18,10 @@ This file records planned, in-progress, completed, and blocked milestones with e
 | M-1 | Research and Dataset Feasibility        | Completed   | Phase 1            |
 | M-2 | Data Acquisition and Preparation        | Completed   | Phase 2            |
 | M-3 | Exploratory Data Analysis               | Completed   | Phase 3            |
-| M-4 | Forecasting Protocol and Baselines      | Planned     | Phase 4            |
-| M-5 | Forecasting Experiments                 | Planned     | Phase 5            |
-| M-6 | Anomaly Detection                       | Planned     | Phase 6            |
-| M-7 | Final Analysis and Academic Report      | Planned     | Phase 7            |
+| M-4 | Forecasting Protocol and Baselines      | Completed   | Phase 4            |
+| M-5 | Forecasting Experiments                 | Completed   | Phase 5            |
+| M-6 | Anomaly Detection                       | Completed   | Phase 6            |
+| M-7 | Final Analysis and Academic Report      | Completed   | Phase 7            |
 
 ---
 
@@ -288,3 +288,25 @@ This file records planned, in-progress, completed, and blocked milestones with e
 
 ### Prerequisite
 - M-6 completed and all experimental findings finalized.
+
+
+---
+
+## M-4 to M-7: Forecasting, Anomaly Screening, Final Report and Reproducibility (completed 2026-10-24)
+
+**Evidence:**
+- **M-4:** `docs/forecasting_protocol.md` v1.1 and `docs/anomaly_protocol.md` v1.0, both fixed before any result (DEC-020, DEC-021).
+- **M-5:** EXP-001 (run A) and EXP-003 (run B); `reports/experiment_results.md`. Independently verified with 0 problems, and run A and run B agree (`reports/runs/reproducibility_comparison_A_vs_B.json`).
+- **M-6:** EXP-002 and EXP-004; `reports/anomaly_analysis.md`. 368 independent checks with 0 problems, and the two runs are exactly equal.
+- **M-7:** `reports/final_report.md`, rendered to `.docx` and `.pdf` (14 pages; body about 10 pages), with tables generated from saved results and a traceability appendix.
+- **Notebooks:** all four executed (01 and 02 from `b7d38d6`; 03 and 04 from `debc531`), with no error outputs.
+- **Verification:** `python -m src.verify`, with results recorded in the final handover.
+
+**Deviations:**
+- Peer-market requirements are not applicable (DEC-017).
+- Validation refits every 7 steps (DEC-020).
+- Causal standardisation in the anomaly scores (DEC-021).
+- Run A has only a retrospective record.
+- Run B's first attempt was interrupted (ISS-016).
+
+**Open limitations:** ISS-002 (cause unknown), ISS-003 (hypothesis), ISS-014, ISS-015 and ISS-017 (assessed), and the untested effect of validation-stage non-convergence on SARIMA order selection.

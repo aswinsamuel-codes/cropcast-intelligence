@@ -1,0 +1,176 @@
+{
+ "forecasting": {
+  "problems": [],
+  "predictions": {
+   "onion_maharashtra/decision_tree": {
+    "exact": true,
+    "max_rel_diff": 0.0
+   },
+   "onion_maharashtra/ets": {
+    "exact": true,
+    "max_rel_diff": 0.0
+   },
+   "onion_maharashtra/linear_regression": {
+    "exact": true,
+    "max_rel_diff": 0.0
+   },
+   "onion_maharashtra/naive": {
+    "exact": true,
+    "max_rel_diff": 0.0
+   },
+   "onion_maharashtra/random_forest": {
+    "exact": false,
+    "max_rel_diff": 2.3399723760837717e-16
+   },
+   "onion_maharashtra/sarima": {
+    "exact": true,
+    "max_rel_diff": 0.0
+   },
+   "onion_maharashtra/seasonal_naive": {
+    "exact": true,
+    "max_rel_diff": 0.0
+   },
+   "potato_uttar_pradesh/decision_tree": {
+    "exact": true,
+    "max_rel_diff": 0.0
+   },
+   "potato_uttar_pradesh/ets": {
+    "exact": true,
+    "max_rel_diff": 0.0
+   },
+   "potato_uttar_pradesh/linear_regression": {
+    "exact": true,
+    "max_rel_diff": 0.0
+   },
+   "potato_uttar_pradesh/naive": {
+    "exact": true,
+    "max_rel_diff": 0.0
+   },
+   "potato_uttar_pradesh/random_forest": {
+    "exact": true,
+    "max_rel_diff": 0.0
+   },
+   "potato_uttar_pradesh/sarima": {
+    "exact": true,
+    "max_rel_diff": 0.0
+   },
+   "potato_uttar_pradesh/seasonal_naive": {
+    "exact": true,
+    "max_rel_diff": 0.0
+   }
+  },
+  "metrics": {
+   "onion_maharashtra/decision_tree/mae": 0.0,
+   "onion_maharashtra/ets/mae": 0.0,
+   "onion_maharashtra/linear_regression/mae": 0.0,
+   "onion_maharashtra/naive/mae": 0.0,
+   "onion_maharashtra/random_forest/mae": 0.0,
+   "onion_maharashtra/sarima/mae": 0.0,
+   "onion_maharashtra/seasonal_naive/mae": 0.0,
+   "potato_uttar_pradesh/decision_tree/mae": 0.0,
+   "potato_uttar_pradesh/ets/mae": 0.0,
+   "potato_uttar_pradesh/linear_regression/mae": 0.0,
+   "potato_uttar_pradesh/naive/mae": 0.0,
+   "potato_uttar_pradesh/random_forest/mae": 0.0,
+   "potato_uttar_pradesh/sarima/mae": 0.0,
+   "potato_uttar_pradesh/seasonal_naive/mae": 0.0,
+   "onion_maharashtra/decision_tree/rmse": 0.0,
+   "onion_maharashtra/ets/rmse": 0.0,
+   "onion_maharashtra/linear_regression/rmse": 0.0,
+   "onion_maharashtra/naive/rmse": 0.0,
+   "onion_maharashtra/random_forest/rmse": 1.6264628915908497e-16,
+   "onion_maharashtra/sarima/rmse": 0.0,
+   "onion_maharashtra/seasonal_naive/rmse": 0.0,
+   "potato_uttar_pradesh/decision_tree/rmse": 0.0,
+   "potato_uttar_pradesh/ets/rmse": 0.0,
+   "potato_uttar_pradesh/linear_regression/rmse": 0.0,
+   "potato_uttar_pradesh/naive/rmse": 0.0,
+   "potato_uttar_pradesh/random_forest/rmse": 0.0,
+   "potato_uttar_pradesh/sarima/rmse": 0.0,
+   "potato_uttar_pradesh/seasonal_naive/rmse": 0.0,
+   "onion_maharashtra/decision_tree/mape_pct": 0.0,
+   "onion_maharashtra/ets/mape_pct": 0.0,
+   "onion_maharashtra/linear_regression/mape_pct": 0.0,
+   "onion_maharashtra/naive/mape_pct": 0.0,
+   "onion_maharashtra/random_forest/mape_pct": 0.0,
+   "onion_maharashtra/sarima/mape_pct": 0.0,
+   "onion_maharashtra/seasonal_naive/mape_pct": 0.0,
+   "potato_uttar_pradesh/decision_tree/mape_pct": 0.0,
+   "potato_uttar_pradesh/ets/mape_pct": 0.0,
+   "potato_uttar_pradesh/linear_regression/mape_pct": 0.0,
+   "potato_uttar_pradesh/naive/mape_pct": 0.0,
+   "potato_uttar_pradesh/random_forest/mape_pct": 0.0,
+   "potato_uttar_pradesh/sarima/mape_pct": 0.0,
+   "potato_uttar_pradesh/seasonal_naive/mape_pct": 0.0,
+   "onion_maharashtra/decision_tree/mase": 0.0,
+   "onion_maharashtra/ets/mase": 0.0,
+   "onion_maharashtra/linear_regression/mase": 0.0,
+   "onion_maharashtra/naive/mase": 0.0,
+   "onion_maharashtra/random_forest/mase": 0.0,
+   "onion_maharashtra/sarima/mase": 0.0,
+   "onion_maharashtra/seasonal_naive/mase": 0.0,
+   "potato_uttar_pradesh/decision_tree/mase": 0.0,
+   "potato_uttar_pradesh/ets/mase": 0.0,
+   "potato_uttar_pradesh/linear_regression/mase": 0.0,
+   "potato_uttar_pradesh/naive/mase": 0.0,
+   "potato_uttar_pradesh/random_forest/mase": 0.0,
+   "potato_uttar_pradesh/sarima/mase": 0.0,
+   "potato_uttar_pradesh/seasonal_naive/mase": 0.0,
+   "onion_maharashtra/decision_tree/dm_stat": 0.0,
+   "onion_maharashtra/ets/dm_stat": 0.0,
+   "onion_maharashtra/linear_regression/dm_stat": 0.0,
+   "onion_maharashtra/random_forest/dm_stat": 1.0181401684027996e-15,
+   "onion_maharashtra/sarima/dm_stat": 0.0,
+   "onion_maharashtra/seasonal_naive/dm_stat": 0.0,
+   "potato_uttar_pradesh/decision_tree/dm_stat": 0.0,
+   "potato_uttar_pradesh/ets/dm_stat": 0.0,
+   "potato_uttar_pradesh/linear_regression/dm_stat": 0.0,
+   "potato_uttar_pradesh/random_forest/dm_stat": 0.0,
+   "potato_uttar_pradesh/sarima/dm_stat": 0.0,
+   "potato_uttar_pradesh/seasonal_naive/dm_stat": 0.0,
+   "onion_maharashtra/decision_tree/p_value": 0.0,
+   "onion_maharashtra/ets/p_value": 0.0,
+   "onion_maharashtra/linear_regression/p_value": 0.0,
+   "onion_maharashtra/random_forest/p_value": 9.965291477516498e-16,
+   "onion_maharashtra/sarima/p_value": 0.0,
+   "onion_maharashtra/seasonal_naive/p_value": 0.0,
+   "potato_uttar_pradesh/decision_tree/p_value": 0.0,
+   "potato_uttar_pradesh/ets/p_value": 0.0,
+   "potato_uttar_pradesh/linear_regression/p_value": 0.0,
+   "potato_uttar_pradesh/random_forest/p_value": 0.0,
+   "potato_uttar_pradesh/sarima/p_value": 0.0,
+   "potato_uttar_pradesh/seasonal_naive/p_value": 0.0,
+   "onion_maharashtra/decision_tree/p_bh": 0.0,
+   "onion_maharashtra/ets/p_bh": 0.0,
+   "onion_maharashtra/linear_regression/p_bh": 0.0,
+   "onion_maharashtra/random_forest/p_bh": 9.134850521056789e-16,
+   "onion_maharashtra/sarima/p_bh": 0.0,
+   "onion_maharashtra/seasonal_naive/p_bh": 0.0,
+   "potato_uttar_pradesh/decision_tree/p_bh": 0.0,
+   "potato_uttar_pradesh/ets/p_bh": 0.0,
+   "potato_uttar_pradesh/linear_regression/p_bh": 0.0,
+   "potato_uttar_pradesh/random_forest/p_bh": 0.0,
+   "potato_uttar_pradesh/sarima/p_bh": 0.0,
+   "potato_uttar_pradesh/seasonal_naive/p_bh": 0.0
+  },
+  "tables": {
+   "forecast_sarima_aic.csv/aic": "equal",
+   "forecast_sarima_aic.csv/ljung_box_p_lag14": "equal",
+   "forecast_validation_results.csv/val_mae": "equal",
+   "forecast_validation_results.csv/val_rmse": "equal"
+  },
+  "max_metric_rel_diff": 1.0181401684027996e-15
+ },
+ "anomaly": {
+  "problems": [],
+  "tables": {
+   "anomaly_event_classes.csv": true,
+   "anomaly_events.csv": true,
+   "anomaly_scores.csv": true,
+   "anomaly_shock_recall.csv": true,
+   "anomaly_shock_runs.csv": true,
+   "anomaly_threshold_sensitivity.csv": true,
+   "anomaly_weak_label_agreement.csv": true
+  }
+ }
+}

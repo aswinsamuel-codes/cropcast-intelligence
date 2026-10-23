@@ -8,7 +8,7 @@
     },
     "scored_days": 2077,
     "first_scored_date": "2017-03-29",
-    "runtime_seconds": 680.1
+    "runtime_seconds": 806.9
   },
   "potato_uttar_pradesh": {
     "sarima_order": {
@@ -19,7 +19,7 @@
     },
     "scored_days": 2111,
     "first_scored_date": "2017-03-22",
-    "runtime_seconds": 797.3
+    "runtime_seconds": 823.4
   },
   "event_classes": {
     "onion_maharashtra|composite": {
