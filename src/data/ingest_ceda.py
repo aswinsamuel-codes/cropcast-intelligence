@@ -20,6 +20,7 @@ import hashlib
 import json
 import logging
 import os
+import shutil
 import sys
 import time
 import urllib.error
@@ -173,7 +174,12 @@ class CedaIngestionPipeline:
                 with open(self.config.manifest_path, "r", encoding="utf-8") as f:
                     return json.load(f)
             except Exception as e:
-                logger.warning("Corrupt manifest found, backing up and recreating: %s", str(e))
+                stamp = datetime.datetime.now(datetime.timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+                backup = self.config.manifest_path.with_name(
+                    f"{self.config.manifest_path.stem}.corrupt-{stamp}{self.config.manifest_path.suffix}"
+                )
+                shutil.copy2(self.config.manifest_path, backup)
+                logger.warning("Corrupt manifest backed up to %s; recreating: %s", backup, str(e))
         return {
             "manifest_version": "1.0",
             "created_at": datetime.datetime.now(datetime.timezone.utc).isoformat(),
@@ -282,9 +288,13 @@ class CedaIngestionPipeline:
                     pass
                 raise RuntimeError(f"HTTPError {e.code}: {err_body}") from e
 
-            except urllib.error.URLError as e:
+            except (urllib.error.URLError, TimeoutError, ConnectionError) as e:
+                # Read timeouts and dropped connections surface as TimeoutError / ConnectionError, not URLError
                 backoff = (2 ** attempt) * 2.0
-                logger.warning("Network URLError on attempt %d: %s. Retrying in %.1fs...", attempt, str(e), backoff)
+                logger.warning(
+                    "Network error (%s) on attempt %d: %s. Retrying in %.1fs...",
+                    type(e).__name__, attempt, str(e), backoff
+                )
                 time.sleep(backoff)
                 attempt += 1
             except json.JSONDecodeError as e:
@@ -516,14 +526,14 @@ class CedaIngestionPipeline:
                 with open(target_path, "rb") as f:
                     file_sha256 = hashlib.sha256(f.read()).hexdigest()
 
-                if manifest_chunk and manifest_chunk.get("status") == "completed":
-                    expected_sha = manifest_chunk.get("sha256")
-                    if expected_sha and file_sha256 != expected_sha:
-                        logger.warning(
-                            "Checksum mismatch for %s (found %s, expected %s). Re-fetching.",
-                            filename, file_sha256[:8], expected_sha[:8]
-                        )
-                        raise ValueError(f"Checksum mismatch for {filename}")
+                expected_sha = manifest_chunk.get("sha256") if manifest_chunk else None
+                if expected_sha and file_sha256 != expected_sha:
+                    logger.warning(
+                        "Checksum mismatch for %s (found %s, expected %s). Re-fetching.",
+                        filename, file_sha256[:8], expected_sha[:8]
+                    )
+                    raise ValueError(f"Checksum mismatch for {filename}")
+                checksum_verified = expected_sha is not None
 
                 # 2. Parse JSON and validate schema
                 with open(target_path, "r", encoding="utf-8") as f:
@@ -532,10 +542,17 @@ class CedaIngestionPipeline:
                 if isinstance(records, list):
                     val = self.validate_records(records, endpoint, series_id)
                     if not val.is_valid:
-                        logger.warning("Existing file %s failed schema validation. Re-fetching.", filename)
-                        raise ValueError(f"Schema validation failed for {filename}")
+                        if not checksum_verified:
+                            logger.warning("Existing file %s failed schema validation. Re-fetching.", filename)
+                            raise ValueError(f"Schema validation failed for {filename}")
+                        # File is byte-identical to what was downloaded: the violations are in the
+                        # source data, so re-fetching would only spend quota and overwrite raw data.
+                        logger.warning(
+                            "Checksum-verified chunk %s has source-data violations; keeping it (no re-fetch): %s",
+                            filename, val.validation_errors[:5]
+                        )
 
-                    logger.info("Found existing valid chunk %s on disk. Resuming from disk.", filename)
+                    logger.info("Found existing chunk %s on disk. Resuming from disk.", filename)
                     if manifest_chunk is None:
                         # Register in manifest
                         try:
@@ -547,7 +564,7 @@ class CedaIngestionPipeline:
                             "endpoint": endpoint,
                             "from_date": from_date,
                             "to_date": to_date,
-                            "status": "completed",
+                            "status": "completed" if records else "empty",
                             "record_count": len(records),
                             "file_path": stored_path,
                             "sha256": file_sha256,
@@ -580,6 +597,10 @@ class CedaIngestionPipeline:
         val = self.validate_records(records, endpoint, series_id)
         if not val.is_valid:
             logger.warning("Validation warnings for %s: %s", filename, val.validation_errors[:5])
+        if not records:
+            # Saved for provenance but never marked completed, so audits treat it as a failure
+            logger.warning("CEDA returned no records for %s (%s). Marking chunk as 'empty'.",
+                           filename, response.get("message", ""))
 
         # Save to disk atomically via temporary file
         content_to_save = {
@@ -616,7 +637,7 @@ class CedaIngestionPipeline:
             "endpoint": endpoint,
             "from_date": from_date,
             "to_date": to_date,
-            "status": "completed",
+            "status": "completed" if records else "empty",
             "record_count": len(records),
             "file_path": stored_path,
             "sha256": file_sha256,

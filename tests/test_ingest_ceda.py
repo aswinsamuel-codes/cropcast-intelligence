@@ -374,6 +374,54 @@ class TestCheckpointIntegrity(unittest.TestCase):
         # Pipeline init should not crash; it should back up / recreate clean manifest
         pipeline = CedaIngestionPipeline(self.config, api_key="dummy")
         self.assertEqual(pipeline.manifest["manifest_version"], "1.0")
+        backups = list(self.temp_dir.glob("manifest.corrupt-*.json"))
+        self.assertEqual(len(backups), 1)
+        self.assertEqual(backups[0].read_text(encoding="utf-8"), "{manifest_corrupt: false...")
+
+    def test_empty_response_marked_empty_and_not_refetched(self):
+        pipeline = CedaIngestionPipeline(self.config, api_key="dummy")
+        pipeline.make_request = MagicMock(return_value={"type": "empty", "message": "No data found", "data": []})
+
+        recs, path = pipeline.fetch_chunk("prices", "2021-01-01", "2021-01-05", "test_series")
+        entry = pipeline.manifest["series"]["test_series"]["chunks"][0]
+        self.assertEqual(recs, [])
+        self.assertTrue(path.exists())
+        self.assertEqual(entry["status"], "empty")
+        self.assertEqual(entry["record_count"], 0)
+
+        # Rerun resumes from disk and keeps the 'empty' status visible
+        pipeline.make_request.reset_mock()
+        pipeline.fetch_chunk("prices", "2021-01-01", "2021-01-05", "test_series")
+        self.assertEqual(pipeline.make_request.call_count, 0)
+        self.assertEqual(pipeline.manifest["series"]["test_series"]["chunks"][0]["status"], "empty")
+
+    def test_checksum_verified_source_violation_not_refetched(self):
+        pipeline = CedaIngestionPipeline(self.config, api_key="dummy")
+        bad = [dict(self.mock_data[0], min_price=3000.0, max_price=2000.0)]
+        pipeline.make_request = MagicMock(return_value={"type": "success", "data": bad})
+
+        _, path = pipeline.fetch_chunk("prices", "2021-01-01", "2021-01-05", "test_series")
+        original = path.read_bytes()
+        self.assertFalse(pipeline.manifest["series"]["test_series"]["chunks"][0]["is_valid"])
+
+        pipeline.make_request.reset_mock()
+        recs, _ = pipeline.fetch_chunk("prices", "2021-01-01", "2021-01-05", "test_series")
+        self.assertEqual(pipeline.make_request.call_count, 0)
+        self.assertEqual(recs, bad)
+        self.assertEqual(path.read_bytes(), original)
+
+    def test_unregistered_invalid_file_is_refetched(self):
+        # A file with no manifest entry cannot be checksum-verified, so invalid content is re-fetched
+        pipeline = CedaIngestionPipeline(self.config, api_key="dummy")
+        path = self.config.output_dir / "test_series" / "prices_2021-01-01_2021-01-05.json"
+        path.parent.mkdir(parents=True, exist_ok=True)
+        bad = [dict(self.mock_data[0], min_price=3000.0, max_price=2000.0)]
+        path.write_text(json.dumps({"data": bad}), encoding="utf-8")
+
+        pipeline.make_request = MagicMock(return_value={"type": "success", "data": self.mock_data})
+        recs, _ = pipeline.fetch_chunk("prices", "2021-01-01", "2021-01-05", "test_series")
+        self.assertEqual(pipeline.make_request.call_count, 1)
+        self.assertEqual(recs, self.mock_data)
 
 
 class TestRateLimitingAndRetries(unittest.TestCase):
@@ -454,6 +502,36 @@ class TestRateLimitingAndRetries(unittest.TestCase):
         mock_resp_success.__enter__.return_value = mock_resp_success
 
         mock_urlopen.side_effect = [err_500, mock_resp_success]
+
+        res = self.pipeline.make_request("http://mock", {})
+        self.assertEqual(res["type"], "success")
+        self.assertEqual(mock_urlopen.call_count, 2)
+        # First retry backs off (2 ** 1) * 2.0 = 4.0 seconds
+        mock_sleep.assert_any_call(4.0)
+
+    @patch("time.sleep")
+    @patch("urllib.request.urlopen")
+    def test_read_timeout_is_retried(self, mock_urlopen, mock_sleep):
+        mock_resp_success = MagicMock()
+        mock_resp_success.read.return_value = json.dumps({
+            "output": {"type": "success", "message": "OK", "data": []}
+        }).encode("utf-8")
+        mock_resp_success.__enter__.return_value = mock_resp_success
+
+        mock_urlopen.side_effect = [TimeoutError("The read operation timed out"), mock_resp_success]
+
+        res = self.pipeline.make_request("http://mock", {})
+        self.assertEqual(res["type"], "success")
+        self.assertEqual(mock_urlopen.call_count, 2)
+        mock_sleep.assert_any_call(4.0)
+
+    @patch("time.sleep")
+    @patch("urllib.request.urlopen")
+    def test_persistent_timeouts_exhaust_retries(self, mock_urlopen, mock_sleep):
+        mock_urlopen.side_effect = TimeoutError("The read operation timed out")
+        with self.assertRaises(RuntimeError):
+            self.pipeline.make_request("http://mock", {})
+        self.assertEqual(mock_urlopen.call_count, self.config.max_retries)
 
     @patch("time.sleep")
     @patch("urllib.request.urlopen")

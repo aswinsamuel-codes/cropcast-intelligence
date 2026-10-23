@@ -601,8 +601,33 @@ Note: Both onion and potato label files appear to START at 2016-01-01, not at 20
 - **Changes:**
   - `src/data/validate.py`: offline, read-only audit. For each approved series it checks expected chunks against the manifest, SHA-256 checksums, record counts, exact key sets, IDs, date format and chunk bounds, duplicates, nulls, non-numeric / non-finite / negative values, and `min_price > max_price` (all hard failures, exit code 1). It also checks that supplementary chunks such as the pilot agree with historical records (hard failure if not). It reports `modal_price` outside `[min_price, max_price]` as a warning, plus calendar gaps, price–quantity IoU and match rate, distribution statistics, the five smallest arrivals, and request spacing from manifest timestamps. No network access.
   - `src/data/ingest_ceda.py`: `ValidationSummary` gains `modal_bounds_warnings` and `warnings`. These never change `is_valid`, so chunks with flagged records are never re-fetched.
-  - Tests: 18 new tests in `tests/test_validate.py` (synthetic fixtures only) and 2 in `tests/test_ingest_ceda.py`. A null-value test exposed a crash in the first draft of the statistics code (it computed on unvalidated values); fixed before the real-data run.
+  - Tests: 16 new tests *(corrected from 18 in RES-013)* in `tests/test_validate.py` (synthetic fixtures only) and 2 in `tests/test_ingest_ceda.py`. A null-value test exposed a crash in the first draft of the statistics code (it computed on unvalidated values); fixed before the real-data run.
 - **Real-data run:** `python -m src.data.validate --output data/raw/m2_validation_audit.json` → `passed: true`, exit 0, 56 / 56 chunks, 0 hard failures, 1 warning (`potato_uttar_pradesh: 137 records with modal_price outside [min_price, max_price]`). Pilot chunks: 0 mismatches. Request timing: 92.4–97.6s spacing, peak 38 per rolling hour.
 - **Agreement with prior audit:** Every field shared with the legacy ad-hoc audit (kept locally as `data/raw/m2_validation_audit.legacy_adhoc.json`) is identical, including the 13 onion gap intervals. Every RES-011 figure is reproduced.
 - **Tests & hygiene:** 40 / 40 tests pass; `git diff --check` clean. ISS-006 notes that one pre-existing test asserts nothing.
 - **Status:** ISS-004 resolved. **M-2 signed off by researcher on 2026-10-23.** M-3 not started; it awaits an explicit start instruction.
+
+---
+
+### RES-013: Final M-2 Audit and Approved Remediation
+- **Date:** 2026-10-23
+- **Final audit (read-only):** Verdict PASS WITH ISSUES.
+  - The acquired data was re-verified file by file: 56 / 56 historical chunks, checksums, schemas, 0 conflicting duplicates (pilot overlaps are exact), and alignment IoU = 1.0 for both series.
+  - Synthetic probes showed the validators accepted empty, truncated and failed chunks (ISS-007), and the pipeline had the four defects in ISS-008. Documentation errors are listed in ISS-009.
+  - GitHub was unreachable (`Could not resolve host: github.com`), so the remote state was not verified; the local ref `origin/main` = `3879282`.
+- **Remediation (researcher-approved items 1–4):**
+  1. `src/data/validate.py`: hard failures for manifest entries not `completed` or not `is_valid`, and for empty expected chunks. Warnings for chunks with records on < 90% of their calendar days, zero values, and values beyond 100× of the field median.
+  2. `src/data/ingest_ceda.py`:
+     - Empty responses get `status: "empty"`.
+     - Checksum-verified chunks with source-data violations are kept rather than re-downloaded.
+     - `TimeoutError` / `ConnectionError` are retried.
+     - A corrupt manifest is backed up before recreation.
+  3. Documentation corrections (ISS-009) and `docs/environment.md`.
+  4. ISS-006 test completed.
+- **Tests:**
+  - Command: `python -m unittest discover -s tests`. Result: 51 run, 0 failures, 0 errors, 0 skipped.
+  - New: 6 validator and 5 pipeline tests; 2 existing tests extended.
+  - Against a scratch copy of the previous code, 10 of the 11 new tests and the extended corrupt-manifest test fail. The remaining new test guards kept behaviour.
+- **Real-data run:** `python -m src.data.validate` (stdout only; stored `data/raw/m2_validation_audit.json` not regenerated) gives `passed: true`, exit 0, 0 hard failures. Warnings: 137 UP Potato modal-bounds records (ISS-002, unchanged) and 10 Maharashtra Onion arrival values beyond 100× of the median (ISS-003). No manifest-status, empty-chunk or low-coverage findings; the lowest historical chunk coverage is 172 / 182 days (94.5%). Every metric field also present in the stored audit is unchanged.
+- **Not verified:** pushes to GitHub (network unavailable); the `task-775` run log (never retained).
+- **Status:** Remediation complete and uncommitted. M-3 not started.

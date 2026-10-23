@@ -7,12 +7,18 @@ modifies raw data.
 
 Hard failures (exit code 1):
 - Missing expected chunk files or manifest entries; SHA-256 mismatches.
+- Manifest entries whose status is not `completed` or whose `is_valid` is false.
+- Expected chunks containing zero records.
 - Schema problems: wrong key set, wrong IDs, bad dates, dates outside the chunk.
 - Duplicate dates, nulls, non-numeric / non-finite / negative values, min_price > max_price.
 - Supplementary chunks (e.g. the pilot) whose records disagree with the historical chunks.
 
 Warnings (reported, exit code unaffected):
 - modal_price outside [min_price, max_price] (ISS-002).
+- Expected chunks with records on fewer than LOW_COVERAGE_RATIO of their calendar days
+  (possible truncated response; legitimate reporting gaps also trigger this).
+- Zero values, and values below 1/EXTREME_VALUE_FACTOR or above EXTREME_VALUE_FACTOR times
+  the series median for that field. These are screening heuristics, not data rules.
 
 Usage:
     python -m src.data.validate --output data/raw/m2_validation_audit.json
@@ -25,6 +31,7 @@ import datetime
 import hashlib
 import json
 import math
+import statistics
 import sys
 from collections import Counter
 from pathlib import Path
@@ -44,6 +51,8 @@ VALUE_FIELDS = {
 }
 DATE_SUFFIX = "T00:00:00.000Z"
 SCHEMA_COUNTERS = ("schema_keyset", "id_mismatch", "bad_date_format", "date_outside_chunk")
+LOW_COVERAGE_RATIO = 0.9
+EXTREME_VALUE_FACTOR = 100.0
 
 
 def load_chunk_records(path: Path) -> List[Dict[str, Any]]:
@@ -111,6 +120,8 @@ def _check_record(
         elif v < 0:
             counts["negative"] += 1
         else:
+            if v == 0:
+                counts["zero"] += 1
             values[k] = float(v)
     if endpoint == "prices" and len(values) == 3:
         if values["min_price"] > values["max_price"]:
@@ -135,6 +146,13 @@ def audit_series(
     missing_files: List[str] = []
     checksum_failures: List[str] = []
     schema_failures: List[str] = []
+    manifest_status_failures: List[str] = [
+        f"{series_id}/{cid}: status={c.get('status')}, is_valid={c.get('is_valid')}"
+        for cid, c in sorted(manifest_chunks.items())
+        if c.get("status") != "completed" or c.get("is_valid") is not True
+    ]
+    empty_chunks: List[str] = []
+    low_coverage_chunks: List[List[Any]] = []
     counts: Counter = Counter()
     duplicates = {ep: 0 for ep in ENDPOINTS}
     records: Dict[str, Dict[datetime.date, Dict[str, Any]]] = {ep: {} for ep in ENDPOINTS}
@@ -157,6 +175,11 @@ def audit_series(
                 continue
             if entry.get("record_count") != len(recs):
                 schema_failures.append(f"{series_id}/{chunk_id}: manifest record_count != file")
+            span = (datetime.date.fromisoformat(b) - datetime.date.fromisoformat(a)).days + 1
+            if not recs:
+                empty_chunks.append(f"{series_id}/{chunk_id}")
+            elif len(recs) < LOW_COVERAGE_RATIO * span:
+                low_coverage_chunks.append([f"{series_id}/{chunk_id}", len(recs), span])
             before = sum(counts[k] for k in SCHEMA_COUNTERS)
             for rec in recs:
                 day = _check_record(rec, ep, commodity_id, state_id, a, b, counts)
@@ -207,6 +230,19 @@ def audit_series(
     clean_qty = {d: q for d, r in quantities.items() if (q := _numeric(r.get("quantity"))) is not None}
     qty = list(clean_qty.values())
 
+    # Screening heuristic relative to each field's own median; flags only, never filters
+    extreme_values: List[List[Any]] = []
+    for ep, field_names in VALUE_FIELDS.items():
+        for k in field_names:
+            vals = {d: v for d, r in records[ep].items() if (v := _numeric(r.get(k))) is not None}
+            if not vals:
+                continue
+            median = statistics.median(vals.values())
+            extreme_values += [
+                [k, v, d.isoformat()] for d, v in sorted(vals.items())
+                if v > 0 and (v < median / EXTREME_VALUE_FACTOR or v > median * EXTREME_VALUE_FACTOR)
+            ]
+
     return {
         "chunks_expected": len(expected_ids),
         "chunks_found": len(expected_ids) - len(missing_files),
@@ -215,7 +251,12 @@ def audit_series(
         "missing_files": missing_files,
         "checksum_failures": checksum_failures,
         "schema_failures": schema_failures,
+        "manifest_status_failures": manifest_status_failures,
+        "empty_chunks": empty_chunks,
+        "low_coverage_chunks": low_coverage_chunks,
         "record_failure_counts": dict(sorted(counts.items())),
+        "zero_values": counts["zero"],
+        "extreme_values": extreme_values,
         "price_records_count": len(prices),
         "quantity_records_count": len(quantities),
         "duplicate_price_keys": duplicates["prices"],
@@ -307,6 +348,7 @@ def run_audit(
 
     hard_failures = (
         collect("missing_files") + collect("checksum_failures") + collect("schema_failures")
+        + collect("manifest_status_failures") + [f"{c}: empty chunk" for c in collect("empty_chunks")]
         + collect("supplementary_mismatches")
         + [f"{sid}: {m['duplicate_price_keys'] + m['duplicate_quantity_keys']} duplicate keys"
            for sid, m in series_metrics.items() if m["duplicate_price_keys"] or m["duplicate_quantity_keys"]]
@@ -314,10 +356,18 @@ def run_audit(
         + [f"{sid}: {m['numeric_violations']} numeric violations"
            for sid, m in series_metrics.items() if m["numeric_violations"]]
     )
-    warnings = [
-        f"{sid}: {m['modal_bounds_warnings']} records with modal_price outside [min_price, max_price]"
-        for sid, m in series_metrics.items() if m["modal_bounds_warnings"]
-    ]
+    warnings = []
+    for sid, m in series_metrics.items():
+        if m["modal_bounds_warnings"]:
+            warnings.append(f"{sid}: {m['modal_bounds_warnings']} records with modal_price outside [min_price, max_price]")
+        for chunk, n, span in m["low_coverage_chunks"]:
+            warnings.append(f"{chunk}: records on {n} of {span} calendar days")
+        if m["zero_values"]:
+            warnings.append(f"{sid}: {m['zero_values']} zero values")
+        if m["extreme_values"]:
+            warnings.append(
+                f"{sid}: {len(m['extreme_values'])} values beyond {EXTREME_VALUE_FACTOR:g}x of the field median"
+            )
 
     return {
         "audit_generator": "src.data.validate",

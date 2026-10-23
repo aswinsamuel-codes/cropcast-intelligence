@@ -134,6 +134,33 @@ class TestIntegrityFailures(AuditFixture):
         self.assertFalse(report["passed"])
         self.assertEqual(len(report["schema_failures"]), 1)
 
+    def test_empty_chunk_fails(self):
+        self.write_chunk("prices_2021-02-01_2021-02-28", [])
+        report = self.audit()
+        m = report["series_metrics"]["test_series"]
+        self.assertFalse(report["passed"])
+        self.assertEqual(m["empty_chunks"], ["test_series/prices_2021-02-01_2021-02-28"])
+        self.assertIn("test_series/prices_2021-02-01_2021-02-28: empty chunk", report["hard_failures"])
+
+    def test_manifest_status_not_completed_fails(self):
+        for c in self.manifest["series"]["test_series"]["chunks"]:
+            if c["chunk_id"] == "prices_2021-01-01_2021-01-31":
+                c["status"] = "empty"
+        self.manifest_path.write_text(json.dumps(self.manifest), encoding="utf-8")
+        report = self.audit()
+        self.assertFalse(report["passed"])
+        self.assertEqual(
+            report["series_metrics"]["test_series"]["manifest_status_failures"],
+            ["test_series/prices_2021-01-01_2021-01-31: status=empty, is_valid=True"],
+        )
+
+    def test_manifest_is_valid_false_fails(self):
+        for c in self.manifest["series"]["test_series"]["chunks"]:
+            if c["chunk_id"] == "quantities_2021-02-01_2021-02-28":
+                c["is_valid"] = False
+        self.manifest_path.write_text(json.dumps(self.manifest), encoding="utf-8")
+        self.assertFalse(self.audit()["passed"])
+
     def test_date_outside_chunk_is_schema_failure(self):
         recs = self.chunk_records["prices_2021-01-01_2021-01-31"]
         recs[-1] = price_rec("2021-02-01")
@@ -178,6 +205,36 @@ class TestRecordChecks(AuditFixture):
         self.assertEqual(m["modal_above_max_dates"], ["2021-01-06"])
         self.assertEqual(m["modal_bounds_first_last"], ["2021-01-03", "2021-01-06"])
 
+    def test_zero_value_is_warning(self):
+        recs = self.chunk_records["quantities_2021-01-01_2021-01-31"]
+        recs[0]["quantity"] = 0
+        self.write_chunk("quantities_2021-01-01_2021-01-31", recs)
+        report = self.audit()
+        self.assertTrue(report["passed"])
+        self.assertEqual(report["series_metrics"]["test_series"]["zero_values"], 1)
+        self.assertIn("test_series: 1 zero values", report["warnings"])
+
+    def test_extreme_values_are_warnings(self):
+        recs = self.chunk_records["prices_2021-01-01_2021-01-31"]
+        big = price_rec("2021-01-01", min_p=1e9, max_p=2e9, modal=1.5e9)
+        recs[0] = big
+        self.write_chunk("prices_2021-01-01_2021-01-31", recs)
+        qrecs = self.chunk_records["quantities_2021-01-01_2021-01-31"]
+        qrecs[1]["quantity"] = 2.0
+        self.write_chunk("quantities_2021-01-01_2021-01-31", qrecs)
+        report = self.audit()
+        extremes = report["series_metrics"]["test_series"]["extreme_values"]
+        self.assertTrue(report["passed"])
+        self.assertEqual(
+            extremes,
+            [
+                ["min_price", big["min_price"], "2021-01-01"],
+                ["max_price", big["max_price"], "2021-01-01"],
+                ["modal_price", big["modal_price"], "2021-01-01"],
+                ["quantity", 2.0, "2021-01-02"],
+            ],
+        )
+
     def test_duplicate_date_across_chunks_fails(self):
         recs = self.chunk_records["prices_2021-02-01_2021-02-28"]
         recs.append(price_rec("2021-02-28"))
@@ -201,6 +258,15 @@ class TestCoverageAndAlignment(AuditFixture):
         self.assertEqual(m["price_gap_length_histogram"], {1: 1, 2: 1})
         self.assertEqual(m["quantity_only_dates"], sorted(drop))
         self.assertAlmostEqual(m["iou"], 56 / 59)
+
+    def test_truncated_chunk_is_low_coverage_warning(self):
+        recs = self.chunk_records["prices_2021-01-01_2021-01-31"][:5]
+        self.write_chunk("prices_2021-01-01_2021-01-31", recs)
+        report = self.audit()
+        m = report["series_metrics"]["test_series"]
+        self.assertTrue(report["passed"])
+        self.assertEqual(m["low_coverage_chunks"], [["test_series/prices_2021-01-01_2021-01-31", 5, 31]])
+        self.assertIn("test_series/prices_2021-01-01_2021-01-31: records on 5 of 31 calendar days", report["warnings"])
 
     def test_find_gaps_groups_consecutive_runs(self):
         d = datetime.date

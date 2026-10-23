@@ -162,7 +162,7 @@ This file records planned, in-progress, completed, and blocked milestones with e
 
 ### Acceptance Criteria
 - [x] Ingestion pipeline implemented with authentication, chunking, rate limiting, and checkpointing (`src/data/ingest_ceda.py`).
-- [x] Automated unit test suite passing (22/22 tests in `tests/test_ingest_ceda.py`).
+- [x] Automated unit test suite passing (22/22 tests in `tests/test_ingest_ceda.py` at pilot time; one of these asserted nothing, see ISS-006. Current suite: 51 tests, RES-013).
 - [x] Git exclusion verified for all raw data and manifest paths (`data/raw/`).
 - [x] Bounded pilot executed for Maharashtra Onion and Uttar Pradesh Potato.
 - [x] Schema, nulls, duplicates, and price-arrival alignment verified (100% match on `(date, commodity_id, census_state_id)`).
@@ -194,7 +194,8 @@ This file records planned, in-progress, completed, and blocked milestones with e
 - [ ] ISS-002: Root cause of 137 UP Potato modal-outside-bounds records (open).
 - [ ] ISS-003: Onion near-zero arrival days in 2020 (open; EDA treatment).
 - [x] ISS-004: Validation audit not reproducible from committed code (resolved 2026-10-23; RES-012).
-- [ ] ISS-006: One pre-existing HTTP 500 test makes no assertions (open).
+- [x] ISS-006: One pre-existing HTTP 500 test makes no assertions (resolved 2026-10-23; RES-013).
+- [x] ISS-007 / ISS-008 / ISS-009: Validator gaps, pipeline defects and doc inaccuracies found in the final M-2 audit (resolved 2026-10-23; RES-013).
 - [ ] ISS-005: Pilot chunks overlap historical chunks; must be excluded during assembly (accepted limitation).
 - [x] **RESEARCHER APPROVAL GATE (M-2 Sign-off):** Approved by researcher (2026-10-23) after review of RES-011 and RES-012. M-2 closed with ISS-002, ISS-003, ISS-005 and ISS-006 carried forward as open or accepted items.
 - [ ] **RESEARCHER APPROVAL GATE (M-3 Start):** Explicit researcher instruction to begin M-3 work. Not yet given — the researcher asked to stop after M-2 sign-off.

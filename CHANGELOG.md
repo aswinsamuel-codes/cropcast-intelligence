@@ -28,7 +28,17 @@ All notable changes to the CropCast project are recorded here in reverse-chronol
   - Fixed: `.gitignore` rule `data/` also ignored `src/data/`; anchored to `/data/` (ISS-001).
   - Added `src/data/validate.py`: offline, reproducible M-2 audit (`python -m src.data.validate --output data/raw/m2_validation_audit.json`); regenerated audit passes and matches the earlier ad-hoc audit on every shared field (DEC-016, RES-012).
   - Pipeline validator now reports `modal_price` outside `[min_price, max_price]` as a non-fatal warning (`modal_bounds_warnings`).
-  - Test suite: 40 tests passing (18 new in `tests/test_validate.py`, 2 new in `tests/test_ingest_ceda.py`); `git diff --check` clean. Pre-existing HTTP 500 test found to assert nothing (ISS-006).
+  - Test suite: 40 tests passing (16 new in `tests/test_validate.py`, 2 new in `tests/test_ingest_ceda.py`; corrected from "18" on 2026-10-23); `git diff --check` clean. Pre-existing HTTP 500 test found to assert nothing (ISS-006).
+- M-2 post-sign-off remediation from the final audit (2026-10-23; RES-013)
+  - `src/data/validate.py`: hard failure on manifest entries not `completed` or not `is_valid`, and on empty chunks. New warnings for chunks covering fewer than 90% of their calendar days, zero values, and values beyond 100× of the field median (screening heuristic).
+  - `src/data/ingest_ceda.py`:
+    - Empty API responses are saved with manifest `status: "empty"` instead of `completed`.
+    - Checksum-verified chunks with source-data violations are no longer re-downloaded.
+    - Read timeouts and connection errors are retried.
+    - A corrupt manifest is now actually backed up before being recreated.
+  - ISS-006 fixed: the HTTP 500 backoff test now calls `make_request` and asserts the retry.
+  - 51 tests pass: 11 new (6 validator, 5 pipeline) and 2 extended. Against the previous code, 10 of the new tests and the extended corrupt-manifest test fail. The remaining new test guards kept behaviour.
+  - Docs: corrected test counts and the `_ceda_audit.py` description; added `docs/environment.md`.
 - Milestone 1: Research and Dataset Feasibility (2026-10-23)
   - All 11 acceptance criteria verified and approved by researcher.
   - DEC-015 formally approved: Option A (State-Level Daily Aggregate Forecasting on CEDA Ashoka) for Maharashtra Onion (`state_id: 27`, `commodity_id: 23`) and Uttar Pradesh Potato (`state_id: 9`, `commodity_id: 24`).
@@ -41,7 +51,7 @@ All notable changes to the CropCast project are recorded here in reverse-chronol
 ## 2026-10-23
 
 ### Added [Completed]
-- `reports/_ceda_audit.py` — authenticated CEDA API audit script with response envelope unpacking, composite key alignment, and rate limit diagnostics.
+- `reports/_ceda_audit.py` — authenticated CEDA API audit script with response envelope unpacking and composite key alignment. *(Corrected 2026-10-23: an earlier version of this entry also claimed "rate limit diagnostics"; the script contains no rate-limit logic or throttling.)*
 - `reports/ceda_onion_price_sample.json`, `reports/ceda_onion_quantity_sample.json` (13 records each) — bounded state-aggregate samples for Maharashtra Onion.
 - `reports/ceda_potato_price_sample.json`, `reports/ceda_potato_quantity_sample.json` (15 records each) — bounded state-aggregate samples for Uttar Pradesh Potato.
 - `reports/ictd_onion_labels_raw.csv` and `reports/ictd_potato_labels_raw.csv` — raw downloads with original Git conflict markers preserved.
