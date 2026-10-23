@@ -631,3 +631,17 @@ Note: Both onion and potato label files appear to START at 2016-01-01, not at 20
 - **Real-data run:** `python -m src.data.validate` (stdout only; stored `data/raw/m2_validation_audit.json` not regenerated) gives `passed: true`, exit 0, 0 hard failures. Warnings: 137 UP Potato modal-bounds records (ISS-002, unchanged) and 10 Maharashtra Onion arrival values beyond 100× of the median (ISS-003). No manifest-status, empty-chunk or low-coverage findings; the lowest historical chunk coverage is 172 / 182 days (94.5%). Every metric field also present in the stored audit is unchanged.
 - **Not verified:** pushes to GitHub (network unavailable); the `task-775` run log (never retained).
 - **Status:** Remediation complete and uncommitted. M-3 not started.
+
+---
+
+### RES-014: Literature Review, CEDA Source Documentation, and Dataset Freeze
+- **Date:** 2026-10-23
+- **Literature review:** `reports/literature_review.md`. 21 references, each verified against its registry record (Crossref by DOI, the JMLR page, or the OTexts pages). Published findings and CropCast hypotheses are labelled separately.
+- **CEDA terms (republishing guidelines, accessed 2026-10-23):**
+  - Visualisations may be reproduced with the credit "Centre for Economic Data and Analysis (CEDA), Ashoka University"; use is non-commercial.
+  - **No logo requirement is stated.** The earlier claim in the feasibility report has been corrected.
+  - Terms for redistributing derived data are ambiguous (CC BY-ND link vs "adapted"), so raw and processed data stay uncommitted.
+- **ISS-002 source check:** CEDA's Agri Market methodology README returned HTTP 404, the API documentation page shows no methodology text, and the CEDA tool page gives no aggregation rule. The cause stays **unresolved**: no documented explanation exists for modal prices below the state minimum in 2016-03 – 2017-04.
+- **ICTD-IITD labels:** the source paper is confirmed as Madaan et al. (2019), ACM COMPASS, doi:10.1145/3314344.3332488. Local label files hold 360 onion windows (25 in Maharashtra) and 512 potato windows (97 in Uttar Pradesh), dated 2016-01-01 to 2022-01-03. They are treated as weak, endogenous references (DEC-017).
+- **Dataset v1:** built and frozen (DEC-019). Onion: 2,523 rows, 34 missing days (1.33%). Potato: 2,557 rows, 0 missing.
+- **Status:** Phase 2 complete; prerequisites for M-3 EDA satisfied.

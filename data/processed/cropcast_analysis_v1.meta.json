@@ -1,0 +1,308 @@
+{
+  "dataset_version": "v1",
+  "construction_rules": [
+    "Only the 14 six-month historical chunks per series and endpoint are read; pilot chunks are excluded (ISS-005).",
+    "Each chunk must be a 'completed' manifest entry whose SHA-256 matches the file.",
+    "Prices and arrivals are joined one-to-one on (date, commodity_id, census_state_id).",
+    "Exact duplicate rows are dropped and counted; conflicting duplicates halt the build.",
+    "Missing market days are not imputed; rows exist only for observed days.",
+    "No source value is modified. flag_modal_outside_bounds marks modal_price outside [min_price, max_price] (ISS-002); flag_extreme_arrival marks arrival_qty below 1/100 or above 100x the series median (ISS-003)."
+  ],
+  "units": {
+    "min_price": "INR per quintal",
+    "max_price": "INR per quintal",
+    "modal_price": "INR per quintal",
+    "arrival_qty": "tonnes"
+  },
+  "units_note": "Units follow CEDA/Agmarknet conventions recorded in RES-008; the API payload carries no unit fields.",
+  "attribution": "Data: CEDA Agri Market Data, Centre for Economic Data and Analysis (CEDA), Ashoka University; original source DMI, Ministry of Agriculture and Farmers Welfare (Agmarknet).",
+  "window": {
+    "start_date": "2016-01-01",
+    "end_date": "2022-12-31"
+  },
+  "manifest_sha256": "138dbc19716423c1dc52e07672252c40bb06906fd97e05dbfde289b7e17481f8",
+  "source_chunks": {
+    "onion_maharashtra": {
+      "price_chunks": [
+        {
+          "chunk_id": "prices_2016-01-01_2016-06-30",
+          "sha256": "beb875b957b25b51691760cd54a05c4f6462c1531fc827cb573cb465ce8c2604"
+        },
+        {
+          "chunk_id": "prices_2016-07-01_2016-12-31",
+          "sha256": "9207c89b16dd8e3e99d53629cb1a18e3048344272e1bef768822b0bed244c05a"
+        },
+        {
+          "chunk_id": "prices_2017-01-01_2017-06-30",
+          "sha256": "fffd2003dd26dc41a3dbe1d8798047ef559c6156c89eafb81090dfa35b1e5e55"
+        },
+        {
+          "chunk_id": "prices_2017-07-01_2017-12-31",
+          "sha256": "1e7d952321fa520476bef3d6708edd7a6c4cd575464fbce3a0c4b6ea63fcc656"
+        },
+        {
+          "chunk_id": "prices_2018-01-01_2018-06-30",
+          "sha256": "a4415de8f9fd873f63e83209cba614374b7d36e25a7048fe459d4d02def2e4de"
+        },
+        {
+          "chunk_id": "prices_2018-07-01_2018-12-31",
+          "sha256": "0cf00c0ad8addc1530afe4b9821929a11778c769be2ab26148138cccfca42977"
+        },
+        {
+          "chunk_id": "prices_2019-01-01_2019-06-30",
+          "sha256": "bf4f5625e784f22921c7f7763569642cdf6bff90ab49d3fec2fd86881a8f03d6"
+        },
+        {
+          "chunk_id": "prices_2019-07-01_2019-12-31",
+          "sha256": "a0ab9d8c7022ac860d8e198beb3fec74de52dfbfc131947dd34f7679a20b8c74"
+        },
+        {
+          "chunk_id": "prices_2020-01-01_2020-06-30",
+          "sha256": "e357df0d8b78e2f8f50774f11a06cc8a5354130f005f1233314ab7af318c8352"
+        },
+        {
+          "chunk_id": "prices_2020-07-01_2020-12-31",
+          "sha256": "928146e5b90286f02e6c1e4aae231d060cf829b2c25c3eada7a963ed1599be39"
+        },
+        {
+          "chunk_id": "prices_2021-01-01_2021-06-30",
+          "sha256": "5d091c5689d93fef27526143df1709cb4f4ae22967ba83ad77f69b8bdfc26185"
+        },
+        {
+          "chunk_id": "prices_2021-07-01_2021-12-31",
+          "sha256": "d8029ef884ecfb4524ae1fb01feed544db7deea84c1f2af02922db355b9e441b"
+        },
+        {
+          "chunk_id": "prices_2022-01-01_2022-06-30",
+          "sha256": "082498416ae8d68d1862858cc67879f57b6910799da1df4fece6da79db815b68"
+        },
+        {
+          "chunk_id": "prices_2022-07-01_2022-12-31",
+          "sha256": "ad6d72e24c662ffac89056866e3e73ed520b8d7f23ed7107a373967264fc21c8"
+        }
+      ],
+      "quantity_chunks": [
+        {
+          "chunk_id": "quantities_2016-01-01_2016-06-30",
+          "sha256": "3df17de6fc3f7f70d7702513a750b3f77b52433588dc68b20834c3e435fc5d2b"
+        },
+        {
+          "chunk_id": "quantities_2016-07-01_2016-12-31",
+          "sha256": "340b52981861a3ac7115c1d2cbcb84db8acddd60310e1094d8095bccff4e975c"
+        },
+        {
+          "chunk_id": "quantities_2017-01-01_2017-06-30",
+          "sha256": "a8e3e236593fc3260406b9c9de280cd84917ade89dcb6305c035b5c5a78105e1"
+        },
+        {
+          "chunk_id": "quantities_2017-07-01_2017-12-31",
+          "sha256": "b7c5f122518b21771aa8148878226a588c9c579418d284f323b469b4fdfa007c"
+        },
+        {
+          "chunk_id": "quantities_2018-01-01_2018-06-30",
+          "sha256": "cdad5ba088f0e7fae5238cfe0a6decf49f7861349858a805538417cbf96b025f"
+        },
+        {
+          "chunk_id": "quantities_2018-07-01_2018-12-31",
+          "sha256": "22e087f544a67b681b6ffbacf883e606e0444ebff83eb6a60e187ec90e3422bf"
+        },
+        {
+          "chunk_id": "quantities_2019-01-01_2019-06-30",
+          "sha256": "0905b8ad5444d971991c9f0832e6f052322d273ac1cf7c57b18da40e4efd1790"
+        },
+        {
+          "chunk_id": "quantities_2019-07-01_2019-12-31",
+          "sha256": "9ee6b63d2bf035d001ad0d415cf3df382c79337708d8d40dfe0d3f4269e1c893"
+        },
+        {
+          "chunk_id": "quantities_2020-01-01_2020-06-30",
+          "sha256": "dd6fb8d2acca8be15d6d331f746b6511f5ae0f0847ef38b1234c96d6f08b27e5"
+        },
+        {
+          "chunk_id": "quantities_2020-07-01_2020-12-31",
+          "sha256": "140a7279f4e1c91efc24c3951f8583805fc7960008103838c0a7c8b665bcc8cc"
+        },
+        {
+          "chunk_id": "quantities_2021-01-01_2021-06-30",
+          "sha256": "92567c9996ef6c402e4e277a772dde7f18be186e4be7049d149aa511562f1cd9"
+        },
+        {
+          "chunk_id": "quantities_2021-07-01_2021-12-31",
+          "sha256": "ab4893964cc4b6c43a680684e1cbbcc3ead282c52176217d9a4fa726140f4838"
+        },
+        {
+          "chunk_id": "quantities_2022-01-01_2022-06-30",
+          "sha256": "b3a38e506e7db79cd06527c1210c399d853667f6685a4481542afa1cdd4bee8a"
+        },
+        {
+          "chunk_id": "quantities_2022-07-01_2022-12-31",
+          "sha256": "dbe9016f18c17869881f16c1bcd7ce17b700a6fe9267b143700526437d45183d"
+        }
+      ],
+      "unmatched_price_quantity_dates": 0
+    },
+    "potato_uttar_pradesh": {
+      "price_chunks": [
+        {
+          "chunk_id": "prices_2016-01-01_2016-06-30",
+          "sha256": "80f95b9357f57c85e32ab90f5f0f5e6cf486614d94382a485f4b52537c6a0b77"
+        },
+        {
+          "chunk_id": "prices_2016-07-01_2016-12-31",
+          "sha256": "71e86c1d99d4c7c8eb4ee6570926606f24cfaa93e0c4eda29c6c9d2cc5e07d49"
+        },
+        {
+          "chunk_id": "prices_2017-01-01_2017-06-30",
+          "sha256": "1df7c4e34fcc07070d4b40ad3a9ec025f5ea50c224dc04a0eae6865c55435ea2"
+        },
+        {
+          "chunk_id": "prices_2017-07-01_2017-12-31",
+          "sha256": "9d8b3ee37871ee4dce4edc88d01e30527470b0af7d0293ce1b13c1441080c2c3"
+        },
+        {
+          "chunk_id": "prices_2018-01-01_2018-06-30",
+          "sha256": "cd2ab41206b32f7bb618323425a52afdbf0d1cf9ae4c84364e7e73e5f24d599b"
+        },
+        {
+          "chunk_id": "prices_2018-07-01_2018-12-31",
+          "sha256": "5ec1f3d217a53182c9d484cd026f92fb6ecc4763e6d59f69aeece684d7850f4e"
+        },
+        {
+          "chunk_id": "prices_2019-01-01_2019-06-30",
+          "sha256": "e2ebea6fab9a20c79d50f6cbeb0931bc2217164ba1bebc5cf16d989e1f3b5632"
+        },
+        {
+          "chunk_id": "prices_2019-07-01_2019-12-31",
+          "sha256": "c059156a280ddc65563d125665fdd1a546e374f0e0d714935336ed06a1f84ee9"
+        },
+        {
+          "chunk_id": "prices_2020-01-01_2020-06-30",
+          "sha256": "9c731c58da3c4288aca7c9109af2660d8d3e007931c3f7facdad56ee69eac9d5"
+        },
+        {
+          "chunk_id": "prices_2020-07-01_2020-12-31",
+          "sha256": "b5582eb74a3ada9f5e15e0320599c9d7b4723e4bbf7df95e0d92f31157f47b4e"
+        },
+        {
+          "chunk_id": "prices_2021-01-01_2021-06-30",
+          "sha256": "dd77c5bb922c2909fda8ded136f68be4b59ac41214452f102ee01fe12e491a17"
+        },
+        {
+          "chunk_id": "prices_2021-07-01_2021-12-31",
+          "sha256": "3949c82da9c4ac581403bdfa248484b460703a7daa160fc40a24dbfa7b82907a"
+        },
+        {
+          "chunk_id": "prices_2022-01-01_2022-06-30",
+          "sha256": "fcbeac6c4f45847a54fa5da0d9daf52f56411a0179294844f5c3a2eed04eea28"
+        },
+        {
+          "chunk_id": "prices_2022-07-01_2022-12-31",
+          "sha256": "fa51636fe54c69cf5fdb89c528129a28d23337e28a0970bd2735581054f882da"
+        }
+      ],
+      "quantity_chunks": [
+        {
+          "chunk_id": "quantities_2016-01-01_2016-06-30",
+          "sha256": "179022b2127a24c33593273f9efa453e5a814dbb02845bb406c276770d3d846d"
+        },
+        {
+          "chunk_id": "quantities_2016-07-01_2016-12-31",
+          "sha256": "d74391decb03d194789c3e9bed5741ab1224cfbdd59b9ce7de77ace031d1d6f9"
+        },
+        {
+          "chunk_id": "quantities_2017-01-01_2017-06-30",
+          "sha256": "94dfe9d0452e6acda362ec1e30f07a7be568b02ed3b25b21691fa0caeaa50f41"
+        },
+        {
+          "chunk_id": "quantities_2017-07-01_2017-12-31",
+          "sha256": "b398e3db5bf596dc7159887560f9e1cc242af2c755872416b197fa85406f6176"
+        },
+        {
+          "chunk_id": "quantities_2018-01-01_2018-06-30",
+          "sha256": "ce053334558f7531881ef35e99bf11fa9040ee54fad9dd2f8d99ebd8d9910a2d"
+        },
+        {
+          "chunk_id": "quantities_2018-07-01_2018-12-31",
+          "sha256": "ecce83340d77bbe65ffe0ae053b94db4df777819766810d1aa74f55a46c8414d"
+        },
+        {
+          "chunk_id": "quantities_2019-01-01_2019-06-30",
+          "sha256": "83e2fcf7df0205a2814a960ec2e0628c13fa55e0c14f291ff45778146b861c48"
+        },
+        {
+          "chunk_id": "quantities_2019-07-01_2019-12-31",
+          "sha256": "4f42f997c8b991dbd94e2b1e1f6e01067628b1805fb1a42166bb3cfcf440ac17"
+        },
+        {
+          "chunk_id": "quantities_2020-01-01_2020-06-30",
+          "sha256": "b7f8fa4902b337e05a3712b1ee294542c7acfad6869a47f62b12936c58b1c9b2"
+        },
+        {
+          "chunk_id": "quantities_2020-07-01_2020-12-31",
+          "sha256": "f8ee244c6ee9781e229886e547a485c25bce692ee4c6f7a209c74f7a15179cb8"
+        },
+        {
+          "chunk_id": "quantities_2021-01-01_2021-06-30",
+          "sha256": "ff697cf190d216a3506b77ccdd50dc3300e6021f60256e27801c33defc07474c"
+        },
+        {
+          "chunk_id": "quantities_2021-07-01_2021-12-31",
+          "sha256": "f8b496b5df4e05ebf36eb48293da6a148be86198cdad62ca9aff75771fef1b5e"
+        },
+        {
+          "chunk_id": "quantities_2022-01-01_2022-06-30",
+          "sha256": "aacc5f5936b5c31e9661a9bfb2188167e88d4d6a1ec1af86066a6d77c57ccc7a"
+        },
+        {
+          "chunk_id": "quantities_2022-07-01_2022-12-31",
+          "sha256": "55733acd85fd3023fb191ab0884a7c235844d7c9177aa9c43586a6484e99667d"
+        }
+      ],
+      "unmatched_price_quantity_dates": 0
+    }
+  },
+  "rows": 5080,
+  "rows_by_series": {
+    "onion_maharashtra": 2523,
+    "potato_uttar_pradesh": 2557
+  },
+  "exact_duplicates_dropped": 0,
+  "missing_report": [
+    {
+      "series_id": "onion_maharashtra",
+      "commodity": "Onion",
+      "market": "Maharashtra (state aggregate)",
+      "calendar_days": 2557,
+      "observed_days": 2523,
+      "missing_days": 34,
+      "missing_pct": 1.33
+    },
+    {
+      "series_id": "potato_uttar_pradesh",
+      "commodity": "Potato",
+      "market": "Uttar Pradesh (state aggregate)",
+      "calendar_days": 2557,
+      "observed_days": 2557,
+      "missing_days": 0,
+      "missing_pct": 0.0
+    }
+  ],
+  "flag_counts": {
+    "onion_maharashtra": {
+      "flag_modal_outside_bounds": 0,
+      "flag_extreme_arrival": 10
+    },
+    "potato_uttar_pradesh": {
+      "flag_modal_outside_bounds": 137,
+      "flag_extreme_arrival": 0
+    }
+  },
+  "limitations": [
+    "State-level aggregates: one market per commodity, so peer-market features and signals are unavailable.",
+    "CEDA's state aggregation method is not documented publicly (README returned HTTP 404 on 2026-10-23); cause of ISS-002 unknown.",
+    "Raw and processed data are not redistributed; rebuild requires CEDA API access."
+  ],
+  "csv_file": "cropcast_analysis_v1.csv",
+  "csv_sha256": "b5f21e02b681c7887af340ba6e5d22ec9b3847bfd171da8e7ba3ffc24152b773",
+  "built_at": "2026-10-23T17:49:29.392982+00:00"
+}

@@ -8,7 +8,16 @@ All notable changes to the CropCast project are recorded here in reverse-chronol
 
 ## [Unreleased]
 
-### Planned (Awaiting Researcher Authorization)
+### In Progress
+- Phase 0–2 recovery, literature review and dataset freeze (2026-10-23)
+  - Project `.venv`, pinned `requirements.txt`, `configs/config.json` with `src/config.py` (DEC-018).
+  - Stored M-2 audit regenerated with the current validator: passes, with 2 warnings.
+  - `reports/literature_review.md`: 21 references, each verified against its registry record.
+  - Frozen dataset v1 via `src/data/dataset.py` (DEC-019), with 13 tests in `tests/test_dataset.py`. The suite now has 64 tests.
+  - Peer-market requirements recorded as not applicable (DEC-017).
+  - Corrected the unverified CEDA logo-requirement claim in the feasibility report.
+
+### Planned
 - Milestone 3: Exploratory Data Analysis (EDA)
   - Modular analysis scripts under `src/analysis/`.
   - Processed dataset assembly module under `src/data/dataset.py`.

@@ -17,7 +17,7 @@ This file records planned, in-progress, completed, and blocked milestones with e
 | M-0 | Project Foundation                      | Completed   | Pre-development    |
 | M-1 | Research and Dataset Feasibility        | Completed   | Phase 1            |
 | M-2 | Data Acquisition and Preparation        | Completed   | Phase 2            |
-| M-3 | Exploratory Data Analysis               | Planned (Awaiting Approval) | Phase 3            |
+| M-3 | Exploratory Data Analysis               | In Progress | Phase 3            |
 | M-4 | Forecasting Protocol and Baselines      | Planned     | Phase 4            |
 | M-5 | Forecasting Experiments                 | Planned     | Phase 5            |
 | M-6 | Anomaly Detection                       | Planned     | Phase 6            |
@@ -198,7 +198,7 @@ This file records planned, in-progress, completed, and blocked milestones with e
 - [x] ISS-007 / ISS-008 / ISS-009: Validator gaps, pipeline defects and doc inaccuracies found in the final M-2 audit (resolved 2026-10-23; RES-013).
 - [ ] ISS-005: Pilot chunks overlap historical chunks; must be excluded during assembly (accepted limitation).
 - [x] **RESEARCHER APPROVAL GATE (M-2 Sign-off):** Approved by researcher (2026-10-23) after review of RES-011 and RES-012. M-2 closed with ISS-002, ISS-003, ISS-005 and ISS-006 carried forward as open or accepted items.
-- [ ] **RESEARCHER APPROVAL GATE (M-3 Start):** Explicit researcher instruction to begin M-3 work. Not yet given — the researcher asked to stop after M-2 sign-off.
+- [x] **RESEARCHER APPROVAL GATE (M-3 Start):** Granted 2026-10-23 as part of the researcher's end-to-end authorisation for M-3 through the final report (local commits allowed; no push).
 
 ### Prerequisite
 - M-1 completed and dataset approach locked by researcher approval (Satisfied 2026-10-23).
@@ -207,7 +207,7 @@ This file records planned, in-progress, completed, and blocked milestones with e
 
 ## M-3: Exploratory Data Analysis
 
-**Status:** Planned (Awaiting Researcher Authorization)
+**Status:** In Progress (started 2026-10-23)
 
 ### Planned Scope
 - Reproducible EDA notebook or scripts.

@@ -15,6 +15,15 @@ Thumbs.db
 # Local data files and audit samples (exclude raw external data from version control)
 reports/ceda_*_sample.json
 reports/ictd_*_labels*.csv
-# Anchored to repo root so source packages such as src/data/ are not ignored
-/data/
+# Anchored to repo root so source packages such as src/data/ are not ignored.
+# Raw and processed CEDA data stay local (redistribution not granted); only
+# provenance READMEs and dataset metadata (checksums, counts) are tracked.
+/data/**
+!/data/**/
+!/data/raw/README.md
+!/data/processed/README.md
+!/data/processed/*.meta.json
 *.parquet
+
+# Notebook checkpoints
+.ipynb_checkpoints/

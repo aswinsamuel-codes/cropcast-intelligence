@@ -276,3 +276,37 @@ Each entry records: date, context, alternatives considered, rationale, outcome, 
   - Assemble datasets from the 14 six-month historical chunks only; exclude pilot chunks.
 - **Approval status:** **Option 2 approved by researcher (2026-10-23).** Implemented the same day: `src/data/validate.py` (offline audit, `python -m src.data.validate --output data/raw/m2_validation_audit.json`) and a non-fatal `modal_bounds_warnings` counter in `CedaIngestionPipeline.validate_records` (RES-012). **M-2 signed off by researcher on 2026-10-23.** The quality-flag and pilot-exclusion points above take effect at dataset assembly (M-3).
 - **Related files/refs:** `src/data/ingest_ceda.py`, `data/raw/m2_validation_audit.json`, `docs/issue_log.md`
+
+---
+
+### DEC-017: Peer-Market Requirements Not Applicable; "Market-Relative" Redefined for State Aggregates
+- **Date:** 2026-10-23
+- **Context:** Under DEC-015 (Option A, approved), each commodity has exactly one series: a state-level aggregate (Maharashtra onion; Uttar Pradesh potato). Req 3.7 (peer-market correlations), Req 4.6 (peer-price feature) and Req 6.3–6.5 (peer-divergence signal, residual-plus-peer ablation) assume several peer markets for the same commodity.
+- **Alternatives considered:**
+  1. Acquire more states per commodity from CEDA to act as peers. Rejected for this phase: it is a new extraction (≈ 56+ requests per added series), a scope change beyond the approved series, and DEC-015 approved exactly two series.
+  2. Use the other commodity as a "peer". Rejected: onion and potato are different markets, so their divergence is not a market-relative signal.
+  3. Mark the peer components as not applicable and define the anomaly relative to the market's own expected behaviour. **Chosen.**
+- **Outcome:**
+  - Peer-market requirements are recorded as not applicable, with this reason.
+  - The anomaly signal is "market-relative" in the sense of relative to the same market's one-step forecast (residual z-score, Req 6.1–6.2) and to its own trailing robust baseline (rolling median/MAD).
+  - The Req 6.5 ablation compares residual-only, robust-baseline-only and combined scores.
+  - Adding peer states is listed as future work.
+- **Approval status:** Decided under the researcher's 2026-10-23 end-to-end authorisation ("change the approved research scope substantially [only after] documenting the reason and consequences"). Consequence: the anomaly study cannot test peer divergence, which the charter names as a signal of interest.
+- **Related files/refs:** `docs/requirements.md` (Req 3.7, 4.6, 6.3–6.5), DEC-015, `reports/literature_review.md` §4
+
+### DEC-018: Project Virtual Environment and Pinned Dependencies
+- **Date:** 2026-10-23
+- **Context:** The `python` on PATH is an unrelated tool's virtual environment ("hermes-agent") with no analysis packages. Installing into it would change another tool's environment.
+- **Outcome:** Created a git-ignored project `.venv` from the base Python 3.11.9 and pinned the dependencies in `requirements.txt` (Req 2.2). statsmodels covers ARIMA and decomposition; scikit-learn covers linear regression, decision tree and random forest. XGBoost was not added: Req 5 does not require it, and Phase 5 will decide whether a further tree ensemble is justified by the random forest results.
+- **Approval status:** Engineering decision under end-to-end authorisation.
+- **Related files/refs:** `requirements.txt`, `docs/environment.md`
+
+### DEC-019: Analysis Dataset v1 Freeze Rules
+- **Date:** 2026-10-23
+- **Outcome:** `data/processed/cropcast_analysis_v1.csv` is built only from the 56 checksum-verified historical chunks; pilot chunks are excluded.
+  - One row per observed market day; prices and arrivals joined one-to-one.
+  - No imputation and no value changes; full-precision values (all 20,320 numeric values verified equal to the raw JSON).
+  - Flag columns `flag_modal_outside_bounds` (ISS-002; 137 potato rows) and `flag_extreme_arrival` (ISS-003; 10 onion rows).
+  - Deterministic output: CSV SHA-256 `b5f21e02b681c7887af340ba6e5d22ec9b3847bfd171da8e7ba3ffc24152b773`, identical across rebuilds. The dataset version ID used in experiment hashes is `v1:b5f21e02b681`.
+- **Approval status:** Engineering decision under end-to-end authorisation.
+- **Related files/refs:** `src/data/dataset.py`, `data/processed/cropcast_analysis_v1.meta.json`, `tests/test_dataset.py`

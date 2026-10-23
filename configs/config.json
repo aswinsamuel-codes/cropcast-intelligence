@@ -1,0 +1,29 @@
+{
+  "random_seed": 20261023,
+  "paths": {
+    "raw_dir": "data/raw/ceda",
+    "manifest": "data/raw/ceda_manifest.json",
+    "audit_report": "data/raw/m2_validation_audit.json",
+    "processed_dir": "data/processed",
+    "figures_dir": "figures",
+    "tables_dir": "reports/tables",
+    "reports_dir": "reports",
+    "experiment_log": "reports/experiment_log.jsonl",
+    "ictd_labels": {
+      "onion_maharashtra": "reports/ictd_onion_labels.csv",
+      "potato_uttar_pradesh": "reports/ictd_potato_labels.csv"
+    }
+  },
+  "dataset": {
+    "version": "v1",
+    "start_date": "2016-01-01",
+    "end_date": "2022-12-31",
+    "chunk_months": 6,
+    "series": {
+      "onion_maharashtra": {"commodity": "Onion", "state": "Maharashtra", "commodity_id": 23, "census_state_id": 27, "ictd_state": "MAHARASHTRA"},
+      "potato_uttar_pradesh": {"commodity": "Potato", "state": "Uttar Pradesh", "commodity_id": 24, "census_state_id": 9, "ictd_state": "UTTAR PRADESH"}
+    },
+    "extreme_value_factor": 100.0
+  },
+  "attribution": "Data: CEDA Agri Market Data, Centre for Economic Data and Analysis (CEDA), Ashoka University; original source DMI, Ministry of Agriculture and Farmers Welfare (Agmarknet)."
+}

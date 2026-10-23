@@ -135,7 +135,7 @@ Seven distinct data sources and retrieval mechanisms have been audited:
 - **License / Terms of Use & Academic Attribution:**
   - Free for non-commercial research, academic analysis, and application development.
   - Mandatory citation required: *"CEDA Agri Market Data (CEDA-AMD), [date range]. Centre for Economic Data & Analysis, Ashoka University"*.
-  - Visualizations must include credit text and logo. No endorsement may be claimed.
+  - Visualizations must include credit text. No endorsement may be claimed. *(Corrected 2026-10-23: CEDA's republishing guidelines state no logo requirement; credit "Centre for Economic Data and Analysis (CEDA), Ashoka University". See `reports/literature_review.md` §5.)*
   - Committing sample data: Small audit samples committed for reproducible test verification are permissible under non-commercial academic research with attribution; bulk datasets must not be committed to Git.
 - **Historical Depth & Scope (Platform-Stated vs Verified):**
   - Stated platform coverage: 300+ commodities across 2,700+ regulated mandis from **2000 to present** (~25 years stated in documentation and OAS query examples).
@@ -388,7 +388,7 @@ Executed via `task-775` across 56 endpoint chunks within the 40 req/hr rate limi
 - **S-1 (OGD Platform):** GODL-India license. Permits free non-commercial and commercial use with mandatory attribution.
 - **S-6 (CEDA Ashoka):**
   - **Academic Terms:** Free for non-commercial research, academic analysis, and application development.
-  - **Mandatory Attribution:** *"CEDA Agri Market Data (CEDA-AMD), [date range]. Centre for Economic Data & Analysis, Ashoka University"*. Visualizations must display the CEDA logo and naming credit.
+  - **Mandatory Attribution:** *"CEDA Agri Market Data (CEDA-AMD), [date range]. Centre for Economic Data & Analysis, Ashoka University"*. Visualizations must display CEDA naming credit *(corrected 2026-10-23: no logo requirement is stated in CEDA's republishing guidelines)*.
   - **Redistribution Restriction Flagged (CRITICAL ISSUE):** CEDA terms of use grant non-commercial download and usage rights, but do **not explicitly grant public redistribution or sub-licensing rights** for raw data files. Committing raw CEDA JSON sample files to a public Git repository is therefore flagged as an unresolved legal/licensing uncertainty. In accordance with project data governance (DEC-008, Requirement 10 AC 2), raw bulk datasets must NEVER be committed to Git; all data ingestion must be scripted via reproducible, metered pipelines from the authenticated API.
   - **Local Credentials:** API tokens must reside exclusively in git-ignored `.env` files and never be checked into version control.
 
