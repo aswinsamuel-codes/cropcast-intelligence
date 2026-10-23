@@ -8,18 +8,62 @@ All notable changes to the CropCast project are recorded here in reverse-chronol
 
 ## [Unreleased]
 
-### In Progress
-- Milestone 1: Dataset feasibility investigation
-  - S-2 (iancovert archive): **CLOSED and REJECTED** — Onion and Potato definitively absent; archive covers only pulses/grains (DEC-012)
-  - S-4 (ICTD-IITD): Potato anomaly label schema, markets, and partial date range confirmed; full label date range pending Git LFS download
-  - OGD API live sampling still pending — requires researcher API key registration at data.gov.in (BLOCKING)
+### Planned (Awaiting Researcher Authorization)
+- Milestone 3: Exploratory Data Analysis (EDA)
+  - Modular analysis scripts under `src/analysis/`.
+  - Processed dataset assembly module under `src/data/dataset.py`.
+  - Descriptive, temporal, missingness, and outlier investigations.
+  - Publication-quality visualizations under `reports/figures/`.
+  - Detailed academic report at `reports/eda_report.md`.
 
-### Planned
-- OGD API key registration and live sampling of resource `9ef84268-d588-465a-a308-a864a43d0070`
-- Full ICTD-IITD anomaly label download (Git LFS) to confirm maximum end dates
-- Update `reports/dataset_feasibility.md` Sections 6 and 7 with independently calculated statistics
-- Researcher approval of updated feasibility report
-- Repository directory scaffolding, `requirements.txt`, `README.md`
+### Completed
+- Milestone 2: Data Acquisition and Preparation — signed off by researcher (2026-10-23)
+  - Full historical extraction (2016-01-01 to 2022-12-31) executed via `task-775` across 56 endpoint chunks for Maharashtra Onion and Uttar Pradesh Potato; finished 2026-10-22T21:59Z.
+  - Within CEDA rate limits: 92–98s spacing between saved chunks, peak 38 requests in any rolling hour (≤ 40). No run log retained, so absence of 429s/retries is not independently verified.
+  - SHA-256 manifest checksums re-verified across all 56 historical and 4 pilot files (0 mismatches).
+  - Validation: 0 duplicate keys, 0 nulls, 0 schema violations, 100.0% exact price–quantity date alignment (IoU = 1.000000) for both series.
+  - Calendar coverage: 98.67% (2,523 days, 34 missing in 13 gaps) for Maharashtra Onion; 100.00% (2,557 days, 0 gaps) for Uttar Pradesh Potato.
+  - Open: 137 UP Potato records with `modal_price` outside `[min_price, max_price]`, confined to 2016-03 – 2017-04; cause unestablished (ISS-002). Previous "volume-weighting" explanation retracted.
+  - Reconciliation (RES-011) corrected the onion single-day gap count (6, not 5) and the request-spacing figures.
+  - Fixed: `.gitignore` rule `data/` also ignored `src/data/`; anchored to `/data/` (ISS-001).
+  - Added `src/data/validate.py`: offline, reproducible M-2 audit (`python -m src.data.validate --output data/raw/m2_validation_audit.json`); regenerated audit passes and matches the earlier ad-hoc audit on every shared field (DEC-016, RES-012).
+  - Pipeline validator now reports `modal_price` outside `[min_price, max_price]` as a non-fatal warning (`modal_bounds_warnings`).
+  - Test suite: 40 tests passing (18 new in `tests/test_validate.py`, 2 new in `tests/test_ingest_ceda.py`); `git diff --check` clean. Pre-existing HTTP 500 test found to assert nothing (ISS-006).
+- Milestone 1: Research and Dataset Feasibility (2026-10-23)
+  - All 11 acceptance criteria verified and approved by researcher.
+  - DEC-015 formally approved: Option A (State-Level Daily Aggregate Forecasting on CEDA Ashoka) for Maharashtra Onion (`state_id: 27`, `commodity_id: 23`) and Uttar Pradesh Potato (`state_id: 9`, `commodity_id: 24`).
+  - Proposed historical window: 2016-01-01 to 2022-12-31, subject to bounded pilot validation.
+  - CEDA strict rate limit policy (≤40 req/hr) acknowledged and incorporated into pipeline architecture.
+  - Raw datasets excluded from Git (`.gitignore` updated and verified).
+
+---
+
+## 2026-10-23
+
+### Added [Completed]
+- `reports/_ceda_audit.py` — authenticated CEDA API audit script with response envelope unpacking, composite key alignment, and rate limit diagnostics.
+- `reports/ceda_onion_price_sample.json`, `reports/ceda_onion_quantity_sample.json` (13 records each) — bounded state-aggregate samples for Maharashtra Onion.
+- `reports/ceda_potato_price_sample.json`, `reports/ceda_potato_quantity_sample.json` (15 records each) — bounded state-aggregate samples for Uttar Pradesh Potato.
+- `reports/ictd_onion_labels_raw.csv` and `reports/ictd_potato_labels_raw.csv` — raw downloads with original Git conflict markers preserved.
+- `reports/ictd_onion_labels.csv` (360 rows) and `reports/ictd_potato_labels.csv` (512 rows) — cleaned working copies of ICTD anomaly labels.
+- `reports/_parse_labels.py` — automated audit and validation script verifying bit-level SHA-256 and byte-length match against Git LFS pointer, schema, and statistics.
+- `docs/research_log.md` entries RES-006 (CEDA Ashoka Agri-Market Data Portal), RES-007 (`agmarknet` PyPI package & Portal REST API), and RES-008 (CEDA Audit Review, Granularity Verification, and Operational Constraints).
+- `docs/decision_log.md` entries DEC-014 (CEDA Ashoka prioritized over OGD and PyPI `agmarknet`) and DEC-015 (Provisional Direction on Data Granularity — Option A State-Level Forecasting).
+- `.env.example` — template for configuring local credentials.
+
+### Changed [Completed]
+- `reports/dataset_feasibility.md` — comprehensive update with exact recalculated sample values, composite key specifications `(date, commodity_id, census_state_id)`, multi-year coverage findings, CEDA academic attribution requirements, redistribution restriction flagging, and operational rate limits (40 req/hr).
+- `reports/_ceda_audit.py` — enhanced to compute alignment on composite key and report exact statistical distributions without hardcoded assumptions.
+- `docs/research_log.md` — RES-004 updated with full anomaly label audit; RES-008 added with granularity verification and rate limit findings.
+- `docs/milestone_history.md` — Milestone M-1 updated with live audit evidence, operational constraints, DEC-015, and pending approval gates.
+
+### Current State
+- Feasibility investigation for all 7 candidate sources complete.
+- S-6 (CEDA Ashoka) confirmed functional at the state-aggregate level with 100% price-quantity temporal alignment across 2016–2022 test windows.
+- CEDA operational constraints documented: strict 40 requests/hour rate limit and market endpoint latency for large districts (e.g. Nashik).
+- S-4 labels validated as weak supervision benchmark (not price time-series).
+- S-7 (PyPI package) confirmed unusable due to live CAPTCHA blocking.
+- Awaiting researcher decision on data granularity (state aggregate vs market-level) and approval gate sign-off before M-2 scaffolding begins.
 
 ---
 

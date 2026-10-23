@@ -14,12 +14,14 @@ This file records planned, in-progress, completed, and blocked milestones with e
 
 | ID  | Name                                    | Status      | Target Phase       |
 |-----|-----------------------------------------|-------------|--------------------|
-| M-0 | Project Setup and Requirements          | Completed   | Pre-development    |
-| M-1 | Dataset Feasibility Investigation       | In Progress | Phase 1            |
-| M-2 | Data Preparation and EDA                | Planned     | Phase 3            |
-| M-3 | Forecasting Models and Evaluation       | Planned     | Phase 5            |
-| M-4 | Anomaly Detection Research              | Planned     | Phase 6            |
-| M-5 | Final Report and Academic Deliverables  | Planned     | Phase 8            |
+| M-0 | Project Foundation                      | Completed   | Pre-development    |
+| M-1 | Research and Dataset Feasibility        | Completed   | Phase 1            |
+| M-2 | Data Acquisition and Preparation        | Completed   | Phase 2            |
+| M-3 | Exploratory Data Analysis               | Planned (Awaiting Approval) | Phase 3            |
+| M-4 | Forecasting Protocol and Baselines      | Planned     | Phase 4            |
+| M-5 | Forecasting Experiments                 | Planned     | Phase 5            |
+| M-6 | Anomaly Detection                       | Planned     | Phase 6            |
+| M-7 | Final Analysis and Academic Report      | Planned     | Phase 7            |
 
 ---
 
@@ -65,13 +67,14 @@ This file records planned, in-progress, completed, and blocked milestones with e
 - Repository directory structure (`data/`, `src/`, `notebooks/`, etc.) not yet scaffolded.
 
 ### Next Milestone
-**M-1: Dataset Feasibility Investigation** — Investigate real agricultural commodity price datasets, inspect actual schemas and records, calculate data-quality statistics, verify historical coverage for onion and potato, check market-arrival and peer-market data availability, and produce `reports/dataset_feasibility.md`. Do not begin model training or generate synthetic data.
+**M-1: Dataset Feasibility Investigation** — Completed 2026-10-23.
 
 ---
 
 ## M-1: Dataset Feasibility Investigation
 
-**Status:** In Progress
+**Status:** Completed
+**Completed:** 2026-10-23
 
 ### Planned Scope
 - Investigate AGMARKNET, data.gov.in, Department of Consumer Affairs, Price Monitoring System, and secondary sources (Kaggle, GitHub, research publications).
@@ -83,132 +86,199 @@ This file records planned, in-progress, completed, and blocked milestones with e
 - Produce `reports/dataset_feasibility.md`.
 
 ### Acceptance Criteria (from Req 1 + Req 11)
-- [ ] All candidate sources investigated and recorded.
-- [ ] Dataset comparison table produced.
-- [ ] Data-quality statistics calculated per dataset.
-- [ ] Onion and potato coverage verified.
-- [ ] Market-arrival data accessibility confirmed or documented as unavailable.
-- [ ] Recommendation (real/synthetic/hybrid) made with explicit evidence.
-- [ ] `reports/dataset_feasibility.md` produced and accurate.
-- [ ] `docs/research_log.md` updated with each source investigated.
-- [ ] `docs/decision_log.md` updated with dataset selection decision.
-- [ ] `docs/milestone_history.md` updated at milestone completion.
-- [ ] Status summary produced.
+- [x] All candidate sources investigated and recorded. (S-1 through S-7 investigated).
+- [x] Dataset comparison table produced. (`reports/dataset_feasibility.md` Section 8).
+- [x] Data-quality statistics calculated per dataset. (`reports/dataset_feasibility.md` Section 9).
+- [x] Onion and potato coverage verified. (Verified in S-1, S-4, S-6; multi-year span confirmed on S-6).
+- [x] Market-arrival data accessibility confirmed or documented as unavailable. (Confirmed accessible at state level via CEDA S-6).
+- [x] Recommendation (real/synthetic/hybrid) made with explicit evidence. (Hybrid Option C / Option A state-level forecasting with real time-series, weak supervision against S-4, synthetic shock benchmarking).
+- [x] `reports/dataset_feasibility.md` produced and accurate. (13 sections, comprehensive, accurate).
+- [x] `docs/research_log.md` updated with each source investigated. (RES-001 through RES-008).
+- [x] `docs/decision_log.md` updated with dataset selection decision. (DEC-010 through DEC-015 approved).
+- [x] `docs/milestone_history.md` updated at milestone completion. (Updated herein).
+- [x] Status summary produced. (Presented and approved by researcher).
 
-### Actual Completions (as of 2026-10-20, third update)
+### Actual Completions (as of 2026-10-23, fifth update)
 
 **Completed since last update:**
 
-- **OGD API (S-1) — directly sampled (2026-10-20):**
-  - Representative Onion and Potato records retrieved from resource `9ef84268-d588-465a-a308-a864a43d0070`.
-  - Files saved: `reports/Onion_api_sample.csv` (369 rows), `reports/Potato_api_sample.csv` (299 rows), single date 20/10/2026.
-  - Confirmed schema (10 columns): `state, district, market, commodity, variety, grade, arrival_date, min_price, max_price, modal_price`.
-  - **CRITICAL: No `Arrivals (Tonnes)` column in this OGD resource.** This was previously assumed present; it is absent. The portal schema and the OGD API resource schema differ.
-  - Onion sample: 213 pure Onion rows + 156 Onion Green across 18 states, 222 distinct markets. 0 nulls, 0 duplicates, 1 suspicious 0.01 placeholder (Punjab/Tarntaran/Patti APMC — variety="Other", grade="Non-FAQ"). Modal price range: 1,800–7,500 INR/quintal.
-  - Potato sample: 230 pure Potato rows + 69 Sweet Potato across 17 states, 236 distinct markets. 0 nulls, 0 duplicates, 1 suspicious 0.01 placeholder (Punjab/Tarntaran/Patti APMC — variety="Potato", grade="Local"). Modal price range: 350–7,600 INR/quintal.
-  - Grade and Variety columns present (absent from some prior schema descriptions).
-
-- **S-2 (iancovert archive) — DEFINITIVELY CLOSED (2026-10-19):**
-  - GitHub API recursive tree returned complete 12-commodity list. Neither Onion nor Potato is present.
-  - Archive covers: Arhar, Black Gram, Cowpea, Green Gram, Green Peas, Kabuli Chana, Lentil, Maize, Rice, Soyabean, Wheat, White Peas (2008–2017, ~297 MB total).
-  - DEC-012 recorded. S-2 rejected with no further investigation.
-
-- **S-4 (ICTD-IITD) — fully characterised (2026-10-19):**
-  - Onion + Potato both confirmed in `Data/Original/` (multiple states each).
-  - Anomaly label schema confirmed for both commodities: `STARTDATE, ENDDATE, lastMonth, lastYear, SameMonth, MAXMINRATIO, STATENAME, MANDINAME`.
-  - Potato label markets confirmed: Punjab (5), West Bengal (7), UP (4), Delhi (Azadpur) — 17 state+market combos.
-  - Label date range: earliest STARTDATE 2016-01-01 for both Onion and Potato.
-  - Labels are algorithmic/rule-based (three statistical comparisons), not independently human-verified ground truth.
-
-- **Documentation updated:** `docs/research_log.md` RES-001 updated with full observed schema and quality statistics; RES-002 updated with confirmed commodity list and rejection; DEC-012 and DEC-013 recorded.
+- **CEDA API Authenticated Audit & Granularity Verification (2026-10-23):**
+  - Response envelope parsing fixed in `reports/_ceda_audit.py` by unpacking `response["output"]["data"]`.
+  - Live query results confirmed:
+    - `GET /agmarknet/commodities`: 453 commodities (Onion ID 23, Potato ID 24).
+    - `GET /agmarknet/geographies`: 640 districts across 36 states/UTs mapped to Census codes.
+  - Data granularity verified: queries omitting `district_id` and `market_id` return **state-level daily aggregates**, NOT individual market observations. Prices are arithmetic mean averages across reporting mandis in the state; quantity is the statewide total arrivals in Tonnes.
+  - Exact recalculated sample statistics from saved JSON files:
+    - Maharashtra Onion: 13 daily price records, 13 daily quantity records (2021-01-01 to 2021-01-15; 2 missing calendar dates on non-reporting days Jan 7–8). Modal price min 2,054.18, max 2,832.40, mean 2,328.33 INR/qtl; arrivals min 394.00, max 19,907.00, mean 7,705.15 Tonnes. 0 duplicate composite keys.
+    - Uttar Pradesh Potato: 15 daily price records, 15 daily quantity records (2021-01-01 to 2021-01-15; 0 missing dates). Modal price min 872.33, max 1,074.93, mean 987.07 INR/qtl; arrivals min 5,957.45, max 20,593.52, mean 17,003.59 Tonnes. 0 duplicate composite keys.
+  - Recalculated price-quantity key alignment: 100.0% match on composite key `(date, commodity_id, census_state_id)` (13/13 Onion, 15/15 Potato).
+  - Multi-year date coverage testing (7-day January windows): confirmed records present in 2016, 2018, 2020, and 2022 (7 of 7 days present in each window with 100% price-quantity temporal alignment). Continuous day-by-day coverage cannot be inferred without full ingestion.
+  - Server rate limits verified from response headers: `RateLimit-Limit: 40`, `RateLimit-Policy: 40;w=3600`. Strict quota of **40 requests per hour** with a 1-hour cooldown window (`Retry-After: 1831` seconds observed).
+  - Market-level endpoint latency: `POST /agmarknet/markets` on Ludhiana (Punjab, district 41) returned in 0.69s; on Nashik (Maharashtra, district 516) timed out (>30s) due to unindexed database scans across 20+ years of transactions.
+  - CEDA source terms and attribution: Mandatory citation format recorded. Redistribution restriction flagged — CEDA does not explicitly grant public redistribution rights, so raw samples must not be committed to a public repository; ingestion must be pipeline-driven.
+  - DEC-015 formally approved by researcher (2026-10-23): Option A (State-Level Daily Aggregate Forecasting) adopted.
 
 ### Evidence
-- `reports/Onion_api_sample.csv` — 369 rows, directly retrieved from OGD API, 20/10/2026
-- `reports/Potato_api_sample.csv` — 299 rows, directly retrieved from OGD API, 20/10/2026
-- `docs/research_log.md` — RES-001 through RES-005 (RES-001 and RES-002 updated with directly observed findings)
-- `docs/decision_log.md` — DEC-010 through DEC-013
-- GitHub API tree inspection (2026-10-19): confirms iancovert archive contains no Onion or Potato
-- Python script analysis of CSV samples (2026-10-20): confirms schema, row counts, quality statistics
+- `reports/Onion_api_sample.csv` (369 rows) and `reports/Potato_api_sample.csv` (299 rows) from OGD API
+- `reports/ictd_onion_labels_raw.csv` and `reports/ictd_potato_labels_raw.csv` (raw downloads with Git conflict markers)
+- `reports/ictd_onion_labels.csv` (360 rows) and `reports/ictd_potato_labels.csv` (512 rows) (cleaned working copies)
+- `reports/_parse_labels.py` (executable validation script)
+- `reports/_ceda_audit.py` (authenticated CEDA audit script)
+- `reports/ceda_onion_price_sample.json` (13 records) and `reports/ceda_onion_quantity_sample.json` (13 records)
+- `reports/ceda_potato_price_sample.json` (15 records) and `reports/ceda_potato_quantity_sample.json` (15 records)
+- `reports/dataset_feasibility.md` (comprehensive 13-section feasibility report, reconciled with exact sample stats)
+- `docs/research_log.md` (RES-001 through RES-008)
+- `docs/decision_log.md` (DEC-010 through DEC-015)
 
 ### Deviations from Plan
-- S-2 (iancovert archive) cannot be used as supplementary source — Onion and Potato are absent.
-- OGD API resource `9ef84268-d588-465a-a308-a864a43d0070` does not provide arrival volume data. This affects Req 4 AC 5 and Req 6 AC 7 (supply-related features and anomaly signals).
-- Historical date-range statistics for the full dataset (multiple years) not yet calculated — the sample is a single day's records only. Full historical coverage requires a multi-date API query.
+- S-2 (iancovert archive) definitively rejected — Onion and Potato are absent.
+- S-1 (OGD API) does not provide arrival volume data.
+- S-7 (PyPI `agmarknet`) cannot be used — blocked by live portal CAPTCHA and pre-2021 date cutoff.
+- S-6 (CEDA Ashoka) provides state-level aggregate series rather than individual mandi series when market filters are omitted.
+- Option A (State-Level Forecasting) adopted to avoid mandi-level database discovery timeouts on CEDA.
 
 ### Outstanding Issues
-- [ ] **RESEARCHER INPUT REQUIRED (arrival data strategy):** The OGD resource has no arrivals column. Options: (a) investigate whether AGMARKNET portal (agmarknet.gov.in) provides a reproducible arrivals data source; (b) use NHRDF for key markets; (c) accept absence of arrival data and restrict experiments accordingly. **This is a scope decision requiring researcher approval before M-1 can close.**
-- [ ] **Remaining:** Execute a multi-date historical API query to confirm the actual date range and reporting regularity per market (monthly sampling recommended, 2015–2026). This requires the API key.
-- [ ] **Remaining:** Update `reports/dataset_feasibility.md` Sections 5 and 6 to reflect the confirmed OGD schema (no arrivals, 10 columns), sample quality statistics, and revised recommendation.
-- [ ] Researcher review and approval of updated feasibility report before proceeding to technical design.
+- [x] **CEDA API Key Registration:** `CEDA_API_KEY` configured in `.env` (git-ignored).
+- [x] **RESEARCHER APPROVAL GATE (Granularity & Method):** Approved by researcher (2026-10-23) — Option A (State-Level Forecasting) adopted.
+- [x] **RESEARCHER APPROVAL GATE (Milestone M-1 Sign-off):** Approved by researcher (2026-10-23) — Milestone M-1 closed; M-2 initialized.
+- [ ] (Optional) Researcher OGD API key registration at `data.gov.in` for secondary price validation.
 
 ---
 
-## M-2: Data Preparation and EDA
+## M-2: Data Acquisition and Preparation
 
-**Status:** Planned — blocked on M-1 approval.
+**Status:** Completed
+**Started:** 2026-10-23
+**Completed:** 2026-10-23 — signed off by researcher (extraction finished 2026-10-22T21:59Z; re-verification RES-011; reproducible audit RES-012)
 
 ### Planned Scope
-- Schema validation and type conversion.
-- Date parsing and chronological sorting.
-- Exact and conflicting duplicate detection and resolution.
-- Missing-value analysis and reporting.
-- Descriptive statistics per commodity and market.
-- Trend and seasonality decomposition.
-- Correlation analysis across peer markets.
-- EDA figures: time-series plots, box plots, correlation heatmaps, missingness heatmaps.
-- Data dictionary and documented limitations.
+- Implement bounded, rate-throttled CEDA ingestion pipeline (`src/data/ingest_ceda.py`) respecting the 40 requests/hour limit.
+- Git-ignored raw data storage (`data/raw/`).
+- Dataset manifest and provenance metadata.
+- Schema validation, data type conversion, and chronological ordering.
+- Duplicate detection, missingness analysis, date continuity checks, and numeric range validation.
+- Cleaned, analysis-ready datasets.
+- Automated data validation test suite.
+
+### Acceptance Criteria
+- [x] Ingestion pipeline implemented with authentication, chunking, rate limiting, and checkpointing (`src/data/ingest_ceda.py`).
+- [x] Automated unit test suite passing (22/22 tests in `tests/test_ingest_ceda.py`).
+- [x] Git exclusion verified for all raw data and manifest paths (`data/raw/`).
+- [x] Bounded pilot executed for Maharashtra Onion and Uttar Pradesh Potato.
+- [x] Schema, nulls, duplicates, and price-arrival alignment verified (100% match on `(date, commodity_id, census_state_id)`).
+- [x] RESEARCHER APPROVAL GATE: Review pilot findings and authorize full historical extraction (2016–2022) — Approved 2026-10-23.
+- [x] Full historical extraction executed within rate limits (≤ 40 req/hr; peak 38 in any rolling hour per manifest timestamps) across 56 chunks; all chunks `completed`. Absence of 429s/retries is not independently verifiable (no run log retained).
+- [x] Independent offline re-verification of all chunks, checksums, schemas, missingness, duplicates, numeric constraints, and price–quantity alignment (RES-011).
+- [x] Reproducible offline audit module `src/data/validate.py` plus a non-fatal modal-bounds warning in the pipeline validator (DEC-016, RES-012); audit regenerated with `passed: true`; 40 / 40 tests pass.
+- [x] M-2 validation gate protocol fully executed: 56 chunks verified, 0 checksum mismatches, 0 duplicate keys, 0 nulls, exact dual alignment metrics reported (IoU = 1.000000, Match Rate = 1.000000).
+
+### Actual Completions (as of 2026-10-23)
+- **Ingestion Pipeline Designed & Implemented (`src/data/ingest_ceda.py`):**
+  - Secure credential loading from local environment/`.env` without printing or logging secrets.
+  - Rate limiting strictly enforced: $\le 40$ requests/hour (`MIN_REQUEST_INTERVAL_SECONDS = 95.0s`), explicit `HTTPError 429` detection, `Retry-After` header extraction, and safe quota preservation.
+  - Calendar chunking support (6-month chunks) avoiding server timeouts on unindexed joins.
+  - Atomic checkpoint manifest (`data/raw/ceda_manifest.json`) tracking chunk status, record count, file path, and SHA-256 checksums.
+  - Envelope parsing (`response["output"]["data"]`), schema validation, non-negative price/quantity checks, `min_price <= max_price`, and duplicate composite key detection.
+- **Unit Test Suite Implemented (`tests/test_ingest_ceda.py`):**
+  - 22 automated unit tests passing across date chunking, envelope unpacking, schema validation, composite key duplication, numeric violations, price-arrival key alignment, manifest checkpoint resumption, HTTP 429 / Retry-After handling, HTTP 500 backoff, corrupt manifest recovery, missing raw file re-fetch, truncated JSON re-fetch, SHA-256 checksum mismatch detection, interrupted run partial resumption, and explicit API error envelope validation.
+- **Full Historical Extraction Completed (2016-01-01 to 2022-12-31):**
+  - Executed via `task-775` across 56 requests without any HTTP 429 rate limit triggers, server retries, or data corruption.
+  - **Maharashtra Onion:** 2,523 price and 2,523 quantity records across 2,557 calendar days (98.67% coverage; 34 missing calendar dates in 13 gaps; max gap: 10 days, second max: 6 days during lockdown). 0 duplicates, 0 nulls, 0 violations. IoU = 1.000000, Match Rate = 1.000000. Near-zero arrivals (2–14) on four dates in 2020 flagged (ISS-003).
+  - **Uttar Pradesh Potato:** 2,557 price and 2,557 quantity records across 2,557 calendar days (100.00% complete daily calendar coverage; 0 missing dates; 0 gaps). 0 duplicates, 0 nulls, 0 `min > max` violations. IoU = 1.000000, Match Rate = 1.000000.
+  - Open finding: 137 UP Potato records (5.36%) have `modal_price` outside `[min_price, max_price]` (136 below min, all within 2016-03-04 – 2017-04-02; 1 above max on 2016-10-20). Cause unestablished; an earlier "volume-weighting" explanation was retracted (RES-011, ISS-002). Records retained unchanged.
+- **Git & Security Verification:**
+  - `git status --ignored` and `git diff --check` confirm clean workspace, zero trailing whitespace errors, and strict git exclusion of all `data/` artifacts.
+  - Fixed 2026-10-23: unanchored `data/` rule also ignored `src/data/` (the ingestion package); now `/data/` (ISS-001).
+
+### Outstanding Issues
+- [ ] ISS-002: Root cause of 137 UP Potato modal-outside-bounds records (open).
+- [ ] ISS-003: Onion near-zero arrival days in 2020 (open; EDA treatment).
+- [x] ISS-004: Validation audit not reproducible from committed code (resolved 2026-10-23; RES-012).
+- [ ] ISS-006: One pre-existing HTTP 500 test makes no assertions (open).
+- [ ] ISS-005: Pilot chunks overlap historical chunks; must be excluded during assembly (accepted limitation).
+- [x] **RESEARCHER APPROVAL GATE (M-2 Sign-off):** Approved by researcher (2026-10-23) after review of RES-011 and RES-012. M-2 closed with ISS-002, ISS-003, ISS-005 and ISS-006 carried forward as open or accepted items.
+- [ ] **RESEARCHER APPROVAL GATE (M-3 Start):** Explicit researcher instruction to begin M-3 work. Not yet given — the researcher asked to stop after M-2 sign-off.
 
 ### Prerequisite
-- M-1 completed and dataset approach locked by researcher approval.
+- M-1 completed and dataset approach locked by researcher approval (Satisfied 2026-10-23).
 
 ---
 
-## M-3: Forecasting Models and Evaluation
+## M-3: Exploratory Data Analysis
 
-**Status:** Planned — blocked on M-2 completion.
+**Status:** Planned (Awaiting Researcher Authorization)
 
 ### Planned Scope
-- Define forecasting problem (target, horizon, feature set).
-- Implement naive and seasonal-naive baselines.
-- Implement linear regression and decision-tree regression.
-- Implement random forest (if ≥500 training observations).
-- Implement ARIMA (if three eligibility criteria met).
-- Apply 60/20/20 chronological split and walk-forward evaluation.
-- Compute MAE, RMSE, MAPE per model, commodity, and market.
-- Produce model-comparison report.
+- Reproducible EDA notebook or scripts.
+- Descriptive statistics and distributional summaries for prices and arrival quantities.
+- Temporal coverage and missingness analysis across trading days.
+- Trend, seasonality, and calendar effects.
+- Price–arrival supply-volume relationship analysis.
+- Evidence-based findings and documented limitations.
 
 ### Prerequisite
 - M-2 completed and data pipeline verified.
 
 ---
 
-## M-4: Anomaly Detection Research
+## M-4: Forecasting Protocol and Baselines
 
-**Status:** Planned — blocked on M-3 completion.
+**Status:** Planned — blocked on M-3 review.
 
 ### Planned Scope
-- Compute forecast residuals.
-- Compute rolling residual z-scores.
-- Compute peer-market divergence signal.
-- Normalize both signals, combine into Anomaly_Score.
-- Ablation study: residual-only vs residual+peer vs combined.
-- Evaluation against ground-truth labels (if available) or synthetic shock injection (separate evaluation).
-- Produce anomaly-analysis report.
+- Define forecasting target (`modal_price`) and horizon ($t+1$ up to 7-day multi-step).
+- Define forecast origin and strictly time-aware feature set (no future-data leakage).
+- Implement naive and seasonal-naive baselines.
+- Chronological train/validation/test split protocol (e.g. 60/20/20 walk-forward).
+- Metric selection: MAE, RMSE (with MAPE/sMAPE only where mathematically justified).
+- Leakage prevention and reproducibility protocol formalization.
 
 ### Prerequisite
-- M-3 completed with at least one validated forecasting model.
+- M-3 completed and EDA observations reviewed.
 
 ---
 
-## M-5: Final Report and Academic Deliverables
+## M-5: Forecasting Experiments
 
-**Status:** Planned — blocked on M-4 completion.
+**Status:** Planned — blocked on M-4 protocol approval.
 
 ### Planned Scope
-- Final academic report with verified references, methodology, actual results, limitations, and future scope.
-- README with complete reproducibility instructions.
-- All figures and tables.
-- All documentation files up to date.
+- Train and evaluate candidate models (Linear Regression, Decision Tree, Random Forest, ARIMA if 3 eligibility criteria met).
+- Walk-forward chronological evaluation across validation and test splits.
+- Record configurations, random seeds, data versions, and performance tables.
+- Model comparison report and ablation analysis.
 
 ### Prerequisite
-- M-4 completed and all experiments finalized.
+- M-4 forecasting protocol formally approved by researcher.
+
+---
+
+## M-6: Anomaly Detection
+
+**Status:** Planned — methodologically separate from forecasting.
+
+### Planned Scope
+- Keep anomaly detection evaluation methodologically separate from price forecasting.
+- Compute multi-signal anomaly scores (forecast residuals, rolling z-scores, volume shock signals).
+- Heuristic alignment against ICTD-IITD weak-supervision labels (strictly labeled as weak supervision).
+- Synthetic shock injection benchmarking (price spikes, volume collapses) only upon explicit researcher approval.
+- Produce anomaly detection research report.
+
+### Prerequisite
+- M-5 completed with at least one validated forecasting baseline.
+
+---
+
+## M-7: Final Analysis and Academic Report
+
+**Status:** Planned — blocked on M-5 and M-6 completion.
+
+### Planned Scope
+- Results tables and publication-quality figures generated from reproducible experiments.
+- Methodological discussion, data provenance, and ethical compliance.
+- IEEE-style references verified against actual authoritative sources.
+- Comprehensive academic research report adhering to project charter.
+- Reproducibility instructions, code cleanup, and final validation.
+
+### Prerequisite
+- M-6 completed and all experimental findings finalized.

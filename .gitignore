@@ -1,4 +1,4 @@
-﻿.venv/
+.venv/
 venv/
 __pycache__/
 *.py[cod]
@@ -11,3 +11,10 @@ Thumbs.db
 
 # Local AI development workspace
 .kiro/
+
+# Local data files and audit samples (exclude raw external data from version control)
+reports/ceda_*_sample.json
+reports/ictd_*_labels*.csv
+# Anchored to repo root so source packages such as src/data/ are not ignored
+/data/
+*.parquet

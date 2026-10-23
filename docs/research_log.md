@@ -268,8 +268,34 @@ Onion anomaly label date range (direct observation from file):
 
 Note: Both onion and potato label files appear to START at 2016-01-01, not at 2011 as implied by the paper's stated scope. The paper's 2011–2021 range may refer to the price training data, not the anomaly label coverage. This discrepancy requires confirmation.
 
-- **Outstanding verification task:** Download full anomaly label files (Git LFS required) to confirm the precise maximum ENDDATE for both onion and potato labels. Verify whether label coverage predates 2016.
-- **Status:** Confirmed as research reference for anomaly methodology — labels are algorithmic, not independent ground truth; potato label schema, markets, and partial date range (2016–2021 estimated) confirmed by direct inspection
+- **Outstanding verification task:** Completed on 2026-10-23. Full label files recovered, conflict markers audited, and complete statistics calculated.
+- **Status:** Confirmed as research reference for anomaly methodology — weak-supervision algorithmic labels; full date range (2016-01-01 to 2022-01-03) and bit-level provenance definitively confirmed.
+
+**Definitive Label Validation Findings (audited 2026-10-23):**
+- **Conflict Marker Analysis:** Raw files downloaded from `raw.githubusercontent.com` contain Git merge conflict markers (`<<<<<<< HEAD`, `=======`, `>>>>>>> 6ac9248b3ef33a88bcb4b748e11d3743f40f9979`). Upstream git history shows an author checked in an unresolved merge conflict on 2022-01-23 between an LFS pointer block and raw CSV text from commit `6ac9248b3e`.
+- **Bit-level Provenance Verification:**
+  - Onion: LFS pointer declared `oid sha256:fa424b7466a41fa1372650f1025fb99353cb61d93a6356a8e6852aaf7bc936fe` and `size 30460`. The extracted CSV section is exactly 30,460 bytes and produces the identical SHA256 hash.
+  - Potato: LFS pointer declared `oid sha256:ecad6c98a80619fb96c1fe16d28d12d42920ed76e730aee8f50701f27d2941dd` and `size 41732`. The extracted CSV section is exactly 41,732 bytes and produces the identical SHA256 hash.
+  - The extracted data is 100% complete, uncorrupted, and matches the authoritative Git LFS object.
+- **Onion Labels (`reports/ictd_onion_labels.csv`):**
+  - Total data rows: 360 (excluding header).
+  - Schema: `STARTDATE, ENDDATE, lastMonth, lastYear, SameMonth, MAXMINRATIO, STATENAME, MANDINAME`
+  - STARTDATE range: 2016-01-01 to 2021-11-21; ENDDATE range: 2016-02-13 to 2022-01-03 (43–44 day sliding windows).
+  - Missing fields: `lastMonth` 6 (1.7%), `lastYear` 32 (8.9%), all others 0.
+  - Exact duplicates: 0; Natural key duplicates: 0.
+  - Markets: 18 mandis in 4 states (Karnataka: 4, Maharashtra: 1 [Lasalgaon], NCT of Delhi: 1 [Azadpur], Uttar Pradesh: 12).
+  - Label counts: `lastMonth` (122 Anomaly, 232 Normal); `lastYear` (172 Anomaly, 156 Normal); `SameMonth` (148 Anomaly, 212 Normal).
+  - Anomaly rows: 360/360 (100% — source file is an anomaly-filtered view).
+- **Potato Labels (`reports/ictd_potato_labels.csv`):**
+  - Total data rows: 512 (excluding header).
+  - Schema: identical to Onion.
+  - STARTDATE range: 2016-01-01 to 2021-11-21; ENDDATE range: 2016-02-13 to 2022-01-03.
+  - Missing fields: `lastMonth` 7 (1.4%), `lastYear` 75 (14.6%), all others 0.
+  - Exact duplicates: 0; Natural key duplicates: 0.
+  - Markets: 17 mandis in 4 states (NCT of Delhi: 1 [Azadpur], Punjab: 5, Uttar Pradesh: 4, West Bengal: 7).
+  - Label counts: `lastMonth` (250 Anomaly, 255 Normal); `lastYear` (297 Anomaly, 140 Normal); `SameMonth` (165 Anomaly, 347 Normal).
+  - Anomaly rows: 512/512 (100% — source file is an anomaly-filtered view).
+- **Crucial Methodological Distinction:** These label files must NOT be treated as price observations (they are sliding-window event tags) and must NOT be treated as independent ground truth (they are heuristic algorithmic rules derived from AGMARKNET prices).
 
 ---
 
@@ -294,3 +320,289 @@ Note: Both onion and potato label files appear to START at 2016-01-01, not at 20
 - **Quality findings:** Potentially valuable for onion-specific arrival data going back to 1996. Access constraints reduce reproducibility. Requires direct form access to verify schema and coverage.
 - **Selection / rejection rationale:** Not selected as primary source due to reproducibility uncertainty. Should be revisited if AGMARKNET arrival data is incomplete for key onion-producing markets.
 - **Status:** Under investigation — revisit if AGMARKNET arrival data proves insufficient
+
+---
+
+### RES-006: CEDA Agri-Market Data Portal (Ashoka University)
+- **Date accessed:** 2026-10-23
+- **URL:**
+  - Base URL: https://api.ceda.ashoka.edu.in/v1
+  - Documentation: https://api.ceda.ashoka.edu.in/documentation/
+  - Portal: https://ceda.ashoka.edu.in/
+- **Source type:** Academic Research Data Portal — Centre for Economic Data and Analysis (CEDA), Ashoka University
+- **Data owner:** CEDA, Ashoka University; underlying data sourced from AGMARKNET / Ministry of Agriculture and Farmers Welfare, Government of India
+- **License / Terms of use:** Free for non-commercial research, academic analysis, and application development. Mandatory citation required: *"CEDA Agri Market Data (CEDA-AMD), Centre for Economic Data & Analysis, Ashoka University"*. Underlying government data governed by GODL-India.
+- **Date range:** Stated as 2000 – present in platform documentation and OpenAPI query examples (~25 years). Actual date boundaries and continuity for Onion and Potato specifically remain to be confirmed via live authenticated sampling.
+- **Record count:** Stated platform scope covers 300+ commodities across 2,700+ mandis. Specific record counts and reporting regularity for Onion and Potato to be calculated from authenticated query results.
+- **Commodities covered:** Onion (Commodity ID: 23), Potato (Commodity ID: 24), and 300+ other agricultural commodities.
+- **Markets covered:** 2,700+ regulated APMC mandis mapped to Census of India state and district codes (platform-wide).
+- **Price fields available:**
+  - `POST /agmarknet/prices` returns `date`, `commodity_id`, `census_state_id`, `census_district_id`, `market_id`, `min_price`, `max_price`, `modal_price`.
+- **Units and currency:** INR per quintal (prices); dates in YYYY-MM-DD.
+- **Arrival / supply data:** **YES (Confirmed).**
+  - Dedicated endpoint `POST /agmarknet/quantities` returns `date`, `commodity_id`, `census_state_id`, `census_district_id`, `market_id`, `quantity`.
+  - Units: Tonnes.
+  - Shares exact composite key with price endpoint, enabling straightforward deterministic joining.
+- **Schema summary:** Clean normalized JSON schema adhering to OpenAPI 3.0 specification.
+- **Missing values / Duplicates:** Normalized and harmonized by CEDA from AGMARKNET raw feeds; census boundary mapping applied.
+- **Accessibility method:** REST API with Bearer token authentication (`Authorization: Bearer <token>`). Free registration via web form (`https://api.ceda.ashoka.edu.in/`) using email + OTP verification.
+- **Reproducibility:** Highly reproducible via standardized REST API endpoints.
+- **Quality findings (Authenticated Live Audit 2026-10-23):**
+  - **Response Envelope:** CEDA `/v1` endpoints wrap all successful responses in an outer container: `{"output": {"type": "success", "message": "Data exists", "data": [...]}}`. Applications must unpack `response["output"]["data"]`.
+  - **Commodity Verification:** `GET /agmarknet/commodities` returned 453 commodities. Target IDs definitively confirmed:
+    - Onion: `commodity_id = 23`
+    - Potato: `commodity_id = 24`
+    - Onion Green: `commodity_id = 358`
+    - Sweet Potato: `commodity_id = 152`
+  - **Geography Verification:** `GET /agmarknet/geographies` returned 640 districts across 36 states/UTs mapped to official Census codes.
+  - **Live Price Sampling (2021-01-01 to 2021-01-15):**
+    - Onion (Maharashtra, `state_id: 27`): 13 daily price records retrieved.
+    - Potato (Uttar Pradesh, `state_id: 9`): 15 daily price records retrieved.
+    - Fields: `date` (ISO-8601 string, e.g., `'2021-01-01T00:00:00.000Z'`), `commodity_id`, `census_state_id`, `min_price`, `max_price`, `modal_price` (INR/quintal).
+  - **Live Arrival Quantity Sampling (2021-01-01 to 2021-01-15):**
+    - Onion (Maharashtra, `state_id: 27`): 13 daily arrival records retrieved.
+    - Potato (Uttar Pradesh, `state_id: 9`): 15 daily arrival records retrieved.
+    - Fields: `date`, `commodity_id`, `census_state_id`, `quantity` (Tonnes).
+  - **Price vs. Arrival Alignment:**
+    - Onion: 13 / 13 trading days matched (100.0% date alignment).
+    - Potato: 15 / 15 trading days matched (100.0% date alignment).
+  - **Audit Sample Files Saved:**
+    - `reports/ceda_onion_price_sample.json` (13 records)
+    - `reports/ceda_onion_quantity_sample.json` (13 records)
+    - `reports/ceda_potato_price_sample.json` (15 records)
+    - `reports/ceda_potato_quantity_sample.json` (15 records)
+  - **Remaining Uncertainties:**
+    - Unfiltered district/market queries (e.g. querying a district without market IDs) can experience backend join latency or timeouts on CEDA's database; queries should be executed per state or with explicit market IDs.
+    - Long multi-year historical spans must be queried via bounded date chunks to prevent timeout.
+- **Selection / rejection rationale:** **Selected as Primary Candidate Source.** Confirmed live retrieval of both wholesale prices and market arrival volumes with 100% temporal alignment.
+- **Status:** Candidate Primary Source — Authenticated live sampling verified; full historical range ingestion pending researcher approval.
+
+---
+
+### RES-007: `agmarknet` PyPI Package & AGMARKNET Portal REST API
+- **Date accessed:** 2026-10-23
+- **URL:**
+  - PyPI: https://pypi.org/project/agmarknet/
+  - Portal REST API Base: https://api.agmarknet.gov.in/v1
+  - Live Filters Endpoint: https://api.agmarknet.gov.in/v1/daily-price-arrival/filters
+  - Live Report Endpoint: https://api.agmarknet.gov.in/v1/daily-price-arrival/report
+- **Source type:** Unofficial third-party Python wrapper around internal government web portal API.
+- **Data owner:** Package by Manojkumar Patil (MIT license); underlying portal managed by DMI / NIC.
+- **License / Terms of use:** Package is MIT licensed. The underlying endpoint is the internal API for `agmarknet.gov.in`.
+- **Date range:** **2021-01-01 to present only.**
+  - Direct live query to `/v1/daily-price-arrival/filters` returned server-enforced `range_data`: `from_date: 2021-01-01`, `to_date: 2026-10-22` (current day).
+  - **The API does NOT contain historical records prior to 2021.**
+- **Record count:** 4,178 mandis and 604 commodities declared in filter metadata.
+- **Commodities covered:** Onion (ID 23), Potato (ID 24), Onion Green (ID 305), Sweet Potato (ID 124).
+- **Price and Arrival fields:** Stated schema includes `min_price`, `max_price`, `model_price`, `arrival_qty`.
+- **Accessibility method:** Reverse-engineered HTTP POST requests with spoofed browser headers.
+- **Fatal Quality / Operational Blockers (Confirmed by Source Code & Live Network Tests):**
+  1. **CAPTCHA Barrier:** Live POST requests to `/daily-price-arrival/report` fail with `HTTP 400 Bad Request: {"detail":"Captcha key and captcha value are required.","code":"TOKEN_OR_CAPTCHA_REQUIRED"}`.
+  2. **Zero CAPTCHA Logic:** Inspection of package source code (`session.py`, `client.py`, `models.py`) reveals no token generation or CAPTCHA solving functionality. The package cannot execute downloads against the current live portal.
+  3. **Broken Project Metadata:** The declared project repository `https://github.com/agmarknet/agmarknet` returns `HTTP 404 Not Found`.
+  4. **Insufficient Historical Depth:** Restricted to $\le 5$ years (2021–present); cannot provide long-term training baselines.
+- **Selection / rejection rationale:** **REJECTED.** Unofficial, unmaintained wrapper blocked by live portal CAPTCHA protection and restricted to post-2021 records.
+- **Status:** ❌ REJECTED — Blocked by CAPTCHA and truncated historical coverage (≥2021 only).
+
+---
+
+### RES-008: CEDA Audit Review, Granularity Verification, and Operational Constraints
+- **Date accessed:** 2026-10-23
+- **Audited files:**
+  - `reports/_ceda_audit.py`
+  - `reports/ceda_onion_price_sample.json` (13 records)
+  - `reports/ceda_onion_quantity_sample.json` (13 records)
+  - `reports/ceda_potato_price_sample.json` (15 records)
+  - `reports/ceda_potato_quantity_sample.json` (15 records)
+- **Granularity Verification (Task 1 & 2):**
+  - **Result:** The four saved JSON samples contain **state-level daily aggregates**, NOT individual market records.
+  - **Schema fields present:**
+    - Prices: `date` (ISO-8601), `commodity_id`, `census_state_id`, `min_price`, `max_price`, `modal_price`
+    - Quantities: `date` (ISO-8601), `commodity_id`, `census_state_id`, `quantity`
+    - Fields NOT present: `district_id`, `census_district_id`, `market_id`, `market_name`
+  - **Reason:** In CEDA's OpenAPI specification, omitting `district_id` and `market_id` returns state-level aggregated data. Prices are arithmetic means across reporting mandis in the state (non-integer floats with up to 15 decimal places); quantity is the state-wide total arrivals in Tonnes.
+- **Join Key & Alignment Recalculation (Task 2 & 3):**
+  - **Strongest Common Key:** Composite key `(date, commodity_id, census_state_id)`.
+  - **Duplicate keys:** 0 in all four files (all dates are unique per commodity/state).
+  - **Unmatched keys:** 0 across both price and quantity sets.
+  - **Alignment:** 13/13 (100.0%) for Onion in Maharashtra; 15/15 (100.0%) for Potato in UP.
+  - **Interpretation:** Confirms 100% temporal synchronization at the state aggregate level. This does NOT demonstrate market-level alignment.
+- **Correction of Previously Reported Sample Statistics (Task 5):**
+  - An inconsistency was detected between previously drafted ranges and actual values in the saved JSON files:
+    - Onion Modal Price: Actual is min 2,054.18, max 2,832.40, mean 2,328.33 INR/qtl (previously reported 1,847–2,639).
+    - Onion Min Price: Actual is min 633.33, max 1,950.00 INR/qtl.
+    - Onion Max Price: Actual is min 2,626.62, max 3,366.67 INR/qtl.
+    - Onion Quantity: Actual is min 394.00, max 19,907.00, mean 7,705.15 Tonnes (previously reported 9,332.9–25,626.8).
+    - Potato Modal Price: Actual is min 872.33, max 1,074.93, mean 987.07 INR/qtl (previously reported 887–1,073).
+    - Potato Quantity: Actual is min 5,957.45, max 20,593.52, mean 17,003.59 Tonnes (previously reported 5,160.8–11,811.2).
+  - Feasibility report updated with verified numbers directly calculated from local artifacts.
+- **Multi-Year Sampling Across Evaluation Horizon (Task 4):**
+  - Bounded 7-day January windows (Jan 1–7) tested across multiple historical years:
+    - 2016: 7 price records, 7 quantity records (100% aligned, modal range 1,234.8–1,432.7 INR/qtl, qty 6,486–33,262 T).
+    - 2018: 7 price records, 7 quantity records (100% aligned, modal range 2,699.2–3,031.2 INR/qtl, qty 6,355–26,260 T).
+    - 2020: 7 price records, 7 quantity records (100% aligned, modal range 3,314.8–3,833.7 INR/qtl, qty 6,079–22,983 T).
+    - 2022: 7 price records, 7 quantity records (100% aligned, modal range 1,706.8–1,989.0 INR/qtl, qty 2,324–35,333 T).
+  - Verified that synchronized price and arrival records exist across the entire ICTD evaluation period (2016–2022).
+  - However, continuous day-by-day reporting across all dates cannot be inferred without full ingestion.
+- **Server Rate Limits Discovered (Operational Finding):**
+  - Server headers returned: `RateLimit-Policy: 40;w=3600`, `RateLimit-Limit: 40`, `RateLimit-Remaining: 0`, `Retry-After: 1831`.
+  - CEDA strictly enforces **40 requests per hour**. Exceeding this quota triggers `HTTP 429 Too Many Requests` with a 1-hour reset window.
+  - Rate limit was verified live: client stopped safely upon receiving 429; wait requirement of 1,831 seconds (~30.5 minutes) recorded without circumventing the limit.
+  - Any ingestion pipeline must be metered, throttle requests, and maximize date span per query.
+- **Market-Level Endpoint Query Latency (Operational Finding):**
+  - `POST /agmarknet/markets` on Ludhiana (district 41, Punjab) returned market records in 0.69 seconds.
+  - `POST /agmarknet/markets` on Nashik (district 516, Maharashtra) timed out (>30 seconds) on CEDA's database.
+  - Market discovery for high-volume production districts cannot be queried on-the-fly without static market ID mappings or longer timeouts.
+- **Academic Licensing & Attribution Terms (Task 4):**
+  - Free for non-commercial academic research.
+  - Mandatory citation: *"CEDA Agri Market Data (CEDA-AMD), [date range]. Centre for Economic Data & Analysis, Ashoka University"*.
+  - Visualizations must display the CEDA logo and credit text.
+  - **Redistribution Restriction Flagged:** CEDA terms grant non-commercial usage but do not explicitly grant public redistribution rights for raw data files. Committing raw CEDA sample datasets to a public repository is flagged as an unresolved legal/licensing question. Project governance rule (DEC-008, Req 10 AC 2) applies: raw bulk datasets must not be committed to Git; ingestion must be pipeline-driven.
+- **Decision Taken:** DEC-015 approved by researcher (Option A: State-Level Daily Aggregate Forecasting on CEDA Ashoka).
+- **Status:** Primary Research Source Approved — State-aggregate sample verified; Milestone M-1 closed; Milestone M-2 initialized.
+
+---
+
+### RES-009: CEDA Ashoka Ingestion Pipeline Implementation and Bounded Pilot Results
+- **Date accessed / implemented:** 2026-10-23
+- **Pipeline module:** `src/data/ingest_ceda.py`
+- **Unit test suite:** `tests/test_ingest_ceda.py` (13 automated tests passing)
+- **Manifest and summary artifacts:** `data/raw/ceda_manifest.json`, `data/raw/pilot_validation_summary.json` (git-ignored)
+- **Pipeline Architecture and Technical Guarantees:**
+  1. **Authentication:** Safe environment-based authentication via `CEDA_API_KEY` in `os.environ` or local `.env` (git-ignored). Zero credential logging or exposure in stdout, stderr, or manifest files.
+  2. **Rate Limit Compliance:** Enforces $\le 40$ requests/hour policy (`MIN_REQUEST_INTERVAL_SECONDS = 90.0` conservative inter-request spacing). Explicitly inspects `HTTPError 429` responses for `Retry-After` and `RateLimit-Reset` headers; implements bounded waiting and safe quota preservation without crashing or circumventing limits.
+  3. **Date Chunking & Pagination:** Splits multi-year queries into configurable calendar chunks (e.g. 1 to 6 months) to avoid server-side timeouts on large joins.
+  4. **Checkpointing & Resumption:** Atomic manifest persistence at `data/raw/ceda_manifest.json`. Tracks chunk ID, endpoint, date boundaries, record counts, file paths, and SHA-256 checksums. Re-running the pipeline checks existing chunks and skips redundant API calls.
+  5. **Envelope & Schema Validation:** Validates CEDA's outer response envelope (`response["output"]["data"]`). Enforces ISO-8601 date parsing, strict commodity and state ID matching, non-negative prices and quantities, logical price constraints (`min_price <= max_price`), and zero duplicate composite keys `(date, commodity_id, census_state_id)`.
+  6. **Price-Arrival Key Alignment:** Computes deterministic inner-join alignment between wholesale prices and arrival quantities by `(date, commodity_id, census_state_id)`.
+  7. **Repository Hygiene:** All raw JSON responses, parquet files, and manifest metadata are strictly saved under `data/raw/`, verified as excluded by `.gitignore`.
+- **Bounded Pilot Results (Date Span: 2021-01-01 to 2021-01-15):**
+  - **Candidate Series 1: Maharashtra Onion (`commodity_id: 23`, `census_state_id: 27`)**
+    - Prices: 13 records across 13 reporting observation dates (Jan 7 and Jan 8 are absent calendar dates in the API response; the source provides no metadata explaining why these dates lack observations). Modal price: min 2,054.18, max 2,832.40, mean 2,328.33 INR/quintal. Min price: 633.33 to 1,950.00; Max price: 2,626.62 to 3,366.67 INR/quintal.
+    - Quantities: 13 records. Statewide total arrivals: min 394.00, max 19,907.00, mean 7,705.15 Tonnes.
+    - Data Quality: 0 duplicate composite keys, 0 null fields, 0 numeric violations, 0 schema errors (`is_valid: true`).
+    - Price-Quantity Alignment: 13 / 13 (100.0% aligned). Zero price-only or quantity-only dates.
+  - **Candidate Series 2: Uttar Pradesh Potato (`commodity_id: 24`, `census_state_id: 9`)**
+    - Prices: 15 records across 15 consecutive calendar days (0 missing dates). Modal price: min 872.33, max 1,074.93, mean 987.07 INR/quintal.
+    - Quantities: 15 records. Statewide total arrivals: min 5,957.45, max 20,593.52, mean 17,003.59 Tonnes.
+    - Data Quality: 0 duplicate composite keys, 0 null fields, 0 numeric violations, 0 schema errors (`is_valid: true`).
+    - Price-Quantity Alignment: 15 / 15 (100.0% aligned). Zero price-only or quantity-only dates.
+- **State Aggregate Semantics Verified:**
+  - Prices are confirmed to represent state arithmetic means across reporting mandis (float precision).
+  - Quantities are state aggregate total arrivals in Tonnes.
+  - No sub-state mandi metadata is present when omitting `district_id` and `market_id`, confirming clean state-level aggregate semantics.
+- **Operational Status & Approval Gate:**
+  - Pipeline design and bounded pilot validation are complete and verified.
+  - Full historical extraction (2016–2022) was authorized and executed under task-775.
+
+---
+
+### RES-010: CEDA Ashoka Full Historical Extraction (2016–2022) and M-2 Validation Gate Findings
+- **Date executed:** 2026-10-23
+- **Extraction Task:** `task-775` (Command: `python -m src.data.ingest_ceda --all-approved --start-date 2016-01-01 --end-date 2022-12-31 --chunk-months 6`)
+- **Historical Scope:** 2016-01-01 through 2022-12-31 (7 calendar years = 2,557 calendar days, including leap years 2016 and 2020)
+- **Approved Series Evaluated:**
+  1. Maharashtra Onion (`commodity_id: 23`, `census_state_id: 27`)
+  2. Uttar Pradesh Potato (`commodity_id: 24`, `census_state_id: 9`)
+- **Rate-Limiting & Quota Execution Audit:**
+  - Total requests dispatched: 56 requests (14 six-month chunks $\times$ 2 endpoints $\times$ 2 series).
+  - Rate-limit spacing: ~~90.4s to 93.5s per request~~ *(corrected in RES-011: 92.4s to 97.6s between consecutive manifest `fetched_at` timestamps).*
+  - Quota compliance: ~~Maximum hourly request rate $\approx 37.89$ req/hour~~ *(corrected in RES-011: at most 38 requests in any rolling 60-minute window)*, within CEDA's 40 req/hour limit (`RateLimit-Policy: 40;w=3600`).
+  - Network & API errors: **0 HTTP 429 rate limit triggers, 0 server retries, 0 connection drops, 0 API error envelopes** *(not independently verifiable: no run log was retained; see RES-011).*
+  - Checkpoint integrity: All 56 raw JSON files written atomically via temporary files and cataloged in `data/raw/ceda_manifest.json`.
+- **M-2 Validation Gate Audit Results:**
+  - **Chunk & File Integrity:**
+    - Expected historical chunks: 56 / 56 found and validated.
+    - Missing local raw files: 0.
+    - SHA-256 bit-level checksum mismatches: **0 mismatches** (recomputed SHA-256 matches manifest 100%).
+    - JSON parsing / schema decoding failures: 0.
+  - **Candidate Series 1: Maharashtra Onion (`commodity_id: 23`, `census_state_id: 27`)**
+    - First observed date: `2016-01-01` | Last observed date: `2022-12-31`.
+    - Price observations: 2,523 records across 2,523 unique dates.
+    - Arrival observations: 2,523 records across 2,523 unique dates.
+    - Duplicate composite keys `(date, commodity_id, census_state_id)`: 0.
+    - Null values in required fields: 0.
+    - Numeric validity: 100% non-negative; `min_price <= modal_price <= max_price` strictly satisfied for all 2,523 price records (0 violations).
+    - Price distribution (INR/quintal): Min = 406.16, Max = 7,506.45, Mean = 1,388.29.
+    - Quantity distribution (Tonnes): Min = 2.00, Max = 45,648.00, Mean = 16,323.07.
+    - Calendar coverage: 2,523 / 2,557 calendar days (**98.67% temporal coverage**).
+    - Missing observation dates: 34 calendar days (1.33%).
+    - Consecutive gap structure: Exactly 13 gaps.
+      - 10-day gap: 2020-10-16 to 2020-10-25 (maximum gap length).
+      - 6-day gap: 2020-04-08 to 2020-04-13 (coinciding with initial national COVID-19 lockdown disruptions).
+      - 3-day gaps: 2 (2017-01-20 to 2017-01-22; 2019-05-17 to 2019-05-19).
+      - 2-day gaps: 3 (2016-09-04 to 2016-09-05; 2021-01-07 to 2021-01-08; 2021-03-17 to 2021-03-18).
+      - 1-day isolated missing dates: 6 *(corrected from 5 in RES-011)* (2017-02-19, 2017-02-24, 2020-04-20, 2020-04-23, 2020-04-27, 2020-05-02).
+    - Price–Quantity Key Alignment:
+      - $|D_{\text{price}}| = 2,523$, $|D_{\text{quantity}}| = 2,523$, $|D_{\text{price}} \cap D_{\text{quantity}}| = 2,523$.
+      - Intersection-over-Union (IoU): **1.000000** (100.0%).
+      - Price-observation match rate: **1.000000** (100.0%).
+      - Unmatched dates: 0 price-only dates, 0 quantity-only dates.
+  - **Candidate Series 2: Uttar Pradesh Potato (`commodity_id: 24`, `census_state_id: 9`)**
+    - First observed date: `2016-01-01` | Last observed date: `2022-12-31`.
+    - Price observations: 2,557 records across 2,557 unique dates.
+    - Arrival observations: 2,557 records across 2,557 unique dates.
+    - Duplicate composite keys `(date, commodity_id, census_state_id)`: 0.
+    - Null values in required fields: 0.
+    - Numeric validity: 100% non-negative; `min_price <= max_price` strictly satisfied for all 2,557 records (0 violations).
+    - Price distribution (INR/quintal): Min = 433.56, Max = 3,015.18, Mean = 1,016.85.
+    - Quantity distribution (Tonnes): Min = 442.00, Max = 113,475.30, Mean = 15,363.75.
+    - Calendar coverage: 2,557 / 2,557 calendar days (**100.00% complete daily coverage**).
+    - Missing observation dates: 0 calendar days (0.00%).
+    - Consecutive gap structure: 0 gaps. Complete continuous daily time series across 7 full years.
+    - Price–Quantity Key Alignment:
+      - $|D_{\text{price}}| = 2,557$, $|D_{\text{quantity}}| = 2,557$, $|D_{\text{price}} \cap D_{\text{quantity}}| = 2,557$.
+      - Intersection-over-Union (IoU): **1.000000** (100.0%).
+      - Price-observation match rate: **1.000000** (100.0%).
+      - Unmatched dates: 0 price-only dates, 0 quantity-only dates.
+    - **Empirical State-Aggregate Price Ordering Finding:**
+      - In Uttar Pradesh Potato, 137 records (5.36%) exhibit an aggregated `modal_price` outside the arithmetic mean `[min_price, max_price]` (136 records have `modal_price < min_price`, 1 record has `modal_price > max_price`).
+      - ~~This is mathematically explained by multi-mandi aggregation dynamics: ...volume-weighted modal price aggregation...~~ *Retracted in RES-011: this explanation is unverified, conflicts with the arithmetic-mean semantics recorded in RES-009, and does not account for the violations being confined to 2016-03-04 – 2017-04-02. Root cause is open (ISS-002).*
+      - All prices remain strictly non-negative and `min_price <= max_price` is satisfied across 100% of observations.
+- **Automated Test Suite & Git Hygiene Verification:**
+  - `python -m unittest discover -s tests -v`: 22 / 22 tests passing in 0.056s.
+  - `git diff --check`: 0 errors.
+  - Git exclusion: `data/` and all raw JSON / manifest files verified as excluded by `.gitignore`. *(RES-011: the unanchored `data/` rule also excluded `src/data/`; fixed — see ISS-001.)*
+- **Status:** ~~Milestone M-2 Validation Gate PASSED.~~ Superseded by RES-011: validation checks re-run and reconciled; gate sign-off pending researcher approval.
+
+---
+
+### RES-011: Independent Re-verification and Reconciliation of M-2 Extraction (task-775)
+- **Date:** 2026-10-23
+- **Purpose:** Handover reconciliation. Confirm the actual state of `task-775` and independently re-check every RES-010 claim against the raw files, without any CEDA API requests.
+- **Method:** Offline read-only script (not committed; see ISS-004) that recomputes SHA-256 per chunk against `data/raw/ceda_manifest.json`, checks envelope metadata, exact record key sets, ID consistency, date format and chunk bounds, duplicates, nulls, non-numeric / non-finite / negative / zero values, `min ≤ modal ≤ max`, calendar gaps, price–quantity date alignment, pilot-chunk overlap, and request spacing from manifest `fetched_at` timestamps.
+- **Extraction task state:** Completed. All 56 historical chunk files are present; manifest last updated `2026-10-22T21:59:11Z` (last chunk `potato_uttar_pradesh/quantities_2022-07-01_2022-12-31`). No Python process was running at inspection time. `historical_extraction_summary.json` was written at completion, so the run exited normally. No further API requests were made during this reconciliation.
+- **Confirmed (matches RES-010):**
+  - 56 / 56 historical chunks + 4 pilot chunks; every manifest entry `status: completed`, `is_valid: true`; 0 orphan files; 0 SHA-256 mismatches; 0 metadata or record-count mismatches.
+  - Every record has exactly the expected key set; IDs match the series; all dates are `YYYY-MM-DDT00:00:00.000Z` and fall inside their chunk window.
+  - 0 duplicate dates, 0 nulls, 0 non-numeric / non-finite values, 0 negative values, 0 zero values, 0 cases of `min_price > max_price`, 0 cases of `min_price == max_price`.
+  - Onion: 2,523 price / 2,523 quantity dates, 34 missing calendar days in 13 gaps (max 10 days), IoU = 1.0; `min ≤ modal ≤ max` holds for all records.
+  - Potato: 2,557 / 2,557 dates, 0 missing days, IoU = 1.0.
+  - Modal-price and quantity min / max / mean match RES-010.
+- **Corrections to RES-010:**
+  1. Onion single-day gaps: **6**, not 5 (gap-length histogram: 1-day ×6, 2-day ×3, 3-day ×2, 6-day ×1, 10-day ×1 = 34 days).
+  2. Request spacing: **92.4s – 97.6s** between consecutive `fetched_at` timestamps (these are post-response save times, not send times); peak **38 requests in any rolling 60-minute window** (< 40). The previously stated 90.4–93.5s range could not be reproduced.
+  3. "0 HTTP 429 / 0 retries / 0 connection drops": **unverifiable** — no execution log was retained and the manifest does not record retries. The evidence is consistent with a clean run (uniform spacing, no gaps longer than ~98s) but does not prove it.
+  4. Potato `modal_price` outside `[min_price, max_price]`: count confirmed (136 below `min_price`, 1 above `max_price`, total 137 = 5.36%), but the "volume-weighting" explanation is **retracted**. New evidence: all 136 below-min cases fall between **2016-03-04 and 2017-04-02** (110 in 2016, 26 in 2017; none from 2017-04-03 to 2022-12-31). Relative shortfall below `min_price`: median 1.46%, max 7.24%. The single above-max case is 2016-10-20 (min 1163.75, max 1265.38, modal 1302.47). The time-confined pattern suggests a source-side aggregation or reporting regime in that period rather than a general property of the data; cause unestablished (ISS-002).
+  5. `.gitignore` rule `data/` silently excluded `src/data/` (the ingestion package). Fixed by anchoring to `/data/` (ISS-001).
+- **New findings:**
+  - Onion near-zero arrivals: quantity = 2, 3, 5 on 2020-04-28, 2020-04-25, 2020-04-24 (COVID-19 lockdown period) and 14 on 2020-10-26 (the day after the 10-day gap). Retained unchanged; to be treated in EDA as possible partial-reporting days (ISS-003).
+  - Onion missing days by year: 2016: 2, 2017: 5, 2019: 3, 2020: 20, 2021: 4, 2018 and 2022: 0.
+  - Pilot chunks (`*_2021-01-01_2021-01-15.json`) are stored as bare JSON lists without the `metadata` envelope used by historical chunks, and overlap the H1-2021 historical chunks. Every overlapping pilot record (onion 13 + potato 15 per endpoint, 56 in total) is field-for-field identical to the corresponding historical record. Dataset assembly must exclude pilot chunks to avoid duplicate dates (ISS-005).
+  - `CedaIngestionPipeline.validate_records` does not check `min_price ≤ modal_price ≤ max_price`, so `historical_extraction_summary.json` reports 0 numeric violations for potato while `m2_validation_audit.json` reports 137. `m2_validation_audit.json` was produced by a script not present in the repository (ISS-004).
+- **Tests & hygiene:** `python -m unittest discover -s tests`: 22 / 22 OK (0.064s). `git diff --check`: clean. `data/`, `.env`, `.kiro/` and restricted sample files confirmed git-ignored; `src/data/` now tracked as intended. No credentials found in untracked source files.
+- **Status:** M-2 data acquisition complete and validated, with the open data-quality items above. **Awaiting researcher sign-off before M-3.**
+
+---
+
+### RES-012: Reproducible M-2 Validation Audit (DEC-016 Option 2)
+- **Date:** 2026-10-23
+- **Purpose:** Make the M-2 validation audit reproducible from committed code (ISS-004) and flag modal-bounds cases inside the pipeline validator.
+- **Changes:**
+  - `src/data/validate.py`: offline, read-only audit. For each approved series it checks expected chunks against the manifest, SHA-256 checksums, record counts, exact key sets, IDs, date format and chunk bounds, duplicates, nulls, non-numeric / non-finite / negative values, and `min_price > max_price` (all hard failures, exit code 1). It also checks that supplementary chunks such as the pilot agree with historical records (hard failure if not). It reports `modal_price` outside `[min_price, max_price]` as a warning, plus calendar gaps, price–quantity IoU and match rate, distribution statistics, the five smallest arrivals, and request spacing from manifest timestamps. No network access.
+  - `src/data/ingest_ceda.py`: `ValidationSummary` gains `modal_bounds_warnings` and `warnings`. These never change `is_valid`, so chunks with flagged records are never re-fetched.
+  - Tests: 18 new tests in `tests/test_validate.py` (synthetic fixtures only) and 2 in `tests/test_ingest_ceda.py`. A null-value test exposed a crash in the first draft of the statistics code (it computed on unvalidated values); fixed before the real-data run.
+- **Real-data run:** `python -m src.data.validate --output data/raw/m2_validation_audit.json` → `passed: true`, exit 0, 56 / 56 chunks, 0 hard failures, 1 warning (`potato_uttar_pradesh: 137 records with modal_price outside [min_price, max_price]`). Pilot chunks: 0 mismatches. Request timing: 92.4–97.6s spacing, peak 38 per rolling hour.
+- **Agreement with prior audit:** Every field shared with the legacy ad-hoc audit (kept locally as `data/raw/m2_validation_audit.legacy_adhoc.json`) is identical, including the 13 onion gap intervals. Every RES-011 figure is reproduced.
+- **Tests & hygiene:** 40 / 40 tests pass; `git diff --check` clean. ISS-006 notes that one pre-existing test asserts nothing.
+- **Status:** ISS-004 resolved. **M-2 signed off by researcher on 2026-10-23.** M-3 not started; it awaits an explicit start instruction.

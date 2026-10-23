@@ -217,3 +217,62 @@ Each entry records: date, context, alternatives considered, rationale, outcome, 
 - **Outcome:** Decision pending researcher input. The OGD resource is still the primary price source. Arrival data availability from the AGMARKNET portal (separate from the OGD API) requires further investigation. If arrivals are unavailable, the supply-related anomaly signal (Req 6 AC 7, Req 4 AC 5) cannot be computed and must be documented as an unmet criterion.
 - **Approval status:** Pending — researcher input required on arrival data strategy (see M-1 blocker below).
 - **Related files/refs:** `reports/Onion_api_sample.csv`, `reports/Potato_api_sample.csv`, `docs/research_log.md` RES-001, `requirements.md` Req 4 AC 5, Req 6 AC 7
+
+---
+
+### DEC-014: Candidate Primary Dataset Selection — CEDA Ashoka Prioritized over OGD and PyPI `agmarknet` for Price + Arrival Volume
+- **Date:** 2026-10-23
+- **Context:** Following DEC-013 (OGD resource lacked arrival volumes), CEDA Ashoka (S-6) and the `agmarknet` PyPI package (S-7) were investigated to identify a viable source providing both prices and market arrivals across multi-year historical spans. Additionally, the recovered ICTD-IITD anomaly label files (S-4) were audited to establish their status.
+- **Evidence:**
+  1. **CEDA Ashoka (S-6):** Directly inspects the OpenAPI 3.0 specification (`https://api.ceda.ashoka.edu.in/documentation/`). Provides twin REST endpoints: `POST /agmarknet/prices` and `POST /agmarknet/quantities` sharing identical composite keys. Stated platform scope covers 2000 to present (~25 years) across 300+ commodities (Onion ID 23, Potato ID 24) and 2,700+ mandis mapped to Census boundaries. Requires free registration (email + OTP) to obtain a Bearer JWT API token. Resolves the arrival data absence of S-1 subject to live authenticated verification.
+  2. **PyPI Package `agmarknet` (S-7):** Source code inspection confirms it is an unofficial reverse-engineered wrapper around the internal web portal API (`api.agmarknet.gov.in/v1`). Live server metadata confirms it is hard-restricted to records starting 2021-01-01 onwards. Furthermore, live POST queries fail with `HTTP 400: TOKEN_OR_CAPTCHA_REQUIRED`; the library contains zero CAPTCHA handling logic, and its declared GitHub repository is a dead link (HTTP 404).
+  3. **ICTD-IITD Labels (S-4):** Anomaly label CSVs were recovered from raw files containing merge conflict markers. Bit-level SHA-256 and byte-length verification confirms the CSV sections match the Git LFS pointer exactly (30,460 bytes for onion, 41,732 bytes for potato). Clean copies have 360 onion and 512 potato rows spanning 2016-01-01 to 2022-01-03 across 17–18 mandis. Confirmed as heuristic weak-supervision labels, not independent ground truth.
+- **Alternatives considered:**
+  1. Retain OGD API (S-1) alone and abandon arrival volume features.
+  2. Attempt to bypass AGMARKNET portal CAPTCHA via scraping (rejected per project constraints).
+  3. Adopt CEDA Ashoka (S-6) as primary dataset for combined prices and arrivals, supplemented by OGD (S-1) for cross-verification.
+- **Outcome:**
+  - Prioritize CEDA Ashoka (S-6) as the primary candidate source for both price forecasting and supply-related anomaly detection, subject to live authenticated verification of historical coverage and arrival alignment once CEDA_API_KEY is supplied.
+  - Reject PyPI `agmarknet` (S-7) for automated ingestion due to fatal CAPTCHA blocking and date restriction ($\ge 2021$ only).
+  - Adopt Hybrid Evaluation (Option C): Real-world price/arrival time-series, weak supervision against recovered S-4 labels, and synthetic shock injection for objective benchmark metrics.
+- **Approval status:** Pending — requires researcher registration of free CEDA API key and formal approval of updated feasibility report.
+- **Related files/refs:** `reports/dataset_feasibility.md`, `docs/research_log.md` (RES-004, RES-006, RES-007), `reports/ictd_onion_labels.csv`, `reports/ictd_potato_labels.csv`, `reports/_parse_labels.py`
+
+---
+
+### DEC-015: Primary Research Direction Formally Approved — Option A (State-Level Forecasting on CEDA Ashoka)
+- **Date:** 2026-10-23
+- **Context:** Following authenticated live audit and schema inspection of CEDA Ashoka (S-6), the returned series were verified as state-level daily aggregates (arithmetic mean prices across reporting mandis in the state, and statewide total arrival volumes in Tonnes). Attempts to perform runtime market discovery via `POST /agmarknet/markets` on high-volume production districts (e.g. Nashik, district 516) resulted in backend database query timeouts (>30 seconds) on CEDA's server, whereas state-level queries respond reliably in 1–2 seconds with 100% price-quantity temporal alignment.
+- **Evidence:**
+  1. Saved JSON samples confirm schema: `(date, commodity_id, census_state_id, min_price, max_price, modal_price)` and `(date, commodity_id, census_state_id, quantity)`.
+  2. 100% temporal alignment on composite key `(date, commodity_id, census_state_id)` for Maharashtra Onion (13/13 trading days) and Uttar Pradesh Potato (15/15 calendar days).
+  3. Multi-year verification confirms synchronized records exist across 2016, 2018, 2020, 2022.
+  4. CEDA enforces a strict rate limit of 40 requests/hour (`RateLimit-Policy: 40;w=3600`).
+- **Alternatives considered:**
+  1. Option A (State-Level Forecasting): Model state-level aggregate prices and arrival volumes for primary producing/consuming states (Maharashtra Onion, Uttar Pradesh Potato).
+  2. Option B (Dual-Track Hybrid): Use OGD API for mandi-level prices and CEDA for state-level arrivals.
+  3. Option C (Static Pre-Mapped Market Extraction): Undertake offline extraction of specific market IDs if static mappings become available.
+- **Outcome:**
+  - Adopt **Option A (State-Level Forecasting)** as the approved primary research direction for CropCast.
+  - Candidate series: Maharashtra Onion (`state_id: 27`, `commodity_id: 23`) and Uttar Pradesh Potato (`state_id: 9`, `commodity_id: 24`).
+  - Historical extraction window approved: `2016-01-01` to `2022-12-31` (7 years), subject to rate throttling ($\le 40$ requests/hour) and bounded pilot validation.
+  - Raw datasets must remain in local Git-ignored storage (`data/raw/`); no raw data committed to Git.
+- **Approval status:** **Approved by researcher (2026-10-23).** Researcher confirmed Option A, candidate series, historical window (2016–2022), rate limit compliance, and authorized closing Milestone M-1.
+- **Related files/refs:** `reports/dataset_feasibility.md`, `docs/research_log.md` (RES-008), `reports/_ceda_audit.py`
+
+---
+
+### DEC-016: M-2 Sign-off Conditions and Data-Quality Handling
+- **Date:** 2026-10-23
+- **Context:** Independent re-verification (RES-011) confirmed that the `task-775` extraction is complete and internally consistent, but surfaced open items: 137 UP Potato records with `modal_price` outside `[min_price, max_price]` (ISS-002), near-zero onion arrival days in 2020 (ISS-003), a validation audit that cannot be regenerated from committed code (ISS-004), and overlapping pilot chunks (ISS-005).
+- **Evidence:** `docs/research_log.md` RES-011; `docs/issue_log.md` ISS-001 to ISS-005.
+- **Alternatives considered:**
+  1. Sign off M-2 as-is and handle every open item inside M-3.
+  2. Before sign-off, add a committed validation module (`src/data/validate.py` + tests) that regenerates `m2_validation_audit.json` offline, and add a modal-bounds warning flag to the pipeline validator.
+  3. Exclude or correct the 137 potato records (rejected: violates the no-silent-deletion rule and the cause is unknown).
+- **Outcome:**
+  - Option 2, then sign off M-2.
+  - Retain all raw records unchanged; carry explicit quality flags (`modal_outside_bounds`, low-arrival candidates) into the assembled dataset rather than deleting or imputing.
+  - Assemble datasets from the 14 six-month historical chunks only; exclude pilot chunks.
+- **Approval status:** **Option 2 approved by researcher (2026-10-23).** Implemented the same day: `src/data/validate.py` (offline audit, `python -m src.data.validate --output data/raw/m2_validation_audit.json`) and a non-fatal `modal_bounds_warnings` counter in `CedaIngestionPipeline.validate_records` (RES-012). **M-2 signed off by researcher on 2026-10-23.** The quality-flag and pilot-exclusion points above take effect at dataset assembly (M-3).
+- **Related files/refs:** `src/data/ingest_ceda.py`, `data/raw/m2_validation_audit.json`, `docs/issue_log.md`
