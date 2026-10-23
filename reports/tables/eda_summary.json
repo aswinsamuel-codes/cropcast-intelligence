@@ -1,0 +1,1094 @@
+{
+  "dataset_rows": 5080,
+  "descriptive": [
+    {
+      "series_id": "onion_maharashtra",
+      "variable": "modal_price",
+      "n": 2523,
+      "mean": 1388.2921047671305,
+      "median": 1079.2549019607843,
+      "std": 963.1956809506456,
+      "min": 406.16326530612247,
+      "q25": 710.0333333333333,
+      "q75": 1755.5689655172414,
+      "max": 7506.450980392156,
+      "cv": 0.6937990050099797,
+      "skewness": 2.142334553074881,
+      "excess_kurtosis": 6.488927794860317
+    },
+    {
+      "series_id": "onion_maharashtra",
+      "variable": "min_price",
+      "n": 2523,
+      "mean": 706.7005353445047,
+      "median": 572.560975609756,
+      "std": 449.4846599661512,
+      "min": 150.0,
+      "q25": 377.42391304347825,
+      "q75": 865.875,
+      "max": 3171.782608695652,
+      "cv": 0.6360327146873249,
+      "skewness": 1.7485565432628163,
+      "excess_kurtosis": 3.6345464056161436
+    },
+    {
+      "series_id": "onion_maharashtra",
+      "variable": "max_price",
+      "n": 2523,
+      "mean": 1801.1000417818545,
+      "median": 1399.861111111111,
+      "std": 1288.0003056240023,
+      "min": 568.7857142857143,
+      "q25": 920.7806763285024,
+      "q75": 2292.0563685636857,
+      "max": 10913.175,
+      "cv": 0.7151186917689285,
+      "skewness": 2.5377839801602127,
+      "excess_kurtosis": 9.668828114641563
+    },
+    {
+      "series_id": "onion_maharashtra",
+      "variable": "arrival_qty",
+      "n": 2523,
+      "mean": 16323.068172810146,
+      "median": 15664.0,
+      "std": 9001.50958320196,
+      "min": 2.0,
+      "q25": 9069.0,
+      "q75": 22739.0,
+      "max": 45648.0,
+      "cv": 0.5514594124036105,
+      "skewness": 0.3410453682942875,
+      "excess_kurtosis": -0.5338481035921947
+    },
+    {
+      "series_id": "onion_maharashtra",
+      "variable": "log_return_modal",
+      "n": 2522,
+      "mean": -2.1291692606853123e-05,
+      "median": 0.0005478616994927243,
+      "std": 0.0776900320211839,
+      "min": -0.5843166540209825,
+      "q25": -0.040071380623852626,
+      "q75": 0.03929648505009298,
+      "max": 0.5334628234946033,
+      "cv": NaN,
+      "skewness": -0.11632188712558862,
+      "excess_kurtosis": 4.968193288170654
+    },
+    {
+      "series_id": "potato_uttar_pradesh",
+      "variable": "modal_price",
+      "n": 2557,
+      "mean": 1016.8495410531956,
+      "median": 952.0731707317074,
+      "std": 493.45390979642804,
+      "min": 433.5576923076923,
+      "q25": 646.3414634146342,
+      "q75": 1230.340782122905,
+      "max": 3015.1807228915663,
+      "cv": 0.48527721149909375,
+      "skewness": 1.5128769308066694,
+      "excess_kurtosis": 3.084807152629587
+    },
+    {
+      "series_id": "potato_uttar_pradesh",
+      "variable": "min_price",
+      "n": 2557,
+      "mean": 967.5508851792706,
+      "median": 897.0454545454545,
+      "std": 484.75523372238155,
+      "min": 405.0,
+      "q25": 597.9041916167664,
+      "q75": 1173.0645161290322,
+      "max": 2928.7048192771085,
+      "cv": 0.5010126507533138,
+      "skewness": 1.5240494497326205,
+      "excess_kurtosis": 3.0800769137940547
+    },
+    {
+      "series_id": "potato_uttar_pradesh",
+      "variable": "max_price",
+      "n": 2557,
+      "mean": 1078.8864601238197,
+      "median": 1012.125,
+      "std": 501.9413107664966,
+      "min": 484.4117647058824,
+      "q25": 702.3730569948186,
+      "q75": 1295.9036144578313,
+      "max": 3098.5151515151515,
+      "cv": 0.465240161331611,
+      "skewness": 1.4858672349848043,
+      "excess_kurtosis": 2.97321144465391
+    },
+    {
+      "series_id": "potato_uttar_pradesh",
+      "variable": "arrival_qty",
+      "n": 2557,
+      "mean": 15363.745999217832,
+      "median": 14683.25,
+      "std": 8593.779063166601,
+      "min": 442.0,
+      "q25": 9250.829999999998,
+      "q75": 19919.97,
+      "max": 113475.3,
+      "cv": 0.5593544089835976,
+      "skewness": 2.1971910292610044,
+      "excess_kurtosis": 14.232342288817925
+    },
+    {
+      "series_id": "potato_uttar_pradesh",
+      "variable": "log_return_modal",
+      "n": 2556,
+      "mean": 0.00023948975672164776,
+      "median": 8.508529322881486e-05,
+      "std": 0.022608264312569182,
+      "min": -0.20406571218053404,
+      "q25": -0.010474908147118267,
+      "q75": 0.01063096711606537,
+      "max": 0.17245702046649303,
+      "cv": NaN,
+      "skewness": 0.004773585474897754,
+      "excess_kurtosis": 8.388384824139473
+    }
+  ],
+  "coverage": {
+    "onion_maharashtra": {
+      "observed_days": 2523,
+      "calendar_days": 2557,
+      "gaps": 13,
+      "max_gap_days": 10,
+      "observed_by_year": {
+        "2016": 364,
+        "2017": 360,
+        "2018": 365,
+        "2019": 362,
+        "2020": 346,
+        "2021": 361,
+        "2022": 365
+      },
+      "missing_by_weekday": {
+        "Mon": 5,
+        "Tue": 1,
+        "Wed": 3,
+        "Thu": 5,
+        "Fri": 7,
+        "Sat": 6,
+        "Sun": 7
+      }
+    },
+    "potato_uttar_pradesh": {
+      "observed_days": 2557,
+      "calendar_days": 2557,
+      "gaps": 0,
+      "max_gap_days": 0,
+      "observed_by_year": {
+        "2016": 366,
+        "2017": 365,
+        "2018": 365,
+        "2019": 365,
+        "2020": 366,
+        "2021": 365,
+        "2022": 365
+      },
+      "missing_by_weekday": {
+        "Mon": 0,
+        "Tue": 0,
+        "Wed": 0,
+        "Thu": 0,
+        "Fri": 0,
+        "Sat": 0,
+        "Sun": 0
+      }
+    }
+  },
+  "annual": [
+    {
+      "series_id": "onion_maharashtra",
+      "year": 2016,
+      "days": 364,
+      "modal_mean": 741.9271287227582,
+      "modal_median": 698.0347058823529,
+      "modal_min": 455.030303030303,
+      "modal_max": 1685.7272727272727,
+      "modal_cv": 0.22943886373642033,
+      "return_std": 0.08263777437797722,
+      "arrival_mean": 14076.986263736264,
+      "arrival_total": 5124023.0
+    },
+    {
+      "series_id": "onion_maharashtra",
+      "year": 2017,
+      "days": 360,
+      "modal_mean": 1229.7056116931058,
+      "modal_median": 645.7142857142858,
+      "modal_min": 418.35135135135135,
+      "modal_max": 3335.0731707317073,
+      "modal_cv": 0.6737898935391292,
+      "return_std": 0.07200763084631018,
+      "arrival_mean": 18431.141666666666,
+      "arrival_total": 6635211.0
+    },
+    {
+      "series_id": "onion_maharashtra",
+      "year": 2018,
+      "days": 365,
+      "modal_mean": 1046.5398536464074,
+      "modal_median": 892.2333333333333,
+      "modal_min": 479.5740740740741,
+      "modal_max": 3031.189189189189,
+      "modal_cv": 0.49639261177743765,
+      "return_std": 0.075146793728954,
+      "arrival_mean": 16098.345205479452,
+      "arrival_total": 5875896.0
+    },
+    {
+      "series_id": "onion_maharashtra",
+      "year": 2019,
+      "days": 362,
+      "modal_mean": 1904.163598323708,
+      "modal_median": 1165.9010721247564,
+      "modal_min": 406.16326530612247,
+      "modal_max": 7506.450980392156,
+      "modal_cv": 0.8836072555862869,
+      "return_std": 0.0866432077434854,
+      "arrival_mean": 14353.209944751381,
+      "arrival_total": 5195862.0
+    },
+    {
+      "series_id": "onion_maharashtra",
+      "year": 2020,
+      "days": 346,
+      "modal_mean": 1784.3146681018093,
+      "modal_median": 1523.447443181818,
+      "modal_min": 572.7777777777778,
+      "modal_max": 4570.714285714285,
+      "modal_cv": 0.5898886522021453,
+      "return_std": 0.0955249873524358,
+      "arrival_mean": 14179.170520231213,
+      "arrival_total": 4905993.0
+    },
+    {
+      "series_id": "onion_maharashtra",
+      "year": 2021,
+      "days": 361,
+      "modal_mean": 1736.9076764954762,
+      "modal_median": 1560.8392857142858,
+      "modal_min": 827.0,
+      "modal_max": 3441.1521739130435,
+      "modal_cv": 0.336523687440079,
+      "return_std": 0.06779487033421353,
+      "arrival_mean": 17630.969529085873,
+      "arrival_total": 6364780.0
+    },
+    {
+      "series_id": "onion_maharashtra",
+      "year": 2022,
+      "days": 365,
+      "modal_mean": 1299.218273179875,
+      "modal_median": 1161.1333333333334,
+      "modal_min": 759.5454545454545,
+      "modal_max": 2288.392156862745,
+      "modal_cv": 0.30261896493546625,
+      "return_std": 0.059518906944318065,
+      "arrival_mean": 19400.920547945207,
+      "arrival_total": 7081336.0
+    },
+    {
+      "series_id": "potato_uttar_pradesh",
+      "year": 2016,
+      "days": 366,
+      "modal_mean": 997.8812430225933,
+      "modal_median": 1048.5714285714284,
+      "modal_min": 447.8358208955224,
+      "modal_max": 1523.137254901961,
+      "modal_cv": 0.35116471322128745,
+      "return_std": 0.026673116492426055,
+      "arrival_mean": 13431.938715846994,
+      "arrival_total": 4916089.57
+    },
+    {
+      "series_id": "potato_uttar_pradesh",
+      "year": 2017,
+      "days": 365,
+      "modal_mean": 487.2808320399999,
+      "modal_median": 482.4492753623188,
+      "modal_min": 433.5576923076923,
+      "modal_max": 610.1666666666666,
+      "modal_cv": 0.06155959795552942,
+      "return_std": 0.02722646731798435,
+      "arrival_mean": 18865.33550684932,
+      "arrival_total": 6885847.460000001
+    },
+    {
+      "series_id": "potato_uttar_pradesh",
+      "year": 2018,
+      "days": 365,
+      "modal_mean": 949.4143455032811,
+      "modal_median": 1095.9550561797753,
+      "modal_min": 456.86290322580646,
+      "modal_max": 1260.2222222222222,
+      "modal_cv": 0.2959016870275517,
+      "return_std": 0.021513573140501754,
+      "arrival_mean": 14546.946849315067,
+      "arrival_total": 5309635.6
+    },
+    {
+      "series_id": "potato_uttar_pradesh",
+      "year": 2019,
+      "days": 365,
+      "modal_mean": 761.5194007268791,
+      "modal_median": 781.3275862068965,
+      "modal_min": 529.2279411764706,
+      "modal_max": 1278.2513661202186,
+      "modal_cv": 0.21800922991171529,
+      "return_std": 0.020922185230584124,
+      "arrival_mean": 16350.010246575343,
+      "arrival_total": 5967753.74
+    },
+    {
+      "series_id": "potato_uttar_pradesh",
+      "year": 2020,
+      "days": 366,
+      "modal_mean": 1798.5241507038465,
+      "modal_median": 1579.108825652129,
+      "modal_min": 970.5859375,
+      "modal_max": 3015.1807228915663,
+      "modal_cv": 0.3389037516441622,
+      "return_std": 0.02422847450945279,
+      "arrival_mean": 9498.10087431694,
+      "arrival_total": 3476304.92
+    },
+    {
+      "series_id": "potato_uttar_pradesh",
+      "year": 2021,
+      "days": 365,
+      "modal_mean": 944.9917872208498,
+      "modal_median": 978.48,
+      "modal_min": 645.11,
+      "modal_max": 1445.0058823529412,
+      "modal_cv": 0.1901481254317103,
+      "return_std": 0.019643233896861678,
+      "arrival_mean": 12148.363232876713,
+      "arrival_total": 4434152.58
+    },
+    {
+      "series_id": "potato_uttar_pradesh",
+      "year": 2022,
+      "days": 365,
+      "modal_mean": 1176.2454218217133,
+      "modal_median": 1215.8079096045199,
+      "modal_min": 763.3853211009174,
+      "modal_max": 1636.900709219858,
+      "modal_cv": 0.2373544836369777,
+      "return_std": 0.015953210683213995,
+      "arrival_mean": 22726.889452054795,
+      "arrival_total": 8295314.65
+    }
+  ],
+  "monthly_profile": [
+    {
+      "series_id": "onion_maharashtra",
+      "month": 1,
+      "modal_median": 1812.7692810457515,
+      "modal_q25": 670.8618421052631,
+      "modal_q75": 2459.846551724138,
+      "arrival_median": 21452.0
+    },
+    {
+      "series_id": "onion_maharashtra",
+      "month": 2,
+      "modal_median": 1521.8720355731225,
+      "modal_q25": 603.375,
+      "modal_q75": 1946.1233288770054,
+      "arrival_median": 19775.0
+    },
+    {
+      "series_id": "onion_maharashtra",
+      "month": 3,
+      "modal_median": 800.8333333333334,
+      "modal_q25": 631.8923076923077,
+      "modal_q75": 1236.3100427350428,
+      "arrival_median": 14466.0
+    },
+    {
+      "series_id": "onion_maharashtra",
+      "month": 4,
+      "modal_median": 713.1034482758621,
+      "modal_q25": 636.1,
+      "modal_q75": 859.2745098039215,
+      "arrival_median": 14334.0
+    },
+    {
+      "series_id": "onion_maharashtra",
+      "month": 5,
+      "modal_median": 693.4615384615385,
+      "modal_q25": 611.3055555555555,
+      "modal_q75": 844.390243902439,
+      "arrival_median": 16758.0
+    },
+    {
+      "series_id": "onion_maharashtra",
+      "month": 6,
+      "modal_median": 846.5627530364372,
+      "modal_q25": 711.1613636363636,
+      "modal_q75": 1143.9243853630646,
+      "arrival_median": 18982.0
+    },
+    {
+      "series_id": "onion_maharashtra",
+      "month": 7,
+      "modal_median": 1052.6818181818182,
+      "modal_q25": 726.9285714285714,
+      "modal_q75": 1165.3947368421052,
+      "arrival_median": 18612.0
+    },
+    {
+      "series_id": "onion_maharashtra",
+      "month": 8,
+      "modal_median": 1162.5,
+      "modal_q25": 925.8235294117648,
+      "modal_q75": 1509.8541666666667,
+      "arrival_median": 17383.0
+    },
+    {
+      "series_id": "onion_maharashtra",
+      "month": 9,
+      "modal_median": 1340.2410485933503,
+      "modal_q25": 862.6410256410256,
+      "modal_q75": 1819.69625,
+      "arrival_median": 15317.5
+    },
+    {
+      "series_id": "onion_maharashtra",
+      "month": 10,
+      "modal_median": 1964.4722222222222,
+      "modal_q25": 1247.1904545454545,
+      "modal_q75": 2605.4563462949377,
+      "arrival_median": 11699.0
+    },
+    {
+      "series_id": "onion_maharashtra",
+      "month": 11,
+      "modal_median": 2114.6969696969695,
+      "modal_q25": 1124.0,
+      "modal_q75": 3393.7526315789473,
+      "arrival_median": 9400.0
+    },
+    {
+      "series_id": "onion_maharashtra",
+      "month": 12,
+      "modal_median": 1872.923076923077,
+      "modal_q25": 732.3478260869565,
+      "modal_q75": 2586.28125,
+      "arrival_median": 14094.0
+    },
+    {
+      "series_id": "potato_uttar_pradesh",
+      "month": 1,
+      "modal_median": 570.7064676616916,
+      "modal_q25": 492.60714285714283,
+      "modal_q75": 830.7657657657658,
+      "arrival_median": 20390.6
+    },
+    {
+      "series_id": "potato_uttar_pradesh",
+      "month": 2,
+      "modal_median": 546.8997594120135,
+      "modal_q25": 473.9583270264134,
+      "modal_q75": 781.6878448502364,
+      "arrival_median": 19899.6
+    },
+    {
+      "series_id": "potato_uttar_pradesh",
+      "month": 3,
+      "modal_median": 692.0446927374302,
+      "modal_q25": 588.2083333333334,
+      "modal_q75": 860.2171428571429,
+      "arrival_median": 19525.8
+    },
+    {
+      "series_id": "potato_uttar_pradesh",
+      "month": 4,
+      "modal_median": 802.172600619195,
+      "modal_q25": 645.7405655680574,
+      "modal_q75": 888.278735632184,
+      "arrival_median": 13300.39
+    },
+    {
+      "series_id": "potato_uttar_pradesh",
+      "month": 5,
+      "modal_median": 982.4397590361446,
+      "modal_q25": 728.3513513513514,
+      "modal_q75": 1085.6136363636363,
+      "arrival_median": 11045.3
+    },
+    {
+      "series_id": "potato_uttar_pradesh",
+      "month": 6,
+      "modal_median": 1147.0607651912978,
+      "modal_q25": 792.4643211869142,
+      "modal_q75": 1237.5434528646892,
+      "arrival_median": 10850.2
+    },
+    {
+      "series_id": "potato_uttar_pradesh",
+      "month": 7,
+      "modal_median": 1222.3151515151515,
+      "modal_q25": 839.8692810457517,
+      "modal_q75": 1409.155844155844,
+      "arrival_median": 9967.8
+    },
+    {
+      "series_id": "potato_uttar_pradesh",
+      "month": 8,
+      "modal_median": 1214.6264367816093,
+      "modal_q25": 824.4709302325581,
+      "modal_q75": 1483.157894736842,
+      "arrival_median": 10481.45
+    },
+    {
+      "series_id": "potato_uttar_pradesh",
+      "month": 9,
+      "modal_median": 1171.0275707898659,
+      "modal_q25": 789.9746077621801,
+      "modal_q75": 1457.4962133659965,
+      "arrival_median": 11332.015
+    },
+    {
+      "series_id": "potato_uttar_pradesh",
+      "month": 10,
+      "modal_median": 1191.4583333333333,
+      "modal_q25": 850.1404494382023,
+      "modal_q75": 1469.3131313131314,
+      "arrival_median": 12742.32
+    },
+    {
+      "series_id": "potato_uttar_pradesh",
+      "month": 11,
+      "modal_median": 1160.4058922558922,
+      "modal_q25": 919.672335191302,
+      "modal_q75": 1419.785113113497,
+      "arrival_median": 14712.7
+    },
+    {
+      "series_id": "potato_uttar_pradesh",
+      "month": 12,
+      "modal_median": 935.9016393442623,
+      "modal_q25": 649.5238095238095,
+      "modal_q75": 1211.046783625731,
+      "arrival_median": 17451.399999999998
+    }
+  ],
+  "stationarity": [
+    {
+      "series_id": "onion_maharashtra",
+      "transform": "log_level",
+      "adf_stat": -3.3637544398587345,
+      "adf_p": 0.01225831157351479,
+      "kpss_stat": 1.809535739850871,
+      "kpss_p_bounded": 0.01
+    },
+    {
+      "series_id": "onion_maharashtra",
+      "transform": "log_return",
+      "adf_stat": -8.036797774948576,
+      "adf_p": 1.893190402028636e-12,
+      "kpss_stat": 0.05029453031265978,
+      "kpss_p_bounded": 0.1
+    },
+    {
+      "series_id": "potato_uttar_pradesh",
+      "transform": "log_level",
+      "adf_stat": -3.149817231993773,
+      "adf_p": 0.023079496938043752,
+      "kpss_stat": 2.1953137786908727,
+      "kpss_p_bounded": 0.01
+    },
+    {
+      "series_id": "potato_uttar_pradesh",
+      "transform": "log_return",
+      "adf_stat": -5.929510252542728,
+      "adf_p": 2.399156183096601e-07,
+      "kpss_stat": 0.0805829790590716,
+      "kpss_p_bounded": 0.1
+    }
+  ],
+  "seasonality": {
+    "onion_maharashtra": {
+      "acf_return_lag7": 0.3083451567606687,
+      "acf_return_band_95": 0.03902865008374282,
+      "weekday_kruskal_H": 254.40163172383473,
+      "weekday_kruskal_p": 4.700732992197514e-52,
+      "acf_level_lag365": 0.18661580928065885,
+      "acf_level_lag182": -0.14450661635135476,
+      "weekly_return_acf_significant": true,
+      "weekday_kruskal_p_bh": 4.700732992197514e-52,
+      "weekday_effect_significant_bh": true
+    },
+    "potato_uttar_pradesh": {
+      "acf_return_lag7": 0.38460369474305195,
+      "acf_return_band_95": 0.038768200834332536,
+      "weekday_kruskal_H": 563.6285589133586,
+      "weekday_kruskal_p": 1.6277646451126834e-118,
+      "acf_level_lag365": 0.07162455237369347,
+      "acf_level_lag182": 0.10310849860521683,
+      "weekly_return_acf_significant": true,
+      "weekday_kruskal_p_bh": 3.255529290225367e-118,
+      "weekday_effect_significant_bh": true
+    }
+  },
+  "weekday_profile": [
+    {
+      "series_id": "onion_maharashtra",
+      "weekday": "Mon",
+      "days": 360,
+      "arrival_median": 21054.0,
+      "log_price_dev_from_centred_7d_mean_pct": -1.1336021517210226,
+      "mean_abs_log_return_pct": 8.48532200058956
+    },
+    {
+      "series_id": "onion_maharashtra",
+      "weekday": "Tue",
+      "days": 364,
+      "arrival_median": 18253.5,
+      "log_price_dev_from_centred_7d_mean_pct": -0.8389405890946642,
+      "mean_abs_log_return_pct": 4.589798775709704
+    },
+    {
+      "series_id": "onion_maharashtra",
+      "weekday": "Wed",
+      "days": 362,
+      "arrival_median": 19613.0,
+      "log_price_dev_from_centred_7d_mean_pct": 0.27276953433818923,
+      "mean_abs_log_return_pct": 4.554861273268874
+    },
+    {
+      "series_id": "onion_maharashtra",
+      "weekday": "Thu",
+      "days": 360,
+      "arrival_median": 20067.5,
+      "log_price_dev_from_centred_7d_mean_pct": -0.06294624095008904,
+      "mean_abs_log_return_pct": 4.6364562659274595
+    },
+    {
+      "series_id": "onion_maharashtra",
+      "weekday": "Fri",
+      "days": 359,
+      "arrival_median": 18278.0,
+      "log_price_dev_from_centred_7d_mean_pct": -1.0844797345826374,
+      "mean_abs_log_return_pct": 4.9746800768307775
+    },
+    {
+      "series_id": "onion_maharashtra",
+      "weekday": "Sat",
+      "days": 360,
+      "arrival_median": 12438.5,
+      "log_price_dev_from_centred_7d_mean_pct": -0.8160671866520556,
+      "mean_abs_log_return_pct": 4.140332218940907
+    },
+    {
+      "series_id": "onion_maharashtra",
+      "weekday": "Sun",
+      "days": 358,
+      "arrival_median": 6347.5,
+      "log_price_dev_from_centred_7d_mean_pct": 3.6860330790100213,
+      "mean_abs_log_return_pct": 7.073471320730119
+    },
+    {
+      "series_id": "potato_uttar_pradesh",
+      "weekday": "Mon",
+      "days": 365,
+      "arrival_median": 16793.700000000004,
+      "log_price_dev_from_centred_7d_mean_pct": 0.33502357585916676,
+      "mean_abs_log_return_pct": 2.397649066821202
+    },
+    {
+      "series_id": "potato_uttar_pradesh",
+      "weekday": "Tue",
+      "days": 365,
+      "arrival_median": 15827.450000000003,
+      "log_price_dev_from_centred_7d_mean_pct": 0.032118225482260176,
+      "mean_abs_log_return_pct": 1.2476579596513993
+    },
+    {
+      "series_id": "potato_uttar_pradesh",
+      "weekday": "Wed",
+      "days": 365,
+      "arrival_median": 16095.64,
+      "log_price_dev_from_centred_7d_mean_pct": 0.14667535609392066,
+      "mean_abs_log_return_pct": 1.2169104835090425
+    },
+    {
+      "series_id": "potato_uttar_pradesh",
+      "weekday": "Thu",
+      "days": 365,
+      "arrival_median": 16007.900000000003,
+      "log_price_dev_from_centred_7d_mean_pct": 0.3605880616605833,
+      "mean_abs_log_return_pct": 1.2494006868299279
+    },
+    {
+      "series_id": "potato_uttar_pradesh",
+      "weekday": "Fri",
+      "days": 366,
+      "arrival_median": 15325.95,
+      "log_price_dev_from_centred_7d_mean_pct": 0.3393454909164846,
+      "mean_abs_log_return_pct": 1.2565049339031074
+    },
+    {
+      "series_id": "potato_uttar_pradesh",
+      "weekday": "Sat",
+      "days": 366,
+      "arrival_median": 16726.375000000004,
+      "log_price_dev_from_centred_7d_mean_pct": 0.2528931328768424,
+      "mean_abs_log_return_pct": 1.2359194110163776
+    },
+    {
+      "series_id": "potato_uttar_pradesh",
+      "weekday": "Sun",
+      "days": 365,
+      "arrival_median": 7544.3,
+      "log_price_dev_from_centred_7d_mean_pct": -1.4678694724671335,
+      "mean_abs_log_return_pct": 2.2104218094592945
+    }
+  ],
+  "decomposition": {
+    "onion_maharashtra": {
+      "yearly_mean_std_spearman": 0.8214285714285715,
+      "yearly_cv_min": 0.22041325056242314,
+      "yearly_cv_max": 0.9022975969646699,
+      "model": "multiplicative",
+      "seasonal_strength": 0.23832369746857995,
+      "trend_strength": 0.3086192184258072,
+      "seasonal_peak_month": 11,
+      "seasonal_trough_month": 4
+    },
+    "potato_uttar_pradesh": {
+      "yearly_mean_std_spearman": 0.8928571428571429,
+      "yearly_cv_min": 0.059542104625809146,
+      "yearly_cv_max": 0.3619892562384256,
+      "model": "multiplicative",
+      "seasonal_strength": 0.42296865571023134,
+      "trend_strength": 0.5801619799940694,
+      "seasonal_peak_month": 8,
+      "seasonal_trough_month": 2
+    }
+  },
+  "volatility": {
+    "onion_maharashtra": {
+      "brown_forsythe_stat": 7.100690291194145,
+      "brown_forsythe_p": 1.6182934191013995e-07,
+      "share_abs_return_gt_10pct": 0.1669310071371927
+    },
+    "potato_uttar_pradesh": {
+      "brown_forsythe_stat": 4.496300257757631,
+      "brown_forsythe_p": 0.00015401279282395856,
+      "share_abs_return_gt_10pct": 0.005477308294209703
+    }
+  },
+  "extreme_moves": [
+    {
+      "series_id": "onion_maharashtra",
+      "date": "2019-03-04",
+      "log_return": -0.5843166540209825,
+      "pct_change": -44.25133120340785
+    },
+    {
+      "series_id": "onion_maharashtra",
+      "date": "2019-03-03",
+      "log_return": 0.5334628234946033,
+      "pct_change": 70.48256091734353
+    },
+    {
+      "series_id": "onion_maharashtra",
+      "date": "2016-01-25",
+      "log_return": -0.43620289338001417,
+      "pct_change": -35.35134552122092
+    },
+    {
+      "series_id": "onion_maharashtra",
+      "date": "2016-01-24",
+      "log_return": 0.42270374916709574,
+      "pct_change": 52.60821258910076
+    },
+    {
+      "series_id": "onion_maharashtra",
+      "date": "2020-05-22",
+      "log_return": 0.422330041295055,
+      "pct_change": 52.55119235383714
+    },
+    {
+      "series_id": "onion_maharashtra",
+      "date": "2020-05-23",
+      "log_return": -0.3899197191947952,
+      "pct_change": -32.28887686489044
+    },
+    {
+      "series_id": "onion_maharashtra",
+      "date": "2018-04-17",
+      "log_return": -0.37199464023565376,
+      "pct_change": -31.064206268958493
+    },
+    {
+      "series_id": "onion_maharashtra",
+      "date": "2020-08-18",
+      "log_return": 0.3673185465462758,
+      "pct_change": 44.38577817771565
+    },
+    {
+      "series_id": "onion_maharashtra",
+      "date": "2020-04-24",
+      "log_return": 0.3600027340314069,
+      "pct_change": 43.333333333333314
+    },
+    {
+      "series_id": "onion_maharashtra",
+      "date": "2020-04-15",
+      "log_return": 0.34504879792668675,
+      "pct_change": 41.205882352941046
+    },
+    {
+      "series_id": "potato_uttar_pradesh",
+      "date": "2016-12-23",
+      "log_return": -0.20406571218053404,
+      "pct_change": -18.459121286267987
+    },
+    {
+      "series_id": "potato_uttar_pradesh",
+      "date": "2016-12-22",
+      "log_return": 0.17245702046649303,
+      "pct_change": 18.822075034395503
+    },
+    {
+      "series_id": "potato_uttar_pradesh",
+      "date": "2020-03-23",
+      "log_return": 0.15029519094610944,
+      "pct_change": 16.217725630237645
+    },
+    {
+      "series_id": "potato_uttar_pradesh",
+      "date": "2017-07-30",
+      "log_return": 0.14119175697411634,
+      "pct_change": 15.16454628618844
+    },
+    {
+      "series_id": "potato_uttar_pradesh",
+      "date": "2017-07-31",
+      "log_return": -0.13999787196989555,
+      "pct_change": -13.063991457872925
+    },
+    {
+      "series_id": "potato_uttar_pradesh",
+      "date": "2020-03-22",
+      "log_return": -0.128065463518241,
+      "pct_change": -12.02042172678387
+    },
+    {
+      "series_id": "potato_uttar_pradesh",
+      "date": "2020-03-11",
+      "log_return": 0.118976735685286,
+      "pct_change": 12.634371436889879
+    },
+    {
+      "series_id": "potato_uttar_pradesh",
+      "date": "2016-02-27",
+      "log_return": 0.11849717242696567,
+      "pct_change": 12.580369080532684
+    },
+    {
+      "series_id": "potato_uttar_pradesh",
+      "date": "2019-10-27",
+      "log_return": -0.11526994464352391,
+      "pct_change": -10.88744431350822
+    },
+    {
+      "series_id": "potato_uttar_pradesh",
+      "date": "2017-03-13",
+      "log_return": 0.10973855634255081,
+      "pct_change": 11.598626478443364
+    }
+  ],
+  "price_arrival": {
+    "onion_maharashtra": {
+      "months": 84,
+      "spearman_log_levels": -0.12137288650399919,
+      "spearman_monthly_log_diff": -0.20376978296461104,
+      "diff_block_bootstrap_ci95": [
+        -0.41038685962295457,
+        -0.05407401453008418
+      ],
+      "spearman_lagged_arrival_diff": {
+        "0": -0.20376978296461104,
+        "1": -0.04363252467866044,
+        "2": 0.000925925925925926,
+        "3": 0.013759962494139709
+      }
+    },
+    "potato_uttar_pradesh": {
+      "months": 84,
+      "spearman_log_levels": -0.5350005062265871,
+      "spearman_monthly_log_diff": -0.5966374207631922,
+      "diff_block_bootstrap_ci95": [
+        -0.7413128591081728,
+        -0.3425133135549894
+      ],
+      "spearman_lagged_arrival_diff": {
+        "0": -0.5966374207631922,
+        "1": -0.5600831510323135,
+        "2": -0.31158536585365854,
+        "3": -0.17944210032817628
+      }
+    }
+  },
+  "cross_commodity_monthly_spearman_log_modal": 0.16470588235294117,
+  "iss002": {
+    "onion_maharashtra": {
+      "flagged_rows": 0,
+      "modal_position_median_2016-03-04_2017-04-02": 0.6075538201551246,
+      "modal_position_median_other": 0.6228993271469115,
+      "max_min_ratio_median_2016-03-04_2017-04-02": 2.4939359293949392,
+      "max_min_ratio_median_other": 2.482800667436786,
+      "flagged_months": {}
+    },
+    "potato_uttar_pradesh": {
+      "flagged_rows": 137,
+      "modal_position_median_2016-03-04_2017-04-02": 0.07382077843709127,
+      "modal_position_median_other": 0.5013584431373714,
+      "max_min_ratio_median_2016-03-04_2017-04-02": 1.093546924588182,
+      "max_min_ratio_median_other": 1.1340735722802906,
+      "flagged_months": {
+        "2016-03": 3,
+        "2016-04": 23,
+        "2016-05": 28,
+        "2016-06": 8,
+        "2016-07": 7,
+        "2016-08": 19,
+        "2016-09": 9,
+        "2016-10": 6,
+        "2016-12": 8,
+        "2017-01": 20,
+        "2017-02": 1,
+        "2017-03": 4,
+        "2017-04": 1
+      }
+    }
+  },
+  "iss003": [
+    {
+      "series_id": "onion_maharashtra",
+      "date": "2020-03-22",
+      "arrival_qty": 28.0,
+      "prior_14d_median_arrival": 14548.0,
+      "modal_price": 1350.0,
+      "prior_14d_median_modal": 1428.3271413828688,
+      "min_price": 850.0,
+      "max_price": 1700.0
+    },
+    {
+      "series_id": "onion_maharashtra",
+      "date": "2020-04-21",
+      "arrival_qty": 77.0,
+      "prior_14d_median_arrival": 3472.0,
+      "modal_price": 933.3333333333334,
+      "prior_14d_median_modal": 1013.5,
+      "min_price": 633.3333333333334,
+      "max_price": 1233.3333333333333
+    },
+    {
+      "series_id": "onion_maharashtra",
+      "date": "2020-04-22",
+      "arrival_qty": 150.0,
+      "prior_14d_median_arrival": 1260.0,
+      "modal_price": 750.0,
+      "prior_14d_median_modal": 933.3333333333334,
+      "min_price": 400.0,
+      "max_price": 800.0
+    },
+    {
+      "series_id": "onion_maharashtra",
+      "date": "2020-04-24",
+      "arrival_qty": 5.0,
+      "prior_14d_median_arrival": 738.5,
+      "modal_price": 1075.0,
+      "prior_14d_median_modal": 926.7857142857142,
+      "min_price": 750.0,
+      "max_price": 1450.0
+    },
+    {
+      "series_id": "onion_maharashtra",
+      "date": "2020-04-25",
+      "arrival_qty": 3.0,
+      "prior_14d_median_arrival": 217.0,
+      "modal_price": 1200.0,
+      "prior_14d_median_modal": 933.3333333333334,
+      "min_price": 800.0,
+      "max_price": 1500.0
+    },
+    {
+      "series_id": "onion_maharashtra",
+      "date": "2020-04-28",
+      "arrival_qty": 2.0,
+      "prior_14d_median_arrival": 217.0,
+      "modal_price": 1000.0,
+      "prior_14d_median_modal": 1013.5,
+      "min_price": 700.0,
+      "max_price": 1300.0
+    },
+    {
+      "series_id": "onion_maharashtra",
+      "date": "2020-04-29",
+      "arrival_qty": 31.0,
+      "prior_14d_median_arrival": 217.0,
+      "modal_price": 800.0,
+      "prior_14d_median_modal": 1013.5,
+      "min_price": 550.0,
+      "max_price": 1050.0
+    },
+    {
+      "series_id": "onion_maharashtra",
+      "date": "2020-10-26",
+      "arrival_qty": 14.0,
+      "prior_14d_median_arrival": 11201.5,
+      "modal_price": 3000.0,
+      "prior_14d_median_modal": 3691.8881614839065,
+      "min_price": 1000.0,
+      "max_price": 6500.0
+    },
+    {
+      "series_id": "onion_maharashtra",
+      "date": "2020-11-14",
+      "arrival_qty": 24.0,
+      "prior_14d_median_arrival": 7792.5,
+      "modal_price": 3330.0,
+      "prior_14d_median_modal": 3638.6188230008984,
+      "min_price": 2060.0,
+      "max_price": 4600.0
+    },
+    {
+      "series_id": "onion_maharashtra",
+      "date": "2021-05-01",
+      "arrival_qty": 129.0,
+      "prior_14d_median_arrival": 19372.5,
+      "modal_price": 958.3333333333334,
+      "prior_14d_median_modal": 928.8561904761905,
+      "min_price": 501.6666666666667,
+      "max_price": 1240.0
+    }
+  ],
+  "integer_modal_share": {
+    "onion_maharashtra": {
+      "share_integer_modal_all_days": 0.04558065794688863,
+      "share_integer_modal_flag_extreme_arrival": 0.8,
+      "share_integer_modal_arrival_below_tenth_of_median": 0.359375,
+      "days_arrival_below_tenth_of_median": 64,
+      "fisher_exact_p_flagged_vs_rest": 6.119011956025677e-10
+    },
+    "potato_uttar_pradesh": {
+      "share_integer_modal_all_days": 0.026202581149784906,
+      "share_integer_modal_flag_extreme_arrival": null,
+      "share_integer_modal_arrival_below_tenth_of_median": 0.0,
+      "days_arrival_below_tenth_of_median": 12,
+      "fisher_exact_p_flagged_vs_rest": null
+    }
+  }
+}

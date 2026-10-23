@@ -1,0 +1,11 @@
+series_id,date,arrival_qty,prior_14d_median_arrival,modal_price,prior_14d_median_modal,min_price,max_price
+onion_maharashtra,2020-03-22,28,14548,1350,1428.33,850,1700
+onion_maharashtra,2020-04-21,77,3472,933.333,1013.5,633.333,1233.33
+onion_maharashtra,2020-04-22,150,1260,750,933.333,400,800
+onion_maharashtra,2020-04-24,5,738.5,1075,926.786,750,1450
+onion_maharashtra,2020-04-25,3,217,1200,933.333,800,1500
+onion_maharashtra,2020-04-28,2,217,1000,1013.5,700,1300
+onion_maharashtra,2020-04-29,31,217,800,1013.5,550,1050
+onion_maharashtra,2020-10-26,14,11201.5,3000,3691.89,1000,6500
+onion_maharashtra,2020-11-14,24,7792.5,3330,3638.62,2060,4600
+onion_maharashtra,2021-05-01,129,19372.5,958.333,928.856,501.667,1240

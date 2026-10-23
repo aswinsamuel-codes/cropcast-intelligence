@@ -17,7 +17,7 @@ This file records planned, in-progress, completed, and blocked milestones with e
 | M-0 | Project Foundation                      | Completed   | Pre-development    |
 | M-1 | Research and Dataset Feasibility        | Completed   | Phase 1            |
 | M-2 | Data Acquisition and Preparation        | Completed   | Phase 2            |
-| M-3 | Exploratory Data Analysis               | In Progress | Phase 3            |
+| M-3 | Exploratory Data Analysis               | Completed   | Phase 3            |
 | M-4 | Forecasting Protocol and Baselines      | Planned     | Phase 4            |
 | M-5 | Forecasting Experiments                 | Planned     | Phase 5            |
 | M-6 | Anomaly Detection                       | Planned     | Phase 6            |
@@ -207,7 +207,12 @@ This file records planned, in-progress, completed, and blocked milestones with e
 
 ## M-3: Exploratory Data Analysis
 
-**Status:** In Progress (started 2026-10-23)
+**Status:** Completed 2026-10-23
+**Evidence:**
+- `reports/eda_report.md` (RES-015); `src/analysis/eda.py` runs clean with warnings treated as errors; 12 figures in `figures/` and tables in `reports/tables/`.
+- Tests: 71 passing, including 7 new EDA helper tests.
+- Deviation: Req 3.7 peer-market correlations do not apply (DEC-017); a cross-commodity heatmap is given instead and labelled as non-peer.
+- The notebook deliverables (`notebooks/01_data_audit.ipynb`, `02_eda.ipynb`) are generated and executed in Phase 9 together with 03 and 04.
 
 ### Planned Scope
 - Reproducible EDA notebook or scripts.

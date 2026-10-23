@@ -49,7 +49,10 @@ Each entry records: symptoms, reproduction steps, root cause (if established), a
 - **Root cause:** Under investigation. All below-min cases fall within 2016-03-04 – 2017-04-02 (110 in 2016, 26 in 2017); median shortfall 1.46%, max 7.24%. The time confinement points to a source-side aggregation or reporting regime in that period. An earlier "volume-weighted aggregation" explanation was unverified and has been retracted.
 - **Attempted solutions:**
   1. None applied. Records are retained unchanged (no deletion, clipping, or imputation).
-- **Resolution:** Unresolved. Proposed: carry a quality flag column in the assembled dataset and examine in EDA; optionally ask CEDA about aggregation methodology for 2016–2017.
+- **Resolution:** Unresolved. Update 2026-10-23 (RES-014, RES-015):
+  - CEDA methodology documentation is unavailable (README HTTP 404).
+  - EDA shows a reporting regime from at least 2016-01 to about 2017-04 in which the modal sits at a median 0.07 of the [min, max] band, against 0.50 afterwards. The 137 violations are its extreme tail.
+  - Rows carry `flag_modal_outside_bounds`. Potato min/max prices are excluded from features, and the regime lies in the training period only.
 - **Verified by:** Offline re-verification (RES-011).
 - **Status:** Open
 - **Related files/refs:** `data/raw/ceda/potato_uttar_pradesh/prices_*.json`, `docs/research_log.md` (RES-010, RES-011), DEC-016
@@ -154,3 +157,13 @@ Each entry records: symptoms, reproduction steps, root cause (if established), a
 - **Verified by:** `grep -cE '^\s+def test_'` per test file; manual read of `reports/_ceda_audit.py`.
 - **Status:** Resolved
 - **Related files/refs:** `CHANGELOG.md`, `docs/research_log.md`, `docs/issue_log.md`, `docs/milestone_history.md`, `docs/environment.md`
+
+### ISS-010: First dataset build rounded source values to 10 significant digits
+- **Date reported:** 2026-10-23
+- **Phase / component:** Data assembly (`src/data/dataset.py`)
+- **Symptoms:** The first CSV output used `float_format="%.10g"`, which wrote 1377.952380952381 as 1377.952381. That alters source values, against the no-modification rule.
+- **Root cause:** The output format was chosen for compactness, not losslessness.
+- **Resolution:** Switched to pandas' default shortest round-trip representation. Caught before any analysis used the file or anything was committed.
+- **Verified by:** All 20,320 numeric values compared equal to the raw JSON. Two rebuilds give an identical SHA-256 (`b5f21e02…`).
+- **Status:** Resolved
+- **Related files/refs:** `src/data/dataset.py`, DEC-019

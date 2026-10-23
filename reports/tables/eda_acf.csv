@@ -1,0 +1,17 @@
+series_id,lag_market_days,acf_log_level,acf_log_return
+onion_maharashtra,1,0.990988,-0.319767
+onion_maharashtra,2,0.987725,0.00518774
+onion_maharashtra,7,0.969757,0.308345
+onion_maharashtra,14,0.93456,0.262915
+onion_maharashtra,30,0.824496,-0.0174345
+onion_maharashtra,182,-0.144507,0.0103559
+onion_maharashtra,364,0.187742,0.086746
+onion_maharashtra,365,0.186616,-0.0544224
+potato_uttar_pradesh,1,0.99848,-0.295219
+potato_uttar_pradesh,2,0.997694,0.0634285
+potato_uttar_pradesh,7,0.990777,0.384604
+potato_uttar_pradesh,14,0.971288,0.297577
+potato_uttar_pradesh,30,0.900571,0.0138722
+potato_uttar_pradesh,182,0.103108,0.177914
+potato_uttar_pradesh,364,0.0727601,0.155143
+potato_uttar_pradesh,365,0.0716246,-0.0392909

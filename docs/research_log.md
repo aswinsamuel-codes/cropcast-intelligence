@@ -645,3 +645,26 @@ Note: Both onion and potato label files appear to START at 2016-01-01, not at 20
 - **ICTD-IITD labels:** the source paper is confirmed as Madaan et al. (2019), ACM COMPASS, doi:10.1145/3314344.3332488. Local label files hold 360 onion windows (25 in Maharashtra) and 512 potato windows (97 in Uttar Pradesh), dated 2016-01-01 to 2022-01-03. They are treated as weak, endogenous references (DEC-017).
 - **Dataset v1:** built and frozen (DEC-019). Onion: 2,523 rows, 34 missing days (1.33%). Potato: 2,557 rows, 0 missing.
 - **Status:** Phase 2 complete; prerequisites for M-3 EDA satisfied.
+
+---
+
+### RES-015: M-3 Exploratory Data Analysis Findings
+- **Date:** 2026-10-23
+- **Report:** `reports/eda_report.md`. **Code:** `src/analysis/eda.py` (seeded; reproducible). **Outputs:** `reports/tables/eda_*`, `figures/fig01–fig12`.
+- **Key findings [Observed]:**
+  1. **Weekly structure dominates:** the ACF of daily log returns is −0.32/−0.30 at lag 1 and +0.31/+0.38 at lag 7 (onion/potato). Weekday effects are highly significant (BH-adjusted Kruskal–Wallis p < 10⁻⁵⁰). Sunday arrivals fall to about a third of weekday levels. Annual ACF of levels is weak (0.19/0.07).
+  2. **Onion is volatile:** daily return SD is 0.078 for onion vs 0.023 for potato. 16.7% of onion daily moves exceed ±10%. The largest moves are Sunday spike-and-revert pairs.
+  3. **Seasonality:** a multiplicative model is chosen by the Req 3.6 rule (Spearman of yearly mean vs SD is 0.82 for onion, 0.89 for potato). Seasonal strength is 0.24 for onion and 0.42 for potato. Peaks: November (onion) and August (potato).
+  4. **Price–arrival association (monthly changes):** potato ρ = −0.60 [−0.74, −0.34]; onion ρ = −0.20 [−0.41, −0.05]. Associational only.
+  5. **Stationarity:** log levels give mixed results (ADF rejects a unit root; KPSS rejects stationarity). Log returns are stationary, so ARIMA is eligible (Req 5.5).
+- **ISS-002 [Observed]:** the potato modal sits at a median 0.07 of its [min, max] band between 2016-03-04 and 2017-04-02, against 0.50 at all other times, with an abrupt shift around April 2017. This points to a source reporting or aggregation change. Its cause remains unresolved.
+- **ISS-003 [Observed]:** on 8 of the 10 near-zero onion arrival days the modal price is a whole number, against 4.6% of all days (Fisher p = 6×10⁻¹⁰). **[Hypothesis]** Only one or a few mandis reported on those days. These are treated as coverage anomalies.
+- **[Hypothesis]** The weekday composition effect: daily state aggregates mix different mandi sets by weekday. This cannot be verified without mandi counts.
+- **Protocol consequences:**
+  - Weekly seasonal naive (period 7).
+  - Log-scale modelling.
+  - Seasonal ARIMA with period 7.
+  - Day-of-week features.
+  - Weekday-aware anomaly scoring.
+  - Potato min/max prices are not used as features.
+- **Split dates:** onion test 2021-08-14..2022-12-31; potato test 2021-08-07..2022-12-31. Validation spans the COVID-19 period.

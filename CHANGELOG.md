@@ -8,24 +8,21 @@ All notable changes to the CropCast project are recorded here in reverse-chronol
 
 ## [Unreleased]
 
-### In Progress
+### Planned
+- M-4 forecasting protocol, M-5 forecasting experiments, M-6 anomaly screening, M-7 final report (end-to-end authorisation, 2026-10-23).
+
+### Completed
+- Milestone 3: Exploratory Data Analysis (2026-10-23)
+  - `src/analysis/eda.py`, `reports/eda_report.md`, 12 figures in `figures/`, tables in `reports/tables/`.
+  - Key findings: weekly composition effect; ISS-002 reporting regime (2016 – Apr 2017); ISS-003 partial-reporting evidence; potato price–arrival ρ = −0.60.
+  - 7 EDA tests (71 total).
 - Phase 0–2 recovery, literature review and dataset freeze (2026-10-23)
   - Project `.venv`, pinned `requirements.txt`, `configs/config.json` with `src/config.py` (DEC-018).
   - Stored M-2 audit regenerated with the current validator: passes, with 2 warnings.
   - `reports/literature_review.md`: 21 references, each verified against its registry record.
-  - Frozen dataset v1 via `src/data/dataset.py` (DEC-019), with 13 tests in `tests/test_dataset.py`. The suite now has 64 tests.
+  - Frozen dataset v1 via `src/data/dataset.py` (DEC-019), with 13 tests in `tests/test_dataset.py`.
   - Peer-market requirements recorded as not applicable (DEC-017).
   - Corrected the unverified CEDA logo-requirement claim in the feasibility report.
-
-### Planned
-- Milestone 3: Exploratory Data Analysis (EDA)
-  - Modular analysis scripts under `src/analysis/`.
-  - Processed dataset assembly module under `src/data/dataset.py`.
-  - Descriptive, temporal, missingness, and outlier investigations.
-  - Publication-quality visualizations under `reports/figures/`.
-  - Detailed academic report at `reports/eda_report.md`.
-
-### Completed
 - Milestone 2: Data Acquisition and Preparation — signed off by researcher (2026-10-23)
   - Full historical extraction (2016-01-01 to 2022-12-31) executed via `task-775` across 56 endpoint chunks for Maharashtra Onion and Uttar Pradesh Potato; finished 2026-10-22T21:59Z.
   - Within CEDA rate limits: 92–98s spacing between saved chunks, peak 38 requests in any rolling hour (≤ 40). No run log retained, so absence of 429s/retries is not independently verified.

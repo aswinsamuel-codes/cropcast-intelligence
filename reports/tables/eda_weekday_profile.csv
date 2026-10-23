@@ -1,0 +1,15 @@
+series_id,weekday,days,arrival_median,log_price_dev_from_centred_7d_mean_pct,mean_abs_log_return_pct
+onion_maharashtra,Mon,360,21054,-1.1336,8.48532
+onion_maharashtra,Tue,364,18253.5,-0.838941,4.5898
+onion_maharashtra,Wed,362,19613,0.27277,4.55486
+onion_maharashtra,Thu,360,20067.5,-0.0629462,4.63646
+onion_maharashtra,Fri,359,18278,-1.08448,4.97468
+onion_maharashtra,Sat,360,12438.5,-0.816067,4.14033
+onion_maharashtra,Sun,358,6347.5,3.68603,7.07347
+potato_uttar_pradesh,Mon,365,16793.7,0.335024,2.39765
+potato_uttar_pradesh,Tue,365,15827.5,0.0321182,1.24766
+potato_uttar_pradesh,Wed,365,16095.6,0.146675,1.21691
+potato_uttar_pradesh,Thu,365,16007.9,0.360588,1.2494
+potato_uttar_pradesh,Fri,366,15326,0.339345,1.2565
+potato_uttar_pradesh,Sat,366,16726.4,0.252893,1.23592
+potato_uttar_pradesh,Sun,365,7544.3,-1.46787,2.21042

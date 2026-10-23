@@ -20,10 +20,26 @@
     "end_date": "2022-12-31",
     "chunk_months": 6,
     "series": {
-      "onion_maharashtra": {"commodity": "Onion", "state": "Maharashtra", "commodity_id": 23, "census_state_id": 27, "ictd_state": "MAHARASHTRA"},
-      "potato_uttar_pradesh": {"commodity": "Potato", "state": "Uttar Pradesh", "commodity_id": 24, "census_state_id": 9, "ictd_state": "UTTAR PRADESH"}
+      "onion_maharashtra": {
+        "commodity": "Onion",
+        "state": "Maharashtra",
+        "commodity_id": 23,
+        "census_state_id": 27,
+        "ictd_state": "MAHARASHTRA"
+      },
+      "potato_uttar_pradesh": {
+        "commodity": "Potato",
+        "state": "Uttar Pradesh",
+        "commodity_id": 24,
+        "census_state_id": 9,
+        "ictd_state": "UTTAR PRADESH"
+      }
     },
     "extreme_value_factor": 100.0
   },
-  "attribution": "Data: CEDA Agri Market Data, Centre for Economic Data and Analysis (CEDA), Ashoka University; original source DMI, Ministry of Agriculture and Farmers Welfare (Agmarknet)."
+  "attribution": "Data: CEDA Agri Market Data, Centre for Economic Data and Analysis (CEDA), Ashoka University; original source DMI, Ministry of Agriculture and Farmers Welfare (Agmarknet).",
+  "eda": {
+    "bootstrap_block_months": 6,
+    "bootstrap_reps": 2000
+  }
 }
