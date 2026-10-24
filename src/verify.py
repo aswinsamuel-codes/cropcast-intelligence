@@ -201,6 +201,7 @@ def main() -> int:
     parser.add_argument("--full", action="store_true", help="also recompute SARIMA anomaly residuals")
     parser.add_argument("--skip-tests", action="store_true")
     parser.add_argument("--only", nargs="*", help="run only these stages")
+    parser.add_argument("--json-out", help="also write the results, with a UTC timestamp and the Git commit, to this JSON file")
     args = parser.parse_args()
     cfg = load_config()
     results = []
@@ -216,6 +217,16 @@ def main() -> int:
         print(f"[{'PASS' if ok else 'FAIL'}] {name:17s} ({results[-1]['seconds']}s) {detail}", flush=True)
     failed = [r["stage"] for r in results if not r["passed"]]
     print(f"\n{len(results) - len(failed)}/{len(results)} stages passed" + (f"; failed: {failed}" if failed else ""))
+    if args.json_out:
+        import datetime
+        from src.run_records import git_state
+        out = Path(args.json_out)
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(json.dumps({
+            "ran_at": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds"),
+            "git": git_state(), "full": args.full, "skip_tests": args.skip_tests, "only": args.only,
+            "stages": results, "passed": not failed,
+        }, indent=2) + "\n", encoding="utf-8")
     return 1 if failed else 0
 
 
