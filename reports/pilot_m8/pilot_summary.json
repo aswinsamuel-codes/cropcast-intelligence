@@ -1,0 +1,289 @@
+{
+ "requests": {
+  "attempted": 20,
+  "http_200": 20,
+  "failed": []
+ },
+ "coverage": {
+  "onion_karnataka_2023_2025": {
+   "requested": "2023-01-01..2025-10-30",
+   "price_fields": [
+    "census_state_id",
+    "commodity_id",
+    "date",
+    "max_price",
+    "min_price",
+    "modal_price"
+   ],
+   "quantity_fields": [
+    "census_state_id",
+    "commodity_id",
+    "date",
+    "quantity"
+   ],
+   "price_rows": 914,
+   "quantity_rows": 881,
+   "price_date_range": [
+    "2023-01-01",
+    "2025-10-30"
+   ],
+   "duplicate_price_dates": 0,
+   "price_coverage": {
+    "calendar_days": 1034,
+    "observed_days": 914,
+    "missing_days": 120,
+    "coverage_pct": 88.39,
+    "gaps": 63,
+    "longest_gap_days": 31,
+    "missing_by_weekday": {
+     "Monday": 11,
+     "Tuesday": 10,
+     "Wednesday": 10,
+     "Thursday": 12,
+     "Friday": 9,
+     "Saturday": 12,
+     "Sunday": 56
+    }
+   },
+   "quantity_date_range": [
+    "2023-01-01",
+    "2025-10-30"
+   ],
+   "quantity_coverage": {
+    "calendar_days": 1034,
+    "observed_days": 881,
+    "missing_days": 153,
+    "coverage_pct": 85.2,
+    "gaps": 59,
+    "longest_gap_days": 65,
+    "missing_by_weekday": {
+     "Monday": 15,
+     "Tuesday": 18,
+     "Wednesday": 17,
+     "Thursday": 17,
+     "Friday": 13,
+     "Saturday": 16,
+     "Sunday": 57
+    }
+   },
+   "price_quantity_date_iou": 0.909574,
+   "price_dates_without_quantity": 59,
+   "quantity_dates_without_price": 26,
+   "zero_quantity_rows": 0,
+   "null_quantity_rows": 0,
+   "modal_outside_min_max": 0,
+   "zero_or_null_modal": 0
+  },
+  "potato_west_bengal_2023_2025": {
+   "requested": "2023-01-01..2025-10-30",
+   "price_fields": [
+    "census_state_id",
+    "commodity_id",
+    "date",
+    "max_price",
+    "min_price",
+    "modal_price"
+   ],
+   "quantity_fields": [
+    "census_state_id",
+    "commodity_id",
+    "date",
+    "quantity"
+   ],
+   "price_rows": 1021,
+   "quantity_rows": 952,
+   "price_date_range": [
+    "2023-01-01",
+    "2025-10-30"
+   ],
+   "duplicate_price_dates": 0,
+   "price_coverage": {
+    "calendar_days": 1034,
+    "observed_days": 1021,
+    "missing_days": 13,
+    "coverage_pct": 98.74,
+    "gaps": 2,
+    "longest_gap_days": 10,
+    "missing_by_weekday": {
+     "Monday": 2,
+     "Tuesday": 1,
+     "Wednesday": 1,
+     "Thursday": 2,
+     "Friday": 2,
+     "Saturday": 3,
+     "Sunday": 2
+    }
+   },
+   "quantity_date_range": [
+    "2023-01-01",
+    "2025-10-30"
+   ],
+   "quantity_coverage": {
+    "calendar_days": 1034,
+    "observed_days": 952,
+    "missing_days": 82,
+    "coverage_pct": 92.07,
+    "gaps": 3,
+    "longest_gap_days": 65,
+    "missing_by_weekday": {
+     "Monday": 12,
+     "Tuesday": 12,
+     "Wednesday": 12,
+     "Thursday": 11,
+     "Friday": 11,
+     "Saturday": 12,
+     "Sunday": 12
+    }
+   },
+   "price_quantity_date_iou": 0.913676,
+   "price_dates_without_quantity": 79,
+   "quantity_dates_without_price": 10,
+   "zero_quantity_rows": 0,
+   "null_quantity_rows": 0,
+   "modal_outside_min_max": 0,
+   "zero_or_null_modal": 0
+  }
+ },
+ "national_vs_state_2022": {
+  "onion": {
+   "state_series": "onion_maharashtra",
+   "national_fields": [
+    "commodity_id",
+    "date",
+    "max_price",
+    "min_price",
+    "modal_price"
+   ],
+   "national_price_days_2022": 365,
+   "state_price_days_2022": 365,
+   "overlap_days": 365,
+   "national_to_state_price_ratio": {
+    "median": 1.448,
+    "min": 0.9716,
+    "max": 2.1893
+   },
+   "daily_log_change_correlation": 0.0959,
+   "state_share_of_national_arrivals": {
+    "median": 0.4093,
+    "min": 0.0346,
+    "max": 0.6357
+   },
+   "days_state_arrivals_exceed_national": 0
+  },
+  "potato": {
+   "state_series": "potato_uttar_pradesh",
+   "national_fields": [
+    "commodity_id",
+    "date",
+    "max_price",
+    "min_price",
+    "modal_price"
+   ],
+   "national_price_days_2022": 365,
+   "state_price_days_2022": 365,
+   "overlap_days": 365,
+   "national_to_state_price_ratio": {
+    "median": 1.3378,
+    "min": 1.1199,
+    "max": 1.6546
+   },
+   "daily_log_change_correlation": 0.1392,
+   "state_share_of_national_arrivals": {
+    "median": 0.61,
+    "min": 0.1667,
+    "max": 0.7484
+   },
+   "days_state_arrivals_exceed_national": 0
+  }
+ },
+ "composition": {
+  "payload": {
+   "commodity_id": 23,
+   "state_id": 27,
+   "from_date": "2022-01-01",
+   "to_date": "2022-03-31",
+   "district_id": 35
+  },
+  "price_fields": [
+   "census_district_id",
+   "census_state_id",
+   "commodity_id",
+   "date",
+   "market_id",
+   "max_price",
+   "min_price",
+   "modal_price"
+  ],
+  "quantity_fields": [
+   "census_district_id",
+   "census_state_id",
+   "commodity_id",
+   "date",
+   "market_id",
+   "quantity"
+  ],
+  "price_rows": 3836,
+  "quantity_rows": 3499,
+  "districts_requested": 35,
+  "districts_with_price_rows": 20,
+  "markets_with_price_rows": 81,
+  "markets_with_quantity_rows": 80,
+  "price_rows_sharing_market_day": 468,
+  "max_price_rows_per_market_day": 3,
+  "quantity_rows_sharing_market_day": 0,
+  "markets_reporting_price_per_day": {
+   "min": 6,
+   "median": 43.5,
+   "max": 54
+  },
+  "mean_markets_reporting_by_weekday": {
+   "Monday": 45.46,
+   "Tuesday": 45.77,
+   "Wednesday": 40.62,
+   "Thursday": 44.62,
+   "Friday": 44.67,
+   "Saturday": 34.08,
+   "Sunday": 24.54
+  },
+  "spearman_markets_reporting_vs_state_arrivals": 0.7357,
+  "days_compared_with_v1_state": 90,
+  "state_price_reconstruction": {
+   "mean_of_all_price_rows": {
+    "days_compared": 90,
+    "share_of_days_within_1e-9": 1.0,
+    "median_relative_difference": 0.0
+   },
+   "median_of_all_price_rows": {
+    "days_compared": 90,
+    "share_of_days_within_1e-9": 0.0,
+    "median_relative_difference": 0.0285
+   },
+   "mean_of_market_means": {
+    "days_compared": 90,
+    "share_of_days_within_1e-9": 0.2556,
+    "median_relative_difference": 0.00228
+   },
+   "arrival_weighted_mean_of_rows": {
+    "days_compared": 90,
+    "share_of_days_within_1e-9": 0.0,
+    "median_relative_difference": 0.0571
+   },
+   "min_price_equals_mean_of_rows_share": 1.0,
+   "max_price_equals_mean_of_rows_share": 1.0
+  },
+  "state_arrivals_equal_sum_of_market_quantities_share": 1.0,
+  "market_days_with_price_but_no_quantity_row": 93,
+  "market_days_with_quantity_but_no_price_row": 0,
+  "zero_quantity_rows": 0,
+  "null_quantity_rows": 0,
+  "calendar_days": 90,
+  "days_with_no_price_rows": 0
+ },
+ "freshness": {
+  "requested": "2026-01-01..2026-10-24",
+  "http_status": 200,
+  "rows": 0,
+  "latest_record_date": null,
+  "lag_days_at_request": null
+ }
+}

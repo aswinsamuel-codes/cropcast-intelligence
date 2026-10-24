@@ -348,3 +348,17 @@ Each entry records: date, context, alternatives considered, rationale, outcome, 
   - A fresh user regenerates them from the documented pipeline after obtaining CEDA access.
 - **Approval status:** Decided under end-to-end authorisation (conservative licensing choice).
 - **Related files/refs:** `.gitignore`, `docs/reproducibility.md`
+
+### DEC-023: M-8 Pilot Scope and Provisional Findings
+- **Date:** 2026-10-24
+- **Context:** The researcher conditionally approved a CEDA pilot of about 26 requests to test multi-state feasibility. Bulk retrieval, dataset selection and any scope change were explicitly withheld.
+- **Outcome:**
+  - The pilot was run with a separate client that has a hard request cap and no automatic retries. It used 20 requests (RES-016).
+  - Project scope is unchanged. Dataset v1 and all v1 results are untouched.
+  - **Provisional pending approval:**
+    - The "real-time" goal is reworded as "forecasting from the latest available CEDA data" (latest record 2025-10-30).
+    - The reporting-composition component would use observed mandi counts from mandi-level rows instead of an arrivals proxy.
+    - The national component stays provisional until the national aggregation rule is verified.
+  - No models were trained and no synthetic data was generated.
+- **Approval status:** pilot conditionally approved by the researcher. Broader retrieval and all M-8 implementation **await researcher approval**.
+- **Related files/refs:** RES-016, `docs/m8_national_expansion_plan.md`, `reports/dataset_feasibility.md` §6

@@ -668,3 +668,49 @@ Note: Both onion and potato label files appear to START at 2016-01-01, not at 20
   - Weekday-aware anomaly scoring.
   - Potato min/max prices are not used as features.
 - **Split dates:** onion test 2021-08-14..2022-12-31; potato test 2021-08-07..2022-12-31. Validation spans the COVID-19 period.
+
+---
+
+### RES-016: M-8 CEDA Feasibility Pilot
+- **Date:** 2026-10-24
+- **Approval:** the researcher conditionally approved about 26 requests. This is not approval for bulk retrieval, a dataset selection or a scope change.
+- **Budget:** 20 requests made, all HTTP 200, 0 retries, 0 HTTP 429 responses. CEDA's `RateLimit-Remaining` header fell from 39 to 20.
+  - Spacing was 95 s, except request 19, which came 15 s after request 18 because the second phase ran as a new process. Both stayed well inside the 40-per-hour limit.
+  - Two planned requests (the market list and a separate market-level fetch) were not needed, because request 19 already returned mandi-level rows.
+- **Sources consulted without using the quota:**
+  - The OpenAPI document embedded in `https://api.ceda.ashoka.edu.in/documentation/`. It lists the endpoints commodities, geographies, markets, prices and quantities, and says `state_id: 0` means "all India". It gives no aggregation method.
+  - `https://agmarknet.ceda.ashoka.edu.in/`: no methodology text. The README links tried returned 404.
+- **Verified facts:**
+  1. **Codes:** all 10 candidate state codes exist in `/geographies` with matching names: Punjab 3, Delhi 7, Rajasthan 8, Uttar Pradesh 9, Bihar 10, West Bengal 19, Madhya Pradesh 23, Gujarat 24, Maharashtra 27, Karnataka 29. There are 36 states and 640 districts.
+  2. **Freshness:** the latest record returned is dated 2025-10-30, in both Karnataka onion and West Bengal potato. National onion for 2026 returned "No data exists". At retrieval (2026-10-24) the data lagged by about 359 days.
+  3. **Coverage, 2023-01-01 to 2025-10-30:**
+     - Karnataka onion: prices 88.4%, arrivals 85.2%. Missing price days are concentrated on Sundays (56 of 120). December 2023 prices are absent.
+     - West Bengal potato: prices 98.7%, arrivals 92.1%.
+     - Gaps shared by both states: arrivals from 2024-06-01 (65 days), prices from 2024-12-14 (10 days), and arrivals from 2023-12-01 (14 days).
+  4. **Mandi-level access:** passing `district_id` without `market_id` returns mandi-level rows with a `market_id` field, contrary to the API documentation ("will fetch data at the district level"). Daily mandi reporting counts can therefore be **observed directly**, and no arrivals proxy is needed.
+  5. **State aggregate rule** (Maharashtra onion, 2022-01-01 to 2022-03-31):
+     - State modal, min and max prices are the unweighted mean of all mandi price rows (90 of 90 days exact, relative difference below 1e-9).
+     - The median of rows misses on all 90 days (median relative difference 2.9%); the arrival-weighted mean misses on all 90 (5.7%); the mean of per-mandi means matches on 23 of 90 days only.
+     - State arrivals are the sum of mandi quantities (90 of 90 days).
+  6. **Composition varies by weekday:**
+     - 81 mandis reported at least once; daily counts range from 6 to 54.
+     - Mean daily count is 24.5 on Sundays and 34.1 on Saturdays, against 40.6–45.8 on other days.
+     - Spearman correlation between daily mandi count and state arrivals: 0.74.
+     - Because the state price is an unweighted mean over whichever mandis report, changes in which mandis report move the state price even when no mandi's price changes. This confirms the **mechanism** behind the hypothesis in RES-015. It does not yet measure how much of the forecast gain it explains.
+  7. **Missing vs zero:** no zero or null quantities appear at any level. 93 mandi-days have a price row but no quantity row. "No row" may mean either no trade or not reported; the data cannot tell these apart.
+  8. **Duplicate rows:** up to 3 price rows share a mandi-day (468 rows), with no variety or grade field. Mandis with several rows weigh more in the state mean.
+  9. **National series, 2022:**
+     - Same fields as the state series; 365 days per crop.
+     - Maharashtra share of national onion arrivals: median 0.41 (range 0.03–0.64); Uttar Pradesh share of national potato arrivals: median 0.61. The state never exceeds the national value. This is consistent with national arrivals being a sum over states, but does not prove it.
+     - National/state price ratio: median 1.45 for onion and 1.34 for potato. Daily log-change correlation with the state: 0.10 and 0.14.
+- **Hypothesis, not verified:** the national price is the unweighted mean of all mandi rows in India. Testing this needs mandi-level rows for every reporting state over a common window: about 36 price requests for one crop-month (states with no mandis return empty).
+- **Implications:**
+  - A real-time claim is not supported; "forecasting from the latest available data (currently 2025-10-30)" is.
+  - The composition component can use observed mandi counts instead of an arrivals proxy.
+  - Summing state prices is never valid. A national value consistent with CEDA's apparent rule would be a row-count-weighted mean of state means, which is unconfirmed.
+- **Follow-up literature search needed before any novelty claim:**
+  - Composition bias in unweighted market-average prices.
+  - Fixed-panel versus varying-panel price indices for agricultural markets.
+  - Hierarchical and grouped reconciliation of averages (as opposed to sums).
+  - Spatial and graph models on Agmarknet; closest known so far: Bhardwaj et al. (2023), arXiv:2304.09761, and Madaan et al. (2019).
+- **Files:** `src/data/ceda_pilot.py`, `src/analysis/pilot_m8.py`, `reports/pilot_m8/`, `reports/dataset_feasibility.md` §6, `docs/m8_national_expansion_plan.md`.

@@ -9,6 +9,15 @@ All notable changes to the CropCast project are recorded here in reverse-chronol
 ## [Unreleased]
 
 ### Completed
+- M-8 CEDA feasibility pilot (2026-10-24; pilot only, milestone not approved)
+  - 20 requests, all HTTP 200, within the researcher's conditional approval of about 26. Made with a new hard-capped client, `src/data/ceda_pilot.py`, and summarised by `src/analysis/pilot_m8.py`.
+  - **Findings:**
+    - CEDA data ends on 2025-10-30, so the data is not real-time.
+    - Requests with a `district_id` list return mandi-level rows (an API documentation discrepancy).
+    - The Maharashtra onion state price is the unweighted mean of mandi rows, and its arrivals are the sum of mandi quantities (2022 Q1).
+    - Mandis reporting per day: about 24 on Sundays against 40–46 on weekdays.
+    - The national price rule is unverified.
+  - **Records:** `reports/pilot_m8/`, `reports/dataset_feasibility.md` §6, RES-016, DEC-023, M-8 entry, and `docs/m8_national_expansion_plan.md` (proposal plus §10 pilot outcome).
 - M-4 to M-7 and reproducibility (2026-10-24)
   - **Forecasting:**
     - Protocol v1.1.

@@ -310,3 +310,36 @@ This file records planned, in-progress, completed, and blocked milestones with e
 - Run B's first attempt was interrupted (ISS-016).
 
 **Open limitations:** ISS-002 (cause unknown), ISS-003 (hypothesis), ISS-014, ISS-015 and ISS-017 (assessed), and the untested effect of validation-stage non-convergence on SARIMA order selection.
+
+---
+
+## M-8: Multi-State Expansion — Feasibility Pilot (pilot completed 2026-10-24; milestone not approved)
+
+**Status:** Proposal stage. The CEDA pilot, about 26 requests conditionally approved by the researcher, is complete. Broader retrieval, protocol v2.0, implementation and the scope change are **not approved**.
+
+**Planned vs completed:**
+- **Planned:**
+  - verify state codes;
+  - 2023–2025 coverage for one onion and one potato state;
+  - the national series;
+  - freshness;
+  - reporting-composition evidence;
+  - the national definition.
+- **Completed:**
+  - all of the above except the national definition, which is unresolved;
+  - 20 of the approved ~26 requests;
+  - 2 planned requests not needed (RES-016).
+
+**Evidence:**
+- `reports/pilot_m8/request_log.json` and `pilot_summary.json`
+- `reports/dataset_feasibility.md` §6
+- RES-016 and DEC-023
+- `docs/m8_national_expansion_plan.md` §10
+
+**Key results:**
+- **Freshness:** latest data 2025-10-30, so no real-time claim is possible.
+- **Mandi-level rows:** available, so reporting counts are observable.
+- **State aggregate rule:** unweighted mean of mandi rows, verified for Maharashtra onion in 2022 Q1 only.
+- **National aggregation rule:** unverified.
+
+**Next (awaiting approval):** the Stage 1 verification requests (≈ 80) in plan §10.5; the follow-up literature search; charter amendment and protocol v2.0.
