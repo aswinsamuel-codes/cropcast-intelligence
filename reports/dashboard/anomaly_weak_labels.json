@@ -1,0 +1,74 @@
+[
+ {
+  "series": "Onion (Maharashtra)",
+  "method": "Residual",
+  "days": 1484,
+  "label_rate": 0.5856,
+  "detections": 19,
+  "precision": 0.5789,
+  "recall": 0.0127,
+  "f1": 0.0248,
+  "null_precision": 0.5789,
+  "randomisation_p": 0.6134
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "method": "Robust",
+  "days": 1484,
+  "label_rate": 0.5856,
+  "detections": 35,
+  "precision": 0.2,
+  "recall": 0.0081,
+  "f1": 0.0155,
+  "null_precision": 0.6286,
+  "randomisation_p": 0.9001
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "method": "Composite",
+  "days": 1484,
+  "label_rate": 0.5856,
+  "detections": 19,
+  "precision": 0.3158,
+  "recall": 0.0069,
+  "f1": 0.0135,
+  "null_precision": 0.6316,
+  "randomisation_p": 0.9181
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "method": "Residual",
+  "days": 1742,
+  "label_rate": 0.7158,
+  "detections": 27,
+  "precision": 0.7407,
+  "recall": 0.016,
+  "f1": 0.0314,
+  "null_precision": 0.7037,
+  "randomisation_p": 0.4645
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "method": "Robust",
+  "days": 1742,
+  "label_rate": 0.7158,
+  "detections": 0,
+  "precision": null,
+  "recall": 0.0,
+  "f1": 0.0,
+  "null_precision": null,
+  "randomisation_p": null
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "method": "Composite",
+  "days": 1742,
+  "label_rate": 0.7158,
+  "detections": 25,
+  "precision": 0.68,
+  "recall": 0.0136,
+  "f1": 0.0267,
+  "null_precision": 0.72,
+  "randomisation_p": 0.6863
+ }
+]

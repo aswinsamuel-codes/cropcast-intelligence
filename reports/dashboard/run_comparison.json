@@ -1,0 +1,114 @@
+[
+ {
+  "series": "Onion (Maharashtra)",
+  "model": "Decision tree",
+  "bit_identical": true,
+  "max_relative_difference": 0.0,
+  "rule": "exactly equal",
+  "passes_rule": true
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "model": "ETS (Holt–Winters)",
+  "bit_identical": true,
+  "max_relative_difference": 0.0,
+  "rule": "exactly equal",
+  "passes_rule": true
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "model": "Linear regression",
+  "bit_identical": true,
+  "max_relative_difference": 0.0,
+  "rule": "exactly equal",
+  "passes_rule": true
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "model": "Naive",
+  "bit_identical": true,
+  "max_relative_difference": 0.0,
+  "rule": "exactly equal",
+  "passes_rule": true
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "model": "Random forest",
+  "bit_identical": false,
+  "max_relative_difference": 2.3399723760837717e-16,
+  "rule": "within 1e-12 relative",
+  "passes_rule": true
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "model": "Seasonal ARIMA",
+  "bit_identical": true,
+  "max_relative_difference": 0.0,
+  "rule": "exactly equal",
+  "passes_rule": true
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "model": "Seasonal naive (7)",
+  "bit_identical": true,
+  "max_relative_difference": 0.0,
+  "rule": "exactly equal",
+  "passes_rule": true
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "model": "Decision tree",
+  "bit_identical": true,
+  "max_relative_difference": 0.0,
+  "rule": "exactly equal",
+  "passes_rule": true
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "model": "ETS (Holt–Winters)",
+  "bit_identical": true,
+  "max_relative_difference": 0.0,
+  "rule": "exactly equal",
+  "passes_rule": true
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "model": "Linear regression",
+  "bit_identical": true,
+  "max_relative_difference": 0.0,
+  "rule": "exactly equal",
+  "passes_rule": true
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "model": "Naive",
+  "bit_identical": true,
+  "max_relative_difference": 0.0,
+  "rule": "exactly equal",
+  "passes_rule": true
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "model": "Random forest",
+  "bit_identical": true,
+  "max_relative_difference": 0.0,
+  "rule": "within 1e-12 relative",
+  "passes_rule": true
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "model": "Seasonal ARIMA",
+  "bit_identical": true,
+  "max_relative_difference": 0.0,
+  "rule": "exactly equal",
+  "passes_rule": true
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "model": "Seasonal naive (7)",
+  "bit_identical": true,
+  "max_relative_difference": 0.0,
+  "rule": "exactly equal",
+  "passes_rule": true
+ }
+]

@@ -1,0 +1,67 @@
+[
+ {
+  "run_id": "anomaly-20261023T190355Z-a927040a",
+  "kind": "anomaly",
+  "status": "completed",
+  "started_at": "2026-10-23T19:03:55.851204+00:00",
+  "ended_at": "2026-10-23T19:28:35.373390+00:00",
+  "commit": "cd56566",
+  "clean_tree_at_start": true,
+  "code_changed_during_run": true,
+  "retrospective": false,
+  "artifacts": 12,
+  "warnings_counted": 6
+ },
+ {
+  "run_id": "anomaly-20261023T210159Z-73d3e703",
+  "kind": "anomaly",
+  "status": "completed",
+  "started_at": "2026-10-23T21:01:59.088478+00:00",
+  "ended_at": "2026-10-23T21:29:11.581390+00:00",
+  "commit": "debc531",
+  "clean_tree_at_start": true,
+  "code_changed_during_run": false,
+  "retrospective": false,
+  "artifacts": 12,
+  "warnings_counted": 6
+ },
+ {
+  "run_id": "forecasting-20261023T200219Z-d206cfb6",
+  "kind": "forecasting",
+  "status": "interrupted",
+  "started_at": "2026-10-23T20:02:19.060761+00:00",
+  "ended_at": null,
+  "commit": "b7d38d6",
+  "clean_tree_at_start": true,
+  "code_changed_during_run": null,
+  "retrospective": false,
+  "artifacts": 0,
+  "warnings_counted": 0
+ },
+ {
+  "run_id": "forecasting-20261023T201550Z-548f1c24",
+  "kind": "forecasting",
+  "status": "completed",
+  "started_at": "2026-10-23T20:15:50.967926+00:00",
+  "ended_at": "2026-10-23T21:01:53.069969+00:00",
+  "commit": "debc531",
+  "clean_tree_at_start": true,
+  "code_changed_during_run": false,
+  "retrospective": false,
+  "artifacts": 10,
+  "warnings_counted": 81
+ },
+ {
+  "run_id": "forecasting-retrospective-20261023T180644",
+  "kind": "forecasting",
+  "status": "completed",
+  "started_at": "2026-10-23T18:06:44+00:00",
+  "ended_at": "2026-10-23T18:55:43+00:00",
+  "commit": "not recorded",
+  "clean_tree_at_start": null,
+  "code_changed_during_run": null,
+  "retrospective": true,
+  "artifacts": 10,
+  "warnings_counted": 0
+ }
+]

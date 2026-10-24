@@ -1,0 +1,212 @@
+[
+ {
+  "series": "Onion (Maharashtra)",
+  "method": "Residual",
+  "threshold": 2.5,
+  "detections": 55,
+  "rate_pct": 2.6481
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "method": "Residual",
+  "threshold": 3.0,
+  "detections": 26,
+  "rate_pct": 1.2518
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "method": "Residual",
+  "threshold": 3.5,
+  "detections": 12,
+  "rate_pct": 0.5778
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "method": "Residual",
+  "threshold": 4.0,
+  "detections": 3,
+  "rate_pct": 0.1444
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "method": "Residual",
+  "threshold": 5.0,
+  "detections": 1,
+  "rate_pct": 0.0481
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "method": "Robust",
+  "threshold": 2.5,
+  "detections": 64,
+  "rate_pct": 3.0814
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "method": "Robust",
+  "threshold": 3.0,
+  "detections": 38,
+  "rate_pct": 1.8296
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "method": "Robust",
+  "threshold": 3.5,
+  "detections": 25,
+  "rate_pct": 1.2037
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "method": "Robust",
+  "threshold": 4.0,
+  "detections": 18,
+  "rate_pct": 0.8666
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "method": "Robust",
+  "threshold": 5.0,
+  "detections": 11,
+  "rate_pct": 0.5296
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "method": "Composite",
+  "threshold": 2.5,
+  "detections": 43,
+  "rate_pct": 2.0703
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "method": "Composite",
+  "threshold": 3.0,
+  "detections": 23,
+  "rate_pct": 1.1074
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "method": "Composite",
+  "threshold": 3.5,
+  "detections": 12,
+  "rate_pct": 0.5778
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "method": "Composite",
+  "threshold": 4.0,
+  "detections": 8,
+  "rate_pct": 0.3852
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "method": "Composite",
+  "threshold": 5.0,
+  "detections": 3,
+  "rate_pct": 0.1444
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "method": "Residual",
+  "threshold": 2.5,
+  "detections": 47,
+  "rate_pct": 2.2264
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "method": "Residual",
+  "threshold": 3.0,
+  "detections": 28,
+  "rate_pct": 1.3264
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "method": "Residual",
+  "threshold": 3.5,
+  "detections": 15,
+  "rate_pct": 0.7106
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "method": "Residual",
+  "threshold": 4.0,
+  "detections": 8,
+  "rate_pct": 0.379
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "method": "Residual",
+  "threshold": 5.0,
+  "detections": 4,
+  "rate_pct": 0.1895
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "method": "Robust",
+  "threshold": 2.5,
+  "detections": 9,
+  "rate_pct": 0.4263
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "method": "Robust",
+  "threshold": 3.0,
+  "detections": 0,
+  "rate_pct": 0.0
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "method": "Robust",
+  "threshold": 3.5,
+  "detections": 0,
+  "rate_pct": 0.0
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "method": "Robust",
+  "threshold": 4.0,
+  "detections": 0,
+  "rate_pct": 0.0
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "method": "Robust",
+  "threshold": 5.0,
+  "detections": 0,
+  "rate_pct": 0.0
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "method": "Composite",
+  "threshold": 2.5,
+  "detections": 50,
+  "rate_pct": 2.3685
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "method": "Composite",
+  "threshold": 3.0,
+  "detections": 26,
+  "rate_pct": 1.2316
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "method": "Composite",
+  "threshold": 3.5,
+  "detections": 16,
+  "rate_pct": 0.7579
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "method": "Composite",
+  "threshold": 4.0,
+  "detections": 10,
+  "rate_pct": 0.4737
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "method": "Composite",
+  "threshold": 5.0,
+  "detections": 4,
+  "rate_pct": 0.1895
+ }
+]

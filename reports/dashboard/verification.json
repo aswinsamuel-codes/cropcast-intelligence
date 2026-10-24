@@ -1,0 +1,92 @@
+[
+ {
+  "stage": "environment",
+  "passed": true,
+  "seconds": 0.0,
+  "detail": "Python 3.11.9; all pinned packages match",
+  "ran_at": "2026-10-24T02:51:54+00:00",
+  "commit": "cd4fdc5",
+  "full": false
+ },
+ {
+  "stage": "raw_inputs",
+  "passed": true,
+  "seconds": 0.2,
+  "detail": "56/56 chunks; hard failures: none; warnings: 2",
+  "ran_at": "2026-10-24T02:51:54+00:00",
+  "commit": "cd4fdc5",
+  "full": false
+ },
+ {
+  "stage": "dataset_rebuild",
+  "passed": true,
+  "seconds": 1.6,
+  "detail": "rebuilt SHA-256 b5f21e02b681c788..., recorded b5f21e02b681c788..., byte-identical=True",
+  "ran_at": "2026-10-24T02:51:54+00:00",
+  "commit": "cd4fdc5",
+  "full": false
+ },
+ {
+  "stage": "unit_tests",
+  "passed": true,
+  "seconds": 50.4,
+  "detail": "Ran 139 tests in 44.546s; OK",
+  "ran_at": "2026-10-24T02:51:54+00:00",
+  "commit": "cd4fdc5",
+  "full": false
+ },
+ {
+  "stage": "run_manifests",
+  "passed": true,
+  "seconds": 0.0,
+  "detail": "forecasting: forecasting-20261023T201550Z-548f1c24 completed at commit debc5317e5 (clean tree), 10 artifacts verified, 72 log records; anomaly: anomaly-20261023T210159Z-73d3e703 completed at commit debc5317e5 (clean tree), 12 artifacts verified, 2 log records",
+  "ran_at": "2026-10-24T02:51:54+00:00",
+  "commit": "cd4fdc5",
+  "full": false
+ },
+ {
+  "stage": "forecast_metrics",
+  "passed": true,
+  "seconds": 2.1,
+  "detail": "14 model rows checked; problems: none",
+  "ran_at": "2026-10-24T02:51:54+00:00",
+  "commit": "cd4fdc5",
+  "full": false
+ },
+ {
+  "stage": "anomaly",
+  "passed": true,
+  "seconds": 2.4,
+  "detail": "46 checks; problems: none",
+  "ran_at": "2026-10-24T02:51:54+00:00",
+  "commit": "cd4fdc5",
+  "full": false
+ },
+ {
+  "stage": "report_tables",
+  "passed": true,
+  "seconds": 1.8,
+  "detail": "reports/final_report.md: 6 tables up to date; reports/experiment_results.md: 2 tables up to date; reports/anomaly_analysis.md: 3 tables up to date",
+  "ran_at": "2026-10-24T02:51:54+00:00",
+  "commit": "cd4fdc5",
+  "full": false
+ },
+ {
+  "stage": "notebooks",
+  "passed": true,
+  "seconds": 0.2,
+  "detail": "4 notebooks executed without errors; notebook 03 matches the metrics table",
+  "ran_at": "2026-10-24T02:51:54+00:00",
+  "commit": "cd4fdc5",
+  "full": false
+ },
+ {
+  "stage": "git_hygiene",
+  "passed": true,
+  "seconds": 0.2,
+  "detail": "177 tracked files clean",
+  "ran_at": "2026-10-24T02:51:54+00:00",
+  "commit": "cd4fdc5",
+  "full": false
+ }
+]

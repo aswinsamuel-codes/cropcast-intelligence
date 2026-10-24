@@ -1,0 +1,296 @@
+[
+ {
+  "series": "Onion (Maharashtra)",
+  "period": "2021-H2",
+  "model": "Decision tree",
+  "n": 140,
+  "mae": 93.570782
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "period": "2021-H2",
+  "model": "ETS (Holt–Winters)",
+  "n": 140,
+  "mae": 85.874795
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "period": "2021-H2",
+  "model": "Linear regression",
+  "n": 140,
+  "mae": 94.492862
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "period": "2021-H2",
+  "model": "Naive",
+  "n": 140,
+  "mae": 83.941508
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "period": "2021-H2",
+  "model": "Random forest",
+  "n": 140,
+  "mae": 88.437838
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "period": "2021-H2",
+  "model": "Seasonal ARIMA",
+  "n": 140,
+  "mae": 87.752902
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "period": "2021-H2",
+  "model": "Seasonal naive (7)",
+  "n": 140,
+  "mae": 202.465507
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "period": "2022-H1",
+  "model": "Decision tree",
+  "n": 181,
+  "mae": 51.359994
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "period": "2022-H1",
+  "model": "ETS (Holt–Winters)",
+  "n": 181,
+  "mae": 47.017971
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "period": "2022-H1",
+  "model": "Linear regression",
+  "n": 181,
+  "mae": 50.429267
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "period": "2022-H1",
+  "model": "Naive",
+  "n": 181,
+  "mae": 48.925329
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "period": "2022-H1",
+  "model": "Random forest",
+  "n": 181,
+  "mae": 48.538492
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "period": "2022-H1",
+  "model": "Seasonal ARIMA",
+  "n": 181,
+  "mae": 46.386372
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "period": "2022-H1",
+  "model": "Seasonal naive (7)",
+  "n": 181,
+  "mae": 114.925039
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "period": "2022-H2",
+  "model": "Decision tree",
+  "n": 184,
+  "mae": 57.659895
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "period": "2022-H2",
+  "model": "ETS (Holt–Winters)",
+  "n": 184,
+  "mae": 53.180198
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "period": "2022-H2",
+  "model": "Linear regression",
+  "n": 184,
+  "mae": 53.365948
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "period": "2022-H2",
+  "model": "Naive",
+  "n": 184,
+  "mae": 60.218071
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "period": "2022-H2",
+  "model": "Random forest",
+  "n": 184,
+  "mae": 54.107699
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "period": "2022-H2",
+  "model": "Seasonal ARIMA",
+  "n": 184,
+  "mae": 53.853592
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "period": "2022-H2",
+  "model": "Seasonal naive (7)",
+  "n": 184,
+  "mae": 123.887485
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "period": "2021-H2",
+  "model": "Decision tree",
+  "n": 147,
+  "mae": 12.767723
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "period": "2021-H2",
+  "model": "ETS (Holt–Winters)",
+  "n": 147,
+  "mae": 10.850596
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "period": "2021-H2",
+  "model": "Linear regression",
+  "n": 147,
+  "mae": 11.931501
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "period": "2021-H2",
+  "model": "Naive",
+  "n": 147,
+  "mae": 15.945588
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "period": "2021-H2",
+  "model": "Random forest",
+  "n": 147,
+  "mae": 10.42073
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "period": "2021-H2",
+  "model": "Seasonal ARIMA",
+  "n": 147,
+  "mae": 10.670363
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "period": "2021-H2",
+  "model": "Seasonal naive (7)",
+  "n": 147,
+  "mae": 52.436303
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "period": "2022-H1",
+  "model": "Decision tree",
+  "n": 181,
+  "mae": 9.437062
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "period": "2022-H1",
+  "model": "ETS (Holt–Winters)",
+  "n": 181,
+  "mae": 8.914679
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "period": "2022-H1",
+  "model": "Linear regression",
+  "n": 181,
+  "mae": 9.628391
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "period": "2022-H1",
+  "model": "Naive",
+  "n": 181,
+  "mae": 11.918926
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "period": "2022-H1",
+  "model": "Random forest",
+  "n": 181,
+  "mae": 8.678882
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "period": "2022-H1",
+  "model": "Seasonal ARIMA",
+  "n": 181,
+  "mae": 8.988369
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "period": "2022-H1",
+  "model": "Seasonal naive (7)",
+  "n": 181,
+  "mae": 27.286409
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "period": "2022-H2",
+  "model": "Decision tree",
+  "n": 184,
+  "mae": 13.922128
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "period": "2022-H2",
+  "model": "ETS (Holt–Winters)",
+  "n": 184,
+  "mae": 13.547266
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "period": "2022-H2",
+  "model": "Linear regression",
+  "n": 184,
+  "mae": 13.959407
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "period": "2022-H2",
+  "model": "Naive",
+  "n": 184,
+  "mae": 16.202908
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "period": "2022-H2",
+  "model": "Random forest",
+  "n": 184,
+  "mae": 13.098914
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "period": "2022-H2",
+  "model": "Seasonal ARIMA",
+  "n": 184,
+  "mae": 13.150704
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "period": "2022-H2",
+  "model": "Seasonal naive (7)",
+  "n": 184,
+  "mae": 39.089811
+ }
+]

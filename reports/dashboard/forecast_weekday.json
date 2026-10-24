@@ -1,0 +1,786 @@
+[
+ {
+  "series": "Onion (Maharashtra)",
+  "weekday": "Monday",
+  "weekday_order": 0,
+  "model": "Decision tree",
+  "n": 72,
+  "mae": 87.437059
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "weekday": "Monday",
+  "weekday_order": 0,
+  "model": "ETS (Holt–Winters)",
+  "n": 72,
+  "mae": 86.388835
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "weekday": "Monday",
+  "weekday_order": 0,
+  "model": "Linear regression",
+  "n": 72,
+  "mae": 90.038224
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "weekday": "Monday",
+  "weekday_order": 0,
+  "model": "Naive",
+  "n": 72,
+  "mae": 99.158716
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "weekday": "Monday",
+  "weekday_order": 0,
+  "model": "Random forest",
+  "n": 72,
+  "mae": 80.43194
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "weekday": "Monday",
+  "weekday_order": 0,
+  "model": "Seasonal ARIMA",
+  "n": 72,
+  "mae": 86.816916
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "weekday": "Monday",
+  "weekday_order": 0,
+  "model": "Seasonal naive (7)",
+  "n": 72,
+  "mae": 145.539266
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "weekday": "Tuesday",
+  "weekday_order": 1,
+  "model": "Decision tree",
+  "n": 72,
+  "mae": 52.045973
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "weekday": "Tuesday",
+  "weekday_order": 1,
+  "model": "ETS (Holt–Winters)",
+  "n": 72,
+  "mae": 55.780517
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "weekday": "Tuesday",
+  "weekday_order": 1,
+  "model": "Linear regression",
+  "n": 72,
+  "mae": 56.009854
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "weekday": "Tuesday",
+  "weekday_order": 1,
+  "model": "Naive",
+  "n": 72,
+  "mae": 47.370151
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "weekday": "Tuesday",
+  "weekday_order": 1,
+  "model": "Random forest",
+  "n": 72,
+  "mae": 48.708559
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "weekday": "Tuesday",
+  "weekday_order": 1,
+  "model": "Seasonal ARIMA",
+  "n": 72,
+  "mae": 54.048186
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "weekday": "Tuesday",
+  "weekday_order": 1,
+  "model": "Seasonal naive (7)",
+  "n": 72,
+  "mae": 157.941182
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "weekday": "Wednesday",
+  "weekday_order": 2,
+  "model": "Decision tree",
+  "n": 72,
+  "mae": 56.659646
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "weekday": "Wednesday",
+  "weekday_order": 2,
+  "model": "ETS (Holt–Winters)",
+  "n": 72,
+  "mae": 52.157189
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "weekday": "Wednesday",
+  "weekday_order": 2,
+  "model": "Linear regression",
+  "n": 72,
+  "mae": 55.752679
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "weekday": "Wednesday",
+  "weekday_order": 2,
+  "model": "Naive",
+  "n": 72,
+  "mae": 51.715086
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "weekday": "Wednesday",
+  "weekday_order": 2,
+  "model": "Random forest",
+  "n": 72,
+  "mae": 51.96565
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "weekday": "Wednesday",
+  "weekday_order": 2,
+  "model": "Seasonal ARIMA",
+  "n": 72,
+  "mae": 53.103585
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "weekday": "Wednesday",
+  "weekday_order": 2,
+  "model": "Seasonal naive (7)",
+  "n": 72,
+  "mae": 158.014518
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "weekday": "Thursday",
+  "weekday_order": 3,
+  "model": "Decision tree",
+  "n": 72,
+  "mae": 61.499631
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "weekday": "Thursday",
+  "weekday_order": 3,
+  "model": "ETS (Holt–Winters)",
+  "n": 72,
+  "mae": 60.187858
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "weekday": "Thursday",
+  "weekday_order": 3,
+  "model": "Linear regression",
+  "n": 72,
+  "mae": 60.201237
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "weekday": "Thursday",
+  "weekday_order": 3,
+  "model": "Naive",
+  "n": 72,
+  "mae": 59.279551
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "weekday": "Thursday",
+  "weekday_order": 3,
+  "model": "Random forest",
+  "n": 72,
+  "mae": 60.372922
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "weekday": "Thursday",
+  "weekday_order": 3,
+  "model": "Seasonal ARIMA",
+  "n": 72,
+  "mae": 61.037307
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "weekday": "Thursday",
+  "weekday_order": 3,
+  "model": "Seasonal naive (7)",
+  "n": 72,
+  "mae": 135.011321
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "weekday": "Friday",
+  "weekday_order": 4,
+  "model": "Decision tree",
+  "n": 72,
+  "mae": 58.72117
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "weekday": "Friday",
+  "weekday_order": 4,
+  "model": "ETS (Holt–Winters)",
+  "n": 72,
+  "mae": 61.880435
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "weekday": "Friday",
+  "weekday_order": 4,
+  "model": "Linear regression",
+  "n": 72,
+  "mae": 68.18686
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "weekday": "Friday",
+  "weekday_order": 4,
+  "model": "Naive",
+  "n": 72,
+  "mae": 59.142147
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "weekday": "Friday",
+  "weekday_order": 4,
+  "model": "Random forest",
+  "n": 72,
+  "mae": 60.48552
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "weekday": "Friday",
+  "weekday_order": 4,
+  "model": "Seasonal ARIMA",
+  "n": 72,
+  "mae": 64.199297
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "weekday": "Friday",
+  "weekday_order": 4,
+  "model": "Seasonal naive (7)",
+  "n": 72,
+  "mae": 133.602658
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "weekday": "Saturday",
+  "weekday_order": 5,
+  "model": "Decision tree",
+  "n": 73,
+  "mae": 49.574731
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "weekday": "Saturday",
+  "weekday_order": 5,
+  "model": "ETS (Holt–Winters)",
+  "n": 73,
+  "mae": 43.027043
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "weekday": "Saturday",
+  "weekday_order": 5,
+  "model": "Linear regression",
+  "n": 73,
+  "mae": 46.534288
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "weekday": "Saturday",
+  "weekday_order": 5,
+  "model": "Naive",
+  "n": 73,
+  "mae": 49.84223
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "weekday": "Saturday",
+  "weekday_order": 5,
+  "model": "Random forest",
+  "n": 73,
+  "mae": 46.788944
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "weekday": "Saturday",
+  "weekday_order": 5,
+  "model": "Seasonal ARIMA",
+  "n": 73,
+  "mae": 43.458393
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "weekday": "Saturday",
+  "weekday_order": 5,
+  "model": "Seasonal naive (7)",
+  "n": 73,
+  "mae": 126.684587
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "weekday": "Sunday",
+  "weekday_order": 6,
+  "model": "Decision tree",
+  "n": 72,
+  "mae": 91.782821
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "weekday": "Sunday",
+  "weekday_order": 6,
+  "model": "ETS (Holt–Winters)",
+  "n": 72,
+  "mae": 61.0622
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "weekday": "Sunday",
+  "weekday_order": 6,
+  "model": "Linear regression",
+  "n": 72,
+  "mae": 69.519886
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "weekday": "Sunday",
+  "weekday_order": 6,
+  "model": "Naive",
+  "n": 72,
+  "mae": 72.902933
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "weekday": "Sunday",
+  "weekday_order": 6,
+  "model": "Random forest",
+  "n": 72,
+  "mae": 82.854689
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "weekday": "Sunday",
+  "weekday_order": 6,
+  "model": "Seasonal ARIMA",
+  "n": 72,
+  "mae": 61.5994
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "weekday": "Sunday",
+  "weekday_order": 6,
+  "model": "Seasonal naive (7)",
+  "n": 72,
+  "mae": 140.640019
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "weekday": "Monday",
+  "weekday_order": 0,
+  "model": "Decision tree",
+  "n": 73,
+  "mae": 12.876902
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "weekday": "Monday",
+  "weekday_order": 0,
+  "model": "ETS (Holt–Winters)",
+  "n": 73,
+  "mae": 10.295107
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "weekday": "Monday",
+  "weekday_order": 0,
+  "model": "Linear regression",
+  "n": 73,
+  "mae": 10.092189
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "weekday": "Monday",
+  "weekday_order": 0,
+  "model": "Naive",
+  "n": 73,
+  "mae": 22.891109
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "weekday": "Monday",
+  "weekday_order": 0,
+  "model": "Random forest",
+  "n": 73,
+  "mae": 11.562902
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "weekday": "Monday",
+  "weekday_order": 0,
+  "model": "Seasonal ARIMA",
+  "n": 73,
+  "mae": 9.947165
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "weekday": "Monday",
+  "weekday_order": 0,
+  "model": "Seasonal naive (7)",
+  "n": 73,
+  "mae": 38.179846
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "weekday": "Tuesday",
+  "weekday_order": 1,
+  "model": "Decision tree",
+  "n": 73,
+  "mae": 12.384698
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "weekday": "Tuesday",
+  "weekday_order": 1,
+  "model": "ETS (Holt–Winters)",
+  "n": 73,
+  "mae": 11.6935
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "weekday": "Tuesday",
+  "weekday_order": 1,
+  "model": "Linear regression",
+  "n": 73,
+  "mae": 12.270061
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "weekday": "Tuesday",
+  "weekday_order": 1,
+  "model": "Naive",
+  "n": 73,
+  "mae": 12.043235
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "weekday": "Tuesday",
+  "weekday_order": 1,
+  "model": "Random forest",
+  "n": 73,
+  "mae": 11.371054
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "weekday": "Tuesday",
+  "weekday_order": 1,
+  "model": "Seasonal ARIMA",
+  "n": 73,
+  "mae": 11.254396
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "weekday": "Tuesday",
+  "weekday_order": 1,
+  "model": "Seasonal naive (7)",
+  "n": 73,
+  "mae": 39.566576
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "weekday": "Wednesday",
+  "weekday_order": 2,
+  "model": "Decision tree",
+  "n": 73,
+  "mae": 10.680484
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "weekday": "Wednesday",
+  "weekday_order": 2,
+  "model": "ETS (Holt–Winters)",
+  "n": 73,
+  "mae": 10.172652
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "weekday": "Wednesday",
+  "weekday_order": 2,
+  "model": "Linear regression",
+  "n": 73,
+  "mae": 10.111685
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "weekday": "Wednesday",
+  "weekday_order": 2,
+  "model": "Naive",
+  "n": 73,
+  "mae": 10.411581
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "weekday": "Wednesday",
+  "weekday_order": 2,
+  "model": "Random forest",
+  "n": 73,
+  "mae": 9.597815
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "weekday": "Wednesday",
+  "weekday_order": 2,
+  "model": "Seasonal ARIMA",
+  "n": 73,
+  "mae": 10.054374
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "weekday": "Wednesday",
+  "weekday_order": 2,
+  "model": "Seasonal naive (7)",
+  "n": 73,
+  "mae": 39.488271
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "weekday": "Thursday",
+  "weekday_order": 3,
+  "model": "Decision tree",
+  "n": 73,
+  "mae": 10.864608
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "weekday": "Thursday",
+  "weekday_order": 3,
+  "model": "ETS (Holt–Winters)",
+  "n": 73,
+  "mae": 9.718453
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "weekday": "Thursday",
+  "weekday_order": 3,
+  "model": "Linear regression",
+  "n": 73,
+  "mae": 10.39012
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "weekday": "Thursday",
+  "weekday_order": 3,
+  "model": "Naive",
+  "n": 73,
+  "mae": 10.470665
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "weekday": "Thursday",
+  "weekday_order": 3,
+  "model": "Random forest",
+  "n": 73,
+  "mae": 9.895069
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "weekday": "Thursday",
+  "weekday_order": 3,
+  "model": "Seasonal ARIMA",
+  "n": 73,
+  "mae": 9.863041
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "weekday": "Thursday",
+  "weekday_order": 3,
+  "model": "Seasonal naive (7)",
+  "n": 73,
+  "mae": 38.302724
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "weekday": "Friday",
+  "weekday_order": 4,
+  "model": "Decision tree",
+  "n": 73,
+  "mae": 11.709523
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "weekday": "Friday",
+  "weekday_order": 4,
+  "model": "ETS (Holt–Winters)",
+  "n": 73,
+  "mae": 10.997138
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "weekday": "Friday",
+  "weekday_order": 4,
+  "model": "Linear regression",
+  "n": 73,
+  "mae": 11.351178
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "weekday": "Friday",
+  "weekday_order": 4,
+  "model": "Naive",
+  "n": 73,
+  "mae": 11.639428
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "weekday": "Friday",
+  "weekday_order": 4,
+  "model": "Random forest",
+  "n": 73,
+  "mae": 10.737709
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "weekday": "Friday",
+  "weekday_order": 4,
+  "model": "Seasonal ARIMA",
+  "n": 73,
+  "mae": 11.036992
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "weekday": "Friday",
+  "weekday_order": 4,
+  "model": "Seasonal naive (7)",
+  "n": 73,
+  "mae": 39.096655
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "weekday": "Saturday",
+  "weekday_order": 5,
+  "model": "Decision tree",
+  "n": 74,
+  "mae": 11.96318
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "weekday": "Saturday",
+  "weekday_order": 5,
+  "model": "ETS (Holt–Winters)",
+  "n": 74,
+  "mae": 10.668944
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "weekday": "Saturday",
+  "weekday_order": 5,
+  "model": "Linear regression",
+  "n": 74,
+  "mae": 13.163896
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "weekday": "Saturday",
+  "weekday_order": 5,
+  "model": "Naive",
+  "n": 74,
+  "mae": 11.965345
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "weekday": "Saturday",
+  "weekday_order": 5,
+  "model": "Random forest",
+  "n": 74,
+  "mae": 10.16561
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "weekday": "Saturday",
+  "weekday_order": 5,
+  "model": "Seasonal ARIMA",
+  "n": 74,
+  "mae": 10.685059
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "weekday": "Saturday",
+  "weekday_order": 5,
+  "model": "Seasonal naive (7)",
+  "n": 74,
+  "mae": 39.367301
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "weekday": "Sunday",
+  "weekday_order": 6,
+  "model": "Decision tree",
+  "n": 73,
+  "mae": 13.557206
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "weekday": "Sunday",
+  "weekday_order": 6,
+  "model": "ETS (Holt–Winters)",
+  "n": 73,
+  "mae": 14.407939
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "weekday": "Sunday",
+  "weekday_order": 6,
+  "model": "Linear regression",
+  "n": 73,
+  "mae": 15.52548
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "weekday": "Sunday",
+  "weekday_order": 6,
+  "model": "Naive",
+  "n": 73,
+  "mae": 22.91695
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "weekday": "Sunday",
+  "weekday_order": 6,
+  "model": "Random forest",
+  "n": 73,
+  "mae": 12.05011
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "weekday": "Sunday",
+  "weekday_order": 6,
+  "model": "Seasonal ARIMA",
+  "n": 73,
+  "mae": 13.932707
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "weekday": "Sunday",
+  "weekday_order": 6,
+  "model": "Seasonal naive (7)",
+  "n": 73,
+  "mae": 37.233346
+ }
+]

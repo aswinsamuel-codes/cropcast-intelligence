@@ -1,0 +1,68 @@
+[
+ {
+  "series": "Onion (Maharashtra)",
+  "method": "Residual",
+  "scored_days": 2077,
+  "detections": 26,
+  "rate_pct": 1.2518,
+  "sun_mon": 9,
+  "coverage": 1,
+  "band": 0,
+  "other": 16
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "method": "Robust",
+  "scored_days": 2077,
+  "detections": 38,
+  "rate_pct": 1.8296,
+  "sun_mon": 9,
+  "coverage": 1,
+  "band": 0,
+  "other": 28
+ },
+ {
+  "series": "Onion (Maharashtra)",
+  "method": "Composite",
+  "scored_days": 2077,
+  "detections": 23,
+  "rate_pct": 1.1074,
+  "sun_mon": 6,
+  "coverage": 2,
+  "band": 0,
+  "other": 15
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "method": "Residual",
+  "scored_days": 2111,
+  "detections": 28,
+  "rate_pct": 1.3264,
+  "sun_mon": 10,
+  "coverage": 5,
+  "band": 0,
+  "other": 13
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "method": "Robust",
+  "scored_days": 2111,
+  "detections": 0,
+  "rate_pct": 0.0,
+  "sun_mon": 0,
+  "coverage": 0,
+  "band": 0,
+  "other": 0
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "method": "Composite",
+  "scored_days": 2111,
+  "detections": 26,
+  "rate_pct": 1.2316,
+  "sun_mon": 6,
+  "coverage": 4,
+  "band": 0,
+  "other": 16
+ }
+]

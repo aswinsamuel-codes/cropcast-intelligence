@@ -1,0 +1,24 @@
+[
+ {
+  "series": "Onion (Maharashtra)",
+  "calendar_days": 2557,
+  "observed_days": 2523,
+  "missing_days": 34,
+  "missing_pct": 1.33,
+  "gaps": 13,
+  "max_gap_days": 10,
+  "flag_modal_outside_bounds": 0,
+  "flag_extreme_arrival": 10
+ },
+ {
+  "series": "Potato (Uttar Pradesh)",
+  "calendar_days": 2557,
+  "observed_days": 2557,
+  "missing_days": 0,
+  "missing_pct": 0.0,
+  "gaps": 0,
+  "max_gap_days": 0,
+  "flag_modal_outside_bounds": 137,
+  "flag_extreme_arrival": 0
+ }
+]
