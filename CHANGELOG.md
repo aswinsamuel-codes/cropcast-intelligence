@@ -9,6 +9,22 @@ All notable changes to the CropCast project are recorded here in reverse-chronol
 ## [Unreleased]
 
 ### Completed
+- M-8 focused literature review (2026-10-24; review only, no CEDA requests)
+  - `docs/m8_literature_review.md`:
+    - 16 documented queries;
+    - a 17-source matrix with verification levels;
+    - a comparison matrix (established work / possible gap / unresolved / not justified);
+    - candidate hypotheses and an evaluation design.
+  - Full text checked for Bhardwaj et al. (2023), Madaan et al. (2019) and CPI Manual (2004) ch. 7; open preprints for two IJF papers. DOIs confirmed via Crossref.
+  - Plan §11: what is established vs unverified, and a minimum 21-request verification plan with the information gained per request. Of these, only the two P1 requests are approved by the researcher, to run after this commit.
+  - RES-017 and the M-8 milestone entry updated. No decision-log entry, because no decision was made.
+  - Revised after researcher review:
+    - finer verification levels, with citations re-checked;
+    - the matched comparison stated as established practice;
+    - hypotheses marked as proposals;
+    - a confirmatory-period audit;
+    - multiple-comparison limits and provisional thresholds;
+    - consistent rate-limit figures.
 - M-8 CEDA feasibility pilot (2026-10-24; pilot only, milestone not approved)
   - 20 requests, all HTTP 200, within the researcher's conditional approval of about 26. Made with a new hard-capped client, `src/data/ceda_pilot.py`, and summarised by `src/analysis/pilot_m8.py`.
   - **Findings:**

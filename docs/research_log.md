@@ -714,3 +714,56 @@ Note: Both onion and potato label files appear to START at 2016-01-01, not at 20
   - Hierarchical and grouped reconciliation of averages (as opposed to sums).
   - Spatial and graph models on Agmarknet; closest known so far: Bhardwaj et al. (2023), arXiv:2304.09761, and Madaan et al. (2019).
 - **Files:** `src/data/ceda_pilot.py`, `src/analysis/pilot_m8.py`, `reports/pilot_m8/`, `reports/dataset_feasibility.md` §6, `docs/m8_national_expansion_plan.md`.
+
+---
+
+### RES-017: M-8 Focused Literature Review (Reporting Composition, National Aggregation)
+- **Date:** 2026-10-24
+- **Authorisation:** literature review only. No CEDA requests, retrieval, training or synthetic data.
+- **Method:**
+  - 16 documented queries (Q1–Q16, with exact strings and dates in `docs/m8_literature_review.md` §1.2) using a general web-search tool.
+  - Crossref metadata checks; arXiv abstracts.
+  - Full text read for Bhardwaj et al. (2023), Madaan et al. (2019) and CPI Manual (2004) ch. 7. Open preprints read for Athanasopoulos et al. (2024) and Qu, Timmermann & Zhu (2024).
+  - Direct reads of the ACROP methodology page and the CEDA OpenAPI document.
+  - No access to Scopus, Web of Science or Google Scholar. Published versions of paywalled papers (*JASA*, *IJF*, *CSDA*, *Discover Informatics*) were not read. Open preprints were read for the two *IJF* papers; the others were checked at metadata, abstract or snippet level.
+- **Verified content of earlier-cited sources:**
+  - **Bhardwaj et al. 2023 (arXiv:2304.09761):**
+    - Mandi-level Agmarknet data; tomato (557 mandis) and potato (676 mandis), 2014–2018.
+    - CNN + GraphSAGE, with edges linking mandis within 200 km.
+    - Missing days imputed (spline, then linear); 46% of price entries are missing.
+    - All Sundays removed on the stated basis that mandis are closed, which conflicts with the pilot's Sunday observations for Maharashtra onion.
+    - Compared only with PECAD: no naive baseline, no significance tests, no aggregation.
+  - **Madaan et al. 2019 (doi:10.1145/3314344.3332488):**
+    - Selected low-missingness mandis and retail centres.
+    - ARIMA, SARIMA, regression and LSTM; RMSE only.
+    - Anomaly labels from newspaper reports; lead–lag mandi graphs.
+    - No composition or aggregation analysis.
+  - **ACROP methodology:** area price = median of per-mandi modal prices. It states explicitly that movements partly reflect which mandis report and that it is not a fixed-market index. Industry source; no quantification.
+- **Findings:**
+  - **Established:** mandi-level ML and graph forecasting; cross-market information; imputation of sparse mandi data; matched-model price indices as the standard composition remedy (CPI Manual 2004, ch. 7); reconciliation for summing, general linear and non-linear constraints (Hyndman et al. 2011; Wickramasuriya et al. 2019; Girolimetto & Di Fonzo 2023; Girolimetto et al. 2025 preprint); panel forecast-comparison tests (Qu, Timmermann & Zhu 2024).
+  - **Not found (within Q1–Q16 only):**
+    - a study measuring the effect of changing reporting-mandi composition on aggregate Indian price series or on their forecast evaluation;
+    - reconciliation applied to Indian crop prices;
+    - an official DMI or CEDA statement of how state or national prices are computed.
+  - **Candidate gap (not a novelty claim):** measuring how much forecast skill on mandi-average aggregates comes from composition change, using a matched-mandi chained index. The matched-model idea is established; the application and its forecast-evaluation consequences are the candidate contribution.
+  - **H3 (national reconciliation)** is weaker and conditional. The national rule is unknown, and if it is a row-count-weighted mean, its weights are random, which needs non-linear or ratio reconciliation.
+- **Hypotheses proposed (not frozen):**
+  - H1a: descriptive composition term.
+  - H1b: gain over naive on the published aggregate vs the matched aggregate.
+  - H2: cross-state pooling.
+  - H3: conditional on the national rule.
+  - Design details in review §5. The 2016–2022 period is exploratory because v1 results are known; 2023-01-01 to 2025-10-30 is proposed as the single confirmatory test.
+- **Request plan proposed:** 21 requests at P1/P2 (1 national probe, 1 chunk-size check, 19 mandi-level price years for Maharashtra onion and Uttar Pradesh potato), plus optional P3 requests. See plan §11.4. **Not approved** at the time of writing. The researcher later approved only the two P1 requests, to run after the documentation commit.
+- **Preserved:** CEDA's latest retrieved observation is 2025-10-30. No real-time claim is made.
+- **Files:** `docs/m8_literature_review.md` (new); `docs/m8_national_expansion_plan.md` §11.
+- **Revision after researcher review (2026-10-24):**
+  - Verification levels split into full text, preprint, abstract, official documentation, industry/news page, metadata and snippet.
+  - Citations re-checked against Crossref and the texts actually read:
+    - the CPI reference changed to the 2004 Manual, ch. 7 (read);
+    - Qu, Timmermann & Zhu corrected: the over-rejection finding concerns many *existing* tests, and inference is very restrictive with fewer than about 5 clusters;
+    - the Hubrich (2005) point confirmed in the Athanasopoulos et al. preprint.
+  - The matched ("both-days") comparison is stated as established index-number practice. CropCast's possible contribution is limited to the empirical forecasting measurement.
+  - The hypotheses are marked as proposals, not a preregistered protocol.
+  - Confirmatory-period audit: no Maharashtra or Uttar Pradesh data from 2023-01-01 to 2025-10-30 has been retrieved. Karnataka and West Bengal state-level data from that period had only coverage statistics computed, so for them it is a held-out period with coverage inspected.
+  - Multiple-comparison families, dependence limits (PRDS, Benjamini–Yekutieli sensitivity, HAC sensitivity, nested-model caveat) and provisional thresholds added in review §5.5–§5.6.
+  - Rate-limit statements made consistent: 95 s spacing gives at most 38 requests per rolling hour; 21 requests take about 32–35 minutes.

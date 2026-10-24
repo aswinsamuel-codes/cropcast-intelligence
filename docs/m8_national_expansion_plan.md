@@ -1,8 +1,8 @@
 # M-8 Proposal: Multi-State ("National") Expansion
 
-**Status:** Proposed. The feasibility pilot is complete (§10). Broader retrieval and all implementation await researcher approval.
+**Status:** Proposed. The feasibility pilot (§10) and the focused literature review (§11; `docs/m8_literature_review.md`) are complete. Broader retrieval and all implementation await researcher approval.
 **Date:** 2026-10-24
-**Prepared by:** project management pass after M-7 sign-off. Sections 1–9 are the original proposal. Where §10 differs from them, §10 supersedes them.
+**Prepared by:** project management pass after M-7 sign-off. Sections 1–9 are the original proposal. Where §10 or §11 differs from them, the later section supersedes. §10.5 is superseded by §11.4.
 
 ---
 
@@ -49,7 +49,7 @@ Each part is compared against the naive forecast and the best v1 models under th
 
 ## 5. Data plan and CEDA request budget
 
-Current pipeline: one request per endpoint (prices, quantities) per 6-month chunk, spaced 95 s apart (about 37 per hour, under the 40 per hour limit).
+Current pipeline: one request per endpoint (prices, quantities) per 6-month chunk, spaced 95 s apart: at most 38 requests in any rolling hour (3600 ÷ 95 ≈ 37.9), under CEDA's 40-per-hour limit. All times in this document are (requests − 1) × 95 s, plus response time.
 
 **Candidate states.** Census codes must be verified against `/agmarknet/geographies` before use.
 
@@ -61,7 +61,7 @@ Current pipeline: one request per endpoint (prices, quantities) per 6-month chun
 
 **Budget.** Assumes 2016–2025 (20 chunks × 2 endpoints = 40 requests per new series) and the 2023–2025 extension of the two existing series (24 requests).
 
-| Option | Series | Requests | Download time at 37/h |
+| Option | Series | Requests | Download time at 95 s spacing |
 |---|---|---|---|
 | A: core | 4 onion + 4 potato states + 2 national | ≈ 426 | ≈ 11.5 h |
 | B: lean | 3 onion + 3 potato states + 2 national | ≈ 346 | ≈ 9.5 h |
@@ -150,10 +150,10 @@ If CEDA lags by weeks or months, the honest label is "latest-data forecast", not
 - **Generality.** Does the unweighted-mean rule hold for other states, potato, and the 2016–2017 period? (ISS-002 suggests the rule may have changed in 2017.) About 2 requests per check.
 - **Large-state chunks.** Is a 12-month mandi-level request feasible for large states, such as Uttar Pradesh with 71 districts? Not tested.
 
-### 10.5 Revised request estimates for approval (not yet approved)
+### 10.5 Revised request estimates (superseded by §11.4; kept for the record)
 Mandi-level data replaces state-level data: it gives the state series and the mandi counts in the same number of requests. Costs assume 12-month chunks from 2016-01-01 to 2025-10-30, so 10 chunks × 2 endpoints = 20 requests per state-crop. They double if large states need 6-month chunks.
 
-| Option | Contents | Requests | Time at 37/h |
+| Option | Contents | Requests | Time at 95 s spacing |
 |---|---|---|---|
 | Stage 1 | National-rule check (one crop-month, about 36), generality checks (about 4), and mandi-level Maharashtra onion and Uttar Pradesh potato (40) | ≈ 80 | ≈ 2.2 h |
 | Stage 2 | 4 new states (2 onion, 2 potato), mandi-level | ≈ 80 (≤ 160) | ≈ 2.2–4.3 h |
@@ -169,3 +169,66 @@ Mandi-level data replaces state-level data: it gives the state series and the ma
   - graph and spatial models on Agmarknet.
 - **Sources:** Crossref, Google Scholar, RePEc and arXiv, plus the citations of Bhardwaj et al. (2023) and Madaan et al. (2019).
 - **Recording:** every search string and every closest study goes in the research log.
+
+---
+
+## 11. Literature Review Outcome and Minimum-Request Verification Plan (2026-10-24)
+
+The full review, source matrix, comparison matrix and hypotheses are in `docs/m8_literature_review.md` (RES-017). No CEDA requests were made in this phase.
+
+### 11.1 Established by the pilot vs unverified
+
+| Established (RES-016) | Unverified |
+|---|---|
+| Latest record 2025-10-30; no 2026 national data | CEDA's update schedule |
+| `district_id` requests return mandi rows | Whether this holds for every state, crop and year |
+| Maharashtra onion state modal/min/max = unweighted row mean; arrivals = mandi sum (2022 Q1, 90/90 days) | The same rule for potato, other states and 2016–2017 |
+| Weekday drop in reporting mandis (Sunday ~24.5 vs weekday ~41–46) | The size of the composition effect on forecasts |
+| National series exists; state arrivals never exceed national (2022) | The national price rule |
+| Coverage of Karnataka onion and West Bengal potato, 2023–2025 | The other 8 candidate states; all 2016–2022 new-state coverage |
+
+### 11.2 Reporting-composition measurement (proposed)
+- **What it measures:** the matched-mandi chained index M_t and the composition term C_t = Δlog A_t − Δlog M_t. Both are computed from observed mandi rows only, with no proxy and no imputation.
+- **What it cannot measure:**
+  - why a mandi did not report;
+  - trades that were never recorded;
+  - variety mix within a mandi-day.
+- **Possible bias:** the selection, panel-drift and non-random-gap biases listed in review §4.
+
+### 11.3 National aggregation question
+- **The question:** is the CEDA national price (a) the unweighted mean over all India's mandi rows, (b) a weighted mean of state values, or (c) something else?
+- **Evidence needed:** mandi-level rows for every reporting state for one crop and one period, then a direct reconstruction test as in RES-016.
+- **Until then:** H3 and every national forecast stay out of scope. State prices are never summed.
+
+### 11.4 Is further retrieval justified? Proposed minimum request list (not approved)
+
+**Justification:**
+- H1, the strongest candidate gap, cannot be tested on the existing state-level data. It needs mandi-level rows for the series already studied: Maharashtra onion and Uttar Pradesh potato.
+- Those same rows also test whether the row-mean rule generalises. We already hold their state series for 2016–2022, so this needs **no extra requests**.
+- Prices alone suffice for H1. Quantities are optional.
+
+| Priority | Group | Request(s) | Count | Information gained | Stop rule |
+|---|---|---|---|---|---|
+| P1 | Q-B1 national rule, cheap probe | `prices`, onion, `state_id: 0`, `district_id` = all 640 district IDs, 2022-01-01..2022-01-31 | 1 | If it returns all-India mandi rows, a single request tests the national rule against the 2022 national series already held. If refused or empty, the national rule stays unresolved at a cost of 1 request. | Stop Q-B after 1 request. Any fallback (≤ 36 state-by-state requests) needs separate approval. |
+| P1 | Q-A1 chunk-size check | `prices`, Uttar Pradesh potato, `state_id: 9`, all 71 district IDs, 2022-01-01..2022-12-31 | 1 | Whether a 12-month mandi-level request works for the largest state. It also tests the row-mean rule on potato against the held v1 state series. | If it times out or fails, stop and report; 6-month chunks would double Q-A2. |
+| P2 | Q-A2 Maharashtra onion, mandi-level prices | `prices`, `state_id: 27`, all 35 district IDs, one request per calendar year 2016–2025 (2025 ends 2025-10-30) | 10 | H1 development data for 2016–2022, the row-mean rule across all years (including the ISS-002 period, checked against held data), and confirmatory 2023–2025 data | Stop on any 429 or failure |
+| P2 | Q-A3 Uttar Pradesh potato, mandi-level prices | `prices`, `state_id: 9`, 71 district IDs, years 2016–2025 except 2022 (already fetched in Q-A1) | 9 | As Q-A2, for potato, including the ISS-002 regime 2016-03 to 2017-04 | As above |
+| P3 (optional) | Q-A4 quantities | Same as Q-A2 and Q-A3 for `quantities` | 20 | Arrivals per mandi: the composition–arrival link and the arrivals-sum rule across years. Not required for H1. | Approve separately |
+| P3 (optional) | Q-F freshness re-check | `prices`, onion, `state_id: 0`, 2025-10-31..request date | 1 | Whether newer data has appeared. Do this only shortly before the final report. | — |
+| Deferred | Q-C cross-state (H2) | Mandi-level prices for 2 onion and 2 potato candidate states, 2016–2025 | ≈ 40 | H2 data | Only after H1 results and a separate approval |
+
+**Summary:**
+- **Requested for approval:** P1 + P2 = **21 requests**: (21 − 1) × 95 s ≈ 32 minutes plus response time (3–6 s each in the pilot), so about 32–35 minutes. At most 38 requests in any rolling hour, under CEDA's 40 per hour.
+- **Researcher decision (2026-10-24):** only the two P1 requests are authorised, after the documentation commit. The 19 P2 requests and all P3 requests are **not approved**.
+- **Optional extras:** P3, 21 more.
+- **Cost:** no money (CEDA access is free for non-commercial research).
+- **Storage:** all raw rows go to git-ignored `data/raw/`. Only aggregates and metadata are committed (DEC-019, DEC-022). Runs use the pilot's capped client: no automatic retries, a stop on HTTP 429, and the overall 26-request pilot cap. Each run is limited to the requests approved for it.
+
+### 11.5 Risks specific to this plan
+| Risk | Mitigation |
+|---|---|
+| The all-India `district_id` probe is refused or times out | It costs 1 request. The national rule stays unresolved. |
+| 12-month mandi-level chunks fail for Uttar Pradesh | Checked first (Q-A1). Stop and re-plan. |
+| The row-mean rule fails in some years | This is a finding. The H1 definitions use only mandi rows, so they do not depend on the rule. |
+| Bias from the confirmatory period | Protocol v2.0 is frozen and approved before 2023–2025 Maharashtra or Uttar Pradesh data is examined. Retrieval itself is fine; any analysis beyond coverage counts waits. |
+| CEDA's terms on derived data are unclear | Same conservative handling as v1 |

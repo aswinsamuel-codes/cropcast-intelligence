@@ -342,4 +342,12 @@ This file records planned, in-progress, completed, and blocked milestones with e
 - **State aggregate rule:** unweighted mean of mandi rows, verified for Maharashtra onion in 2022 Q1 only.
 - **National aggregation rule:** unverified.
 
-**Next (awaiting approval):** the Stage 1 verification requests (≈ 80) in plan §10.5; the follow-up literature search; charter amendment and protocol v2.0.
+**Literature review (2026-10-24, completed; RES-017):**
+- Focused review with 16 documented queries, recorded in `docs/m8_literature_review.md`.
+- Candidate gap: the effect of reporting composition on aggregate forecasts. Not a novelty claim.
+- Hypotheses H1a, H1b, H2 and H3 (H3 conditional) proposed but not frozen.
+- The researcher did not approve the earlier ≈ 80-request Stage 1. It is superseded by a 21-request minimum plan (plan §11.4), which is itself **not approved**.
+
+**Researcher decision (2026-10-24):** only the two P1 verification requests are authorised (the national onion probe and the Uttar Pradesh potato 2022 chunk check), to run after the documentation commit. The other 19 P2 requests and all optional requests are **not approved**.
+
+**Next:** the two P1 requests, then stop and report. After that, a protocol v2.0 frozen before any 2023–2025 Maharashtra or Uttar Pradesh analysis, and a charter amendment (both awaiting approval).
