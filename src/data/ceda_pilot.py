@@ -20,6 +20,7 @@ from __future__ import annotations
 
 import argparse
 import datetime
+import hashlib
 import json
 import sys
 import time
@@ -51,7 +52,9 @@ class PilotClient:
         self.log: Dict[str, Any] = (json.loads(LOG_PATH.read_text(encoding="utf-8")) if LOG_PATH.exists()
                                     else {"budget": budget, "requests": []})
         self.budget = self.log["budget"]
-        self._last = 0.0
+        # Spacing also holds across separate runs: start from the last logged request time.
+        last = self.log["requests"][-1]["requested_at"] if self.log["requests"] else None
+        self._last = datetime.datetime.fromisoformat(last).timestamp() if last else 0.0
         RAW_DIR.mkdir(parents=True, exist_ok=True)
         LOG_PATH.parent.mkdir(parents=True, exist_ok=True)
 
@@ -99,6 +102,8 @@ class PilotClient:
             fname = f"{entry['n']:02d}_{label}.json"
             (RAW_DIR / fname).write_text(json.dumps(body), encoding="utf-8")
             entry["raw_file"] = f"data/raw/ceda_pilot_m8/{fname}"
+            entry["raw_sha256"] = hashlib.sha256((RAW_DIR / fname).read_bytes()).hexdigest()
+            entry["response_bytes"] = len(raw)
             if isinstance(data, list):
                 entry["rows"] = len(data)
                 dates = sorted({r["date"][:10] for r in data if isinstance(r, dict) and r.get("date")})
@@ -147,7 +152,8 @@ def phase1(c: PilotClient) -> None:
 
 def main() -> int:
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    p.add_argument("phase", choices=["phase1", "phase2", "markets", "market-level"])
+    p.add_argument("phase", choices=["phase1", "phase2", "markets", "market-level", "probe"])
+    p.add_argument("--label", help="probe: request label (uses every district of --state, or all 640 for --state 0)")
     p.add_argument("--commodity", type=int, default=ONION)
     p.add_argument("--state", type=int)
     p.add_argument("--district", type=int)
@@ -165,6 +171,12 @@ def main() -> int:
             for ep in ("prices", "quantities"):
                 c.call(f"district_{a.commodity}_{a.state}_{ep}", "POST", f"/agmarknet/{ep}",
                        _range(a.commodity, a.state, a.start, a.end, district_id=ids))
+        elif a.phase == "probe":
+            # Exactly one `prices` request with an explicit district list taken from the stored geographies.
+            geo = json.loads((RAW_DIR / "01_geographies.json").read_text(encoding="utf-8"))["output"]["data"]
+            ids = sorted({g["census_district_id"] for g in geo if a.state == 0 or g["census_state_id"] == a.state})
+            print(f"probe {a.label}: commodity {a.commodity}, state {a.state}, {len(ids)} district IDs, {a.start}..{a.end}")
+            c.call(a.label, "POST", "/agmarknet/prices", _range(a.commodity, a.state, a.start, a.end, district_id=ids))
         elif a.phase == "markets":
             c.call(f"markets_{a.commodity}_{a.state}_{a.district}", "POST", "/agmarknet/markets",
                    {"commodity_id": a.commodity, "state_id": a.state, "district_id": a.district, "indicator": "price"})

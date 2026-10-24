@@ -767,3 +767,25 @@ Note: Both onion and potato label files appear to START at 2016-01-01, not at 20
   - Confirmatory-period audit: no Maharashtra or Uttar Pradesh data from 2023-01-01 to 2025-10-30 has been retrieved. Karnataka and West Bengal state-level data from that period had only coverage statistics computed, so for them it is a held-out period with coverage inspected.
   - Multiple-comparison families, dependence limits (PRDS, Benjamini–Yekutieli sensitivity, HAC sensitivity, nested-model caveat) and provisional thresholds added in review §5.5–§5.6.
   - Rate-limit statements made consistent: 95 s spacing gives at most 38 requests per rolling hour; 21 requests take about 32–35 minutes.
+
+---
+
+### RES-018: M-8 Limited Verification (two requests approved, one made)
+- **Date:** 2026-10-24
+- **Approval:** the researcher approved exactly two requests after the documentation commit `eb273b5`, with no retries, splitting, range extension or fallback, and a stop on any failed or ambiguous result.
+- **Client:**
+  - `src/data/ceda_pilot.py` gained a `probe` mode: exactly one `prices` request, with the district list taken from the stored `/geographies` response.
+  - Spacing is now enforced across runs, starting from the last logged request time.
+  - The SHA-256 hash and byte size of each raw response are logged.
+  - Before running, both payloads were dry-run checked: 640 IDs (1–640) for `state_id: 0`; 71 IDs (132–202) for `state_id: 9`. The client's cap was 26 with 20 used.
+- **Request 21** (2026-10-24T05:20:18Z):
+  - Payload: `prices`, commodity 23 (onion), `state_id: 0`, `district_id` with 640 IDs, 2022-01-01..2022-01-31.
+  - Response: HTTP 200 in 0.9 s; envelope `success` / "No data exists"; 0 rows; 66 bytes; SHA-256 `51b5f2fe37251335062fa95a8a7a462e2f9ea8192e3d39e2d5213b26c1b459d3`; `RateLimit-Remaining` 39.
+  - Raw file: `data/raw/ceda_pilot_m8/21_mandi_onion_national_2022-01.json` (git-ignored).
+- **Interpretation:**
+  - **Verified:** this parameter combination returns no rows, although January 2022 onion data exists at national level (request 14: 365 days of 2022) and at mandi level for Maharashtra (request 19).
+  - **Hypothesis, not verified:** the API may apply `district_id` only within the given `state_id`, and no districts belong to "state 0". The documentation does not say.
+  - **Consequence:** the cheap single-request route to the national rule is closed. The national aggregation question **remains unresolved**. No mandi rows, districts, schema or duplicate structure could be measured, and no reconstruction was possible.
+- **Request 22** (Uttar Pradesh potato, 71 districts, 2022) was **not made**: the stop rule was triggered by request 21's empty, unexplained result.
+- **Budget:** 21 of the 26-request pilot cap used; 0 retries; 0 HTTP 429 responses.
+- **Not done (as instructed):** no further requests, no models, no synthetic data, no other years.

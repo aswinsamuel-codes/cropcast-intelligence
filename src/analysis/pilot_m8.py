@@ -180,7 +180,9 @@ def main() -> int:
     today = pd.Timestamp.today().normalize()
     summary: Dict[str, Any] = {
         "requests": {"attempted": len(log), "http_200": sum(e.get("http_status") == 200 for e in log),
-                     "failed": [{k: e.get(k) for k in ("n", "label", "http_status", "error")} for e in log if e.get("http_status") != 200]},
+                     "failed": [{k: e.get(k) for k in ("n", "label", "http_status", "error")} for e in log if e.get("http_status") != 200],
+                     "http_200_but_empty": [{k: e.get(k) for k in ("n", "label", "envelope_message")} for e in log
+                                            if e.get("http_status") == 200 and e.get("rows") == 0]},
         "coverage": {
             "onion_karnataka_2023_2025": coverage(log, "onion_karnataka", "2023-01-01", "2025-10-30"),
             "potato_west_bengal_2023_2025": coverage(log, "potato_west_bengal", "2023-01-01", "2025-10-30"),

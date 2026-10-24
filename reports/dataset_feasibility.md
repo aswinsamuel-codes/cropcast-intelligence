@@ -379,6 +379,14 @@ The researcher conditionally approved about 26 requests. 20 were made, all HTTP 
 
 **Not verified:** the national aggregation rule; whether the unweighted-mean rule holds for other states, other commodities and earlier years; CEDA's update schedule; and the 2016–2022 coverage of the new candidate states.
 
+**Follow-up verification (2026-10-24; researcher approved 2 requests, 1 made; RES-018):**
+- **Request 21:** `prices`, onion, `state_id: 0`, `district_id` = all 640 district IDs, 2022-01-01..2022-01-31.
+  - Result: HTTP 200, envelope `success` with message "No data exists", **0 rows** (66-byte response, SHA-256 `51b5f2fe…59d3`).
+  - Data for that month does exist at national level (request 14) and at mandi level for Maharashtra districts (request 19), so the combination of `state_id: 0` with district IDs returns nothing.
+  - **Undocumented behaviour:** the API documentation says `state_id: 0` means all India and that `district_id` selects district-level data. It does not say the two cannot be combined.
+  - The national aggregation rule therefore **remains unresolved**.
+- **Request 22** (Uttar Pradesh potato, all 71 districts, 2022) was **not made**: the researcher's stop rule applies when a request returns failed or ambiguous data. Whether 12-month mandi-level requests work for large states, and whether the row-mean rule holds for potato, both remain untested.
+
 ---
 
 ## 7. Historical Coverage Assessment Against Target

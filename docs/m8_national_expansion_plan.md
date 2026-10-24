@@ -224,7 +224,22 @@ The full review, source matrix, comparison matrix and hypotheses are in `docs/m8
 - **Cost:** no money (CEDA access is free for non-commercial research).
 - **Storage:** all raw rows go to git-ignored `data/raw/`. Only aggregates and metadata are committed (DEC-019, DEC-022). Runs use the pilot's capped client: no automatic retries, a stop on HTTP 429, and the overall 26-request pilot cap. Each run is limited to the requests approved for it.
 
-### 11.5 Risks specific to this plan
+### 11.5 Outcome of the approved P1 requests (2026-10-24; RES-018)
+| Request | Outcome |
+|---|---|
+| Q-B1 national probe (`state_id: 0` with 640 district IDs, January 2022) | HTTP 200, "No data exists", 0 rows. The national rule is unresolved. The only remaining route is mandi-level requests state by state, up to about 36 for one crop-month, which is **not approved**. |
+| Q-A1 Uttar Pradesh potato, 71 districts, 2022 | **Not run.** The stop rule was triggered by Q-B1. Still approved in principle, but needs the researcher's go-ahead after this report. |
+
+**Recommended next minimum requests (none approved):**
+1. **Q-A1 again: 1 request.** Uttar Pradesh potato, 71 districts, `prices`, 2022-01-01..2022-12-31.
+   - Answers: whether 12-month mandi-level chunks work for the largest state, and whether the state potato price equals the unweighted mean of mandi rows (checked against the held v1 2022 series).
+   - Q-A2 and Q-A3 (19 requests) depend on this answer.
+2. **Optional, 1 request:** `GET /agmarknet/geographies` with `commodity_id=23`.
+   - The API documentation lists a 400 error for a "missing or invalid commodity_id", which suggests the endpoint may accept that parameter. If it returns only districts with onion data, the state-by-state national check could be scoped to fewer than 36 requests.
+   - This is a scoping step. It does not settle the national rule.
+3. **National rule: defer.** H3 is the weakest hypothesis (literature review §4) and does not block H1. Do not spend up to about 36 requests on it unless H3 is prioritised.
+
+### 11.6 Risks specific to this plan
 | Risk | Mitigation |
 |---|---|
 | The all-India `district_id` probe is refused or times out | It costs 1 request. The national rule stays unresolved. |

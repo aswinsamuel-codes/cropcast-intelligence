@@ -1,8 +1,20 @@
 {
  "requests": {
-  "attempted": 20,
-  "http_200": 20,
-  "failed": []
+  "attempted": 21,
+  "http_200": 21,
+  "failed": [],
+  "http_200_but_empty": [
+   {
+    "n": 18,
+    "label": "onion_national_prices_2026",
+    "envelope_message": "No data exists"
+   },
+   {
+    "n": 21,
+    "label": "mandi_onion_national_2022-01",
+    "envelope_message": "No data exists"
+   }
+  ]
  },
  "coverage": {
   "onion_karnataka_2023_2025": {

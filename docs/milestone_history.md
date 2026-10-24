@@ -350,4 +350,13 @@ This file records planned, in-progress, completed, and blocked milestones with e
 
 **Researcher decision (2026-10-24):** only the two P1 verification requests are authorised (the national onion probe and the Uttar Pradesh potato 2022 chunk check), to run after the documentation commit. The other 19 P2 requests and all optional requests are **not approved**.
 
-**Next:** the two P1 requests, then stop and report. After that, a protocol v2.0 frozen before any 2023–2025 Maharashtra or Uttar Pradesh analysis, and a charter amendment (both awaiting approval).
+**Limited verification (2026-10-24; RES-018):**
+- Documentation committed as `eb273b5`.
+- Request 21 (national onion probe): HTTP 200 with 0 rows, so the national rule is unresolved.
+- Request 22 (Uttar Pradesh potato 2022) was not run: the stop rule was triggered.
+- 21 of the 26-request pilot cap used.
+
+**Next (awaiting approval):**
+- Q-A1 (1 request); optionally a commodity-scoped geography listing (1 request).
+- Then Q-A2 and Q-A3 (19 requests) if Q-A1 succeeds.
+- Protocol v2.0 frozen before any 2023–2025 Maharashtra or Uttar Pradesh analysis; charter amendment.

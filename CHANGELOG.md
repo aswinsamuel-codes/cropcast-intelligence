@@ -9,6 +9,12 @@ All notable changes to the CropCast project are recorded here in reverse-chronol
 ## [Unreleased]
 
 ### Completed
+- M-8 limited verification (2026-10-24; 2 requests approved, 1 made)
+  - The national onion probe (`state_id: 0` with all 640 district IDs, January 2022) returned HTTP 200 with "No data exists" and 0 rows. The national aggregation rule remains unresolved.
+  - The Uttar Pradesh potato 2022 request was not run, because the stop rule was triggered.
+  - `src/data/ceda_pilot.py`: single-request `probe` mode; spacing enforced across runs; SHA-256 hash of raw responses logged.
+  - `src/analysis/pilot_m8.py` now lists HTTP-200-but-empty responses.
+  - Recorded in RES-018, feasibility report §6, plan §11.5, and the M-8 milestone entry.
 - M-8 focused literature review (2026-10-24; review only, no CEDA requests)
   - `docs/m8_literature_review.md`:
     - 16 documented queries;
